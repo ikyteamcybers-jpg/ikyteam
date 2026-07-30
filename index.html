@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IKYTEAM - WhatsApp Bot Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-base: #0b141a;
+            --bg-card: rgba(17, 27, 33, 0.92);
+            --border-glow: rgba(0, 168, 132, 0.25);
+            --primary-gradient: linear-gradient(135deg, #00a884 0%, #005c4b 100%);
+            --whatsapp-green: #25d366;
+            --whatsapp-teal: #00a884;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --text-main: #e9edef;
+            --text-muted: #8696a0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        .video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+            filter: brightness(0.9);
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(11, 20, 26, 0.35);
+            z-index: -1;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 420px;
+            background: var(--bg-card);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            z-index: 1;
+        }
+
+        .login-wrapper::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+        }
+
+        .login-logo {
+            width: 72px;
+            height: 72px;
+            background: var(--primary-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: #ffffff;
+            box-shadow: 0 0 25px rgba(37, 211, 102, 0.35);
+            margin-bottom: 20px;
+        }
+
+        .login-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .login-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+        }
+
+        .login-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 6px;
+        }
+
+        .input-box {
+            width: 100%;
+            background: rgba(11, 20, 26, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 12px 16px;
+            color: white;
+            font-size: 0.9rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .input-box:focus {
+            border-color: var(--whatsapp-green);
+            box-shadow: 0 0 10px rgba(37, 211, 102, 0.15);
+        }
+
+        .error-msg {
+            color: var(--danger);
+            font-size: 0.8rem;
+            margin-top: -8px;
+            display: none;
+        }
+
+        .dashboard-container {
+            display: none;
+            width: 100%;
+            max-width: 960px;
+            background: var(--bg-card);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            position: relative;
+            z-index: 1;
+        }
+
+        .dashboard-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary-gradient);
+        }
+
+        .dashboard-header {
+            padding: 28px 36px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .brand-section {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+
+        .brand-logo {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-gradient);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(37, 211, 102, 0.3);
+        }
+
+        .brand-info h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, #ffffff 30%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-transform: uppercase;
+        }
+
+        .brand-info .badge-iky {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--whatsapp-green);
+            margin-top: 2px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .status-badge.connected {
+            background: rgba(37, 211, 102, 0.1);
+            border: 1px solid rgba(37, 211, 102, 0.2);
+            color: var(--whatsapp-green);
+        }
+
+        .status-badge.disconnected {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+
+        .status-badge.pairing {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            color: var(--warning);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .connected .status-dot {
+            background-color: var(--whatsapp-green);
+            box-shadow: 0 0 10px var(--whatsapp-green);
+            animation: pulse 2s infinite;
+        }
+
+        .disconnected .status-dot {
+            background-color: var(--danger);
+            box-shadow: 0 0 10px var(--danger);
+        }
+
+        .pairing .status-dot {
+            background-color: var(--warning);
+            box-shadow: 0 0 10px var(--warning);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        .dashboard-body {
+            padding: 32px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-body {
+                grid-template-columns: 1fr;
+                padding: 20px;
+            }
+            .dashboard-header {
+                padding: 20px;
+            }
+        }
+
+        .panel-card {
+            background: rgba(32, 44, 51, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s ease;
+        }
+
+        .panel-card:hover {
+            border-color: rgba(37, 211, 102, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .panel-header {
+            margin-bottom: 20px;
+        }
+
+        .panel-header h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-main);
+        }
+
+        .panel-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.4;
+        }
+
+        .copy-container {
+            display: flex;
+            align-items: center;
+            background: rgba(11, 20, 26, 0.9);
+            border: 1px dashed rgba(37, 211, 102, 0.3);
+            border-radius: 12px;
+            padding: 8px 8px 8px 14px;
+            margin-bottom: 14px;
+            gap: 10px;
+        }
+
+        .copy-text {
+            flex: 1;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            color: var(--whatsapp-green);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .btn-copy {
+            background: rgba(37, 211, 102, 0.1);
+            color: var(--whatsapp-green);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .btn-copy:hover {
+            background: var(--whatsapp-green);
+            color: #0b141a;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.25s ease;
+            text-decoration: none;
+            font-family: 'Outfit', sans-serif;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: #ffffff;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.25);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .btn-warning:hover {
+            background: var(--warning);
+            color: #0b141a;
+            transform: translateY(-2px);
+        }
+
+        .btn-danger {
+            background: rgba(239, 68, 68, 0.12);
+            color: var(--danger);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-danger:hover {
+            background: var(--danger);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.25);
+        }
+
+        .btn-success {
+            background: rgba(37, 211, 102, 0.15);
+            color: var(--whatsapp-green);
+            border: 1px solid rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-success:hover {
+            background: var(--whatsapp-green);
+            color: #0b141a;
+            transform: translateY(-2px);
+        }
+
+        .span-full {
+            grid-column: 1 / -1;
+        }
+
+        .terminal-box {
+            background: #050b0e;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+            padding: 18px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        .terminal-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-weight: 600;
+        }
+
+        .terminal-content {
+            font-size: 0.85rem;
+            color: var(--whatsapp-green);
+            max-height: 150px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .terminal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .terminal-content::-webkit-scrollbar-track {
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+        }
+
+        .terminal-content::-webkit-scrollbar-thumb {
+            background: var(--whatsapp-green);
+            border-radius: 4px;
+        }
+
+        .log-item {
+            display: flex;
+            gap: 10px;
+            padding: 2px 0;
+        }
+
+        .log-item.error {
+            color: var(--danger);
+        }
+
+        .log-item.warn {
+            color: var(--warning);
+        }
+
+        .log-item.success {
+            color: var(--whatsapp-green);
+        }
+
+        .log-time {
+            color: #687684;
+        }
+
+        .dashboard-footer {
+            padding: 16px 32px;
+            background: rgba(11, 20, 26, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .footer-brand {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            color: var(--whatsapp-green);
+            letter-spacing: 1px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border-top-color: var(--whatsapp-green);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop playsinline class="video-background">
+        <source src="https://files.catbox.moe/l2n2c2.mp4" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <!-- LOGIN -->
+    <div id="loginScreen" class="login-wrapper">
+        <div class="login-logo"><i class="fa-solid fa-shield-halved"></i></div>
+        <h2 class="login-title">IKYTEAM BOTS WAZAP</h2>
+        <p class="login-subtitle">Masuk untuk mengakses Bot WhatsApp</p>
+        <div class="login-form">
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" id="userInput" class="input-box" placeholder="Masukkan username...">
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="passInput" class="input-box" placeholder="Masukkan password...">
+            </div>
+            <div id="loginError" class="error-msg">Username atau Password salah!</div>
+            <button class="btn btn-primary" onclick="handleLogin()">
+                <i class="fa-solid fa-right-to-bracket"></i> Login Dashboard
+            </button>
+        </div>
+    </div>
+
+    <!-- DASHBOARD -->
+    <div id="dashboardContainer" class="dashboard-container">
+        <div class="dashboard-header">
+            <div class="brand-section">
+                <div class="brand-logo"><i class="fa-brands fa-whatsapp"></i></div>
+                <div class="brand-info">
+                    <h1>IKYTEAM WA BOT</h1>
+                    <span class="badge-iky">WhatsApp Multi-Device Center</span>
+                </div>
+            </div>
+            <div id="statusBadge" class="status-badge disconnected">
+                <span class="status-dot"></span>
+                <span id="statusText">Disconnected</span>
+            </div>
+        </div>
+
+        <div class="dashboard-body">
+            
+            <!-- Panel Pairing -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-qrcode" style="color: var(--whatsapp-green);"></i> WhatsApp Pairing</h3>
+                    <p>Masukkan nomor WhatsApp (diawali 62...) untuk mendapatkan kode pairing 8-digit.</p>
+                </div>
+                <div>
+                    <input type="text" id="pairingInput" class="input-box" placeholder="Contoh: 6281234567890">
+                    <div class="copy-container">
+                        <span id="pairingOutputText" class="copy-text">WA-WAITING-CODE...</span>
+                        <button class="btn-copy" onclick="copyPairingCode()">
+                            <i class="fa-regular fa-copy"></i> <span id="copyBtnLabel">Salin</span>
+                        </button>
+                    </div>
+                    <button class="btn btn-primary" onclick="handlePairing()" id="pairBtn">
+                        <i class="fa-solid fa-mobile-screen-button"></i> Generate Pairing Code
+                    </button>
+                    <button class="btn btn-success" onclick="confirmPairing()" id="confirmBtn" style="display:none; margin-top:10px;">
+                        <i class="fa-solid fa-check-circle"></i> Konfirmasi Pairing
+                    </button>
+                </div>
+            </div>
+
+            <!-- Panel Sesi -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <h3><i class="fa-solid fa-trash-can" style="color: var(--danger);"></i> Sesi & Creds.json</h3>
+                    <p>Hapus folder sesi/kredensial WhatsApp apabila bot mengalami disconnect permanen atau ganti nomor.</p>
+                </div>
+                <div>
+                    <button class="btn btn-danger" onclick="handleDeleteSession()">
+                        <i class="fa-solid fa-triangle-exclamation"></i> Hapus Sesi (Logout)
+                    </button>
+                </div>
+            </div>
+
+            <!-- Terminal -->
+            <div class="panel-card span-full">
+                <div class="panel-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                    <div>
+                        <h3><i class="fa-solid fa-terminal" style="color: var(--warning);"></i> Baileys Terminal Log</h3>
+                        <p>Pantau status koneksi WhatsApp Web socket secara langsung.</p>
+                    </div>
+                    <button class="btn btn-warning" style="width: auto; padding: 10px 18px;" onclick="handleRestart()">
+                        <i class="fa-solid fa-rotate-right"></i> Restart Bot
+                    </button>
+                </div>
+                <div class="terminal-box">
+                    <div class="terminal-top">
+                        <span><i class="fa-solid fa-server"></i> connection.update</span>
+                        <span style="color: var(--whatsapp-green);">Baileys v6.x</span>
+                    </div>
+                    <div class="terminal-content" id="terminalLogs">
+                        <div class="log-item error">
+                            <span class="log-time">[--:--:--]</span>
+                            <span>Menunggu koneksi...</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="dashboard-footer">
+            <span>&copy; 2026 IKYTEAM. All rights reserved.</span>
+            <span class="footer-brand">IKYTEAM WHATSAPP</span>
+        </div>
+    </div>
+
+    <script>
+        // ─── CONFIG ──────────────────────────────────────────────
+        const API_URL = window.location.origin;
+        let currentPairingCode = null;
+
+        // ─── LOGIN ──────────────────────────────────────────────
+        function handleLogin() {
+            const user = document.getElementById('userInput').value.trim();
+            const pass = document.getElementById('passInput').value.trim();
+            const errorBox = document.getElementById('loginError');
+
+            if (user === 'iky' && pass === 'iky') {
+                document.querySelector('.video-background').style.display = 'none';
+                document.querySelector('.video-overlay').style.display = 'none';
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('dashboardContainer').style.display = 'block';
+                loadStatus();
+                startLogPolling();
+            } else {
+                errorBox.style.display = 'block';
+                setTimeout(() => errorBox.style.display = 'none', 3000);
+            }
+        }
+
+        document.getElementById('passInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleLogin();
+        });
+
+        // ─── STATUS ──────────────────────────────────────────────
+        function updateStatus(status, text) {
+            const badge = document.getElementById('statusBadge');
+            const statusText = document.getElementById('statusText');
+            
+            badge.className = `status-badge ${status}`;
+            statusText.innerText = text;
+        }
+
+        function pushLog(message, type = 'info') {
+            const container = document.getElementById('terminalLogs');
+            const timeStr = new Date().toLocaleTimeString();
+            const div = document.createElement('div');
+            div.className = `log-item ${type}`;
+            div.innerHTML = `<span class="log-time">[${timeStr}]</span> <span>${message}</span>`;
+            container.appendChild(div);
+            container.scrollTop = container.scrollHeight;
+            if (container.children.length > 100) container.removeChild(container.firstChild);
+        }
+
+        // ─── LOAD STATUS ──────────────────────────────────────────
+        async function loadStatus() {
+            try {
+                const res = await fetch(`${API_URL}/api/status`);
+                const data = await res.json();
+                
+                if (data.status === 'connected') {
+                    updateStatus('connected', 'Connected');
+                } else if (data.status === 'pairing') {
+                    updateStatus('pairing', 'Pairing...');
+                } else {
+                    updateStatus('disconnected', 'Disconnected');
+                }
+                
+                if (data.pairingCode) {
+                    currentPairingCode = data.pairingCode;
+                    document.getElementById('pairingOutputText').innerText = data.pairingCode;
+                    document.getElementById('confirmBtn').style.display = 'block';
+                }
+                
+                if (data.logs && data.logs.length > 0) {
+                    data.logs.forEach(log => {
+                        const type = log.message.includes('error') ? 'error' : 
+                                     log.message.includes('warn') ? 'warn' : 'info';
+                        pushLog(log.message, type);
+                    });
+                }
+            } catch (e) {
+                console.error('Load status error:', e);
+            }
+        }
+
+        // ─── LOG POLLING ──────────────────────────────────────────
+        function startLogPolling() {
+            setInterval(async () => {
+                try {
+                    const res = await fetch(`${API_URL}/api/logs`);
+                    const data = await res.json();
+                    // Hanya update status, log sudah di handle di loadStatus
+                    if (data.logs && data.logs.length > 0) {
+                        const lastLog = data.logs[data.logs.length - 1];
+                        if (lastLog.message.includes('connected')) {
+                            updateStatus('connected', 'Connected');
+                        } else if (lastLog.message.includes('pairing')) {
+                            updateStatus('pairing', 'Pairing...');
+                        }
+                    }
+                } catch (e) {}
+            }, 5000);
+        }
+
+        // ─── PAIRING ──────────────────────────────────────────────
+        async function handlePairing() {
+            const number = document.getElementById('pairingInput').value.trim();
+            if (!number) {
+                alert('Harap masukkan nomor WhatsApp terlebih dahulu!');
+                return;
+            }
+
+            const btn = document.getElementById('pairBtn');
+            btn.innerHTML = '<span class="loading-spinner"></span> Memproses...';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(`${API_URL}/api/pair`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ number })
+                });
+                const data = await res.json();
+
+                if (data.success) {
+                    currentPairingCode = data.code;
+                    document.getElementById('pairingOutputText').innerText = data.code;
+                    document.getElementById('confirmBtn').style.display = 'block';
+                    updateStatus('pairing', 'Pairing...');
+                    pushLog(`✅ Kode pairing: ${data.code} untuk ${data.number}`, 'success');
+                } else {
+                    pushLog(`❌ ${data.error}`, 'error');
+                    alert(data.error);
+                }
+            } catch (e) {
+                pushLog(`❌ Error: ${e.message}`, 'error');
+                alert('Gagal menghubungi server');
+            }
+
+            btn.innerHTML = '<i class="fa-solid fa-mobile-screen-button"></i> Generate Pairing Code';
+            btn.disabled = false;
+        }
+
+        function confirmPairing() {
+            if (!currentPairingCode) {
+                alert('Tidak ada kode pairing yang aktif!');
+                return;
+            }
+            navigator.clipboard.writeText(currentPairingCode).then(() => {
+                alert(`✅ Kode pairing ${currentPairingCode} sudah disalin ke clipboard!\n\nMasukkan kode ini di WhatsApp Web untuk menghubungkan bot.`);
+                pushLog(`✅ Pairing confirmed, code: ${currentPairingCode}`, 'success');
+            }).catch(() => {
+                alert(`Kode pairing: ${currentPairingCode}\n\nSalin secara manual.`);
+            });
+        }
+
+        function copyPairingCode() {
+            const code = document.getElementById('pairingOutputText').innerText;
+            if (code.includes('WAITING')) {
+                alert('Belum ada kode pairing yang di-generate!');
+                return;
+            }
+            navigator.clipboard.writeText(code).then(() => {
+                const label = document.getElementById('copyBtnLabel');
+                label.innerText = 'Disalin!';
+                setTimeout(() => label.innerText = 'Salin', 2000);
+            }).catch(() => alert('Gagal menyalin teks.'));
+        }
+
+        // ─── RESTART ──────────────────────────────────────────────
+        function handleRestart() {
+            if (!confirm('Apakah Anda yakin ingin merestart bot WhatsApp IKYTEAM?')) return;
+            pushLog('🔄 Restarting Baileys socket...', 'warn');
+            updateStatus('disconnected', 'Disconnected');
+            
+            fetch(`${API_URL}/api/status/update`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: 'disconnected', message: '🔄 Restart initiated by user' })
+            }).catch(() => {});
+            
+            setTimeout(() => {
+                pushLog('✅ Bot restarted successfully', 'success');
+                updateStatus('connected', 'Connected');
+            }, 3000);
+        }
+
+        // ─── DELETE SESSION ──────────────────────────────────────
+        function handleDeleteSession() {
+            if (!confirm('PERINGATAN: Sesi/Creds WhatsApp akan dihapus permanen!')) return;
+            pushLog('🗑️ Deleting session folder...', 'error');
+            updateStatus('disconnected', 'Disconnected');
+            document.getElementById('pairingOutputText').innerText = 'WA-WAITING-CODE...';
+            document.getElementById('confirmBtn').style.display = 'none';
+            currentPairingCode = null;
+            
+            fetch(`${API_URL}/api/status/update`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ status: 'disconnected', message: '🗑️ Session deleted by user' })
+            }).catch(() => {});
+            
+            setTimeout(() => {
+                pushLog('✅ Session removed. Please pair a new number.', 'error');
+            }, 1000);
+        }
+
+        // ─── LOAD ON START ──────────────────────────────────────
+        loadStatus();
+    </script>
+</body>
+</html>
