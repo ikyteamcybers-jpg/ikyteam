@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IkyVIP - Link Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            background-color: #f4f1ea;
+        }
+
+        /* Gaya Kartun / Neo-Brutalis */
+        .cartoon-card {
+            background: #ffffff;
+            border: 3px solid #000000;
+            box-shadow: 6px 6px 0px #000000;
+        }
+
+        .cartoon-link {
+            background: #ffffff;
+            border: 3px solid #000000;
+            box-shadow: 4px 4px 0px #000000;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .cartoon-link:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0px #000000;
+            background: #fffdf5;
+        }
+
+        .cartoon-link:active {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        .cartoon-icon {
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        .cartoon-arrow {
+            border: 2px solid #000000;
+            box-shadow: 2px 2px 0px #000000;
+        }
+
+        .cartoon-warning {
+            background: #ffe4e6;
+            border: 3px solid #000000;
+            box-shadow: 4px 4px 0px #000000;
+        }
+    </style>
+</head>
+<body class="flex items-center justify-center p-4 sm:p-6 min-h-screen">
+
+    <!-- Konten Utama Website -->
+    <div class="w-full max-w-md cartoon-card rounded-3xl p-6 sm:p-8 space-y-6 relative z-10">
+        
+        <!-- Header Profil -->
+        <div class="text-center space-y-4">
+            <div class="relative w-20 h-20 mx-auto">
+                <!-- Foto Profil dengan gaya kartun -->
+                <div class="relative w-20 h-20 bg-yellow-300 border-[3px] border-black rounded-2xl overflow-hidden shadow-[4px_4px_0px_#000]">
+                    <img src="https://files.catbox.moe/z3u6f0.jpg" alt="Profile Icon" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <div>
+                <h1 class="text-2xl font-extrabold text-black tracking-tight">IkyVIP</h1>
+                <p class="text-xs text-gray-700 mt-1 font-bold">Official Link Hub & Contact</p>
+            </div>
+        </div>
+
+        <!-- Garis Pemisah -->
+        <div class="h-1 bg-black w-full rounded-full"></div>
+
+        <!-- Daftar Tautan -->
+        <div class="space-y-3.5">
+            
+            <!-- 1. Telegram -->
+            <a href="https://t.me/ikyvip" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link group flex items-center justify-between p-4 rounded-2xl">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 bg-sky-400 text-black cartoon-icon rounded-xl flex items-center justify-center text-xl font-bold">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+                    <span class="font-bold text-black text-sm sm:text-base">Telegram</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-yellow-300 text-black cartoon-arrow flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 2. Saluran WhatsApp -->
+            <a href="https://whatsapp.com/channel/0029VbCgmZLBFLgcMfdXHh3p" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link group flex items-center justify-between p-4 rounded-2xl">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 bg-emerald-400 text-black cartoon-icon rounded-xl flex items-center justify-center text-xl font-bold">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <span class="font-bold text-black text-sm sm:text-base">Saluran WhatsApp</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-yellow-300 text-black cartoon-arrow flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 3. Grup Mabar Iky -->
+            <a href="https://chat.whatsapp.com/Kb56rcBpocRHkjvIiSOWjQ?s=cl&p=a&ilr=4" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link group flex items-center justify-between p-4 rounded-2xl">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 bg-teal-400 text-black cartoon-icon rounded-xl flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <span class="font-bold text-black text-sm sm:text-base">Grup Mabar Iky</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-yellow-300 text-black cartoon-arrow flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 4. WhatsApp Me -->
+            <a href="https://wa.me/6283149157770" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link group flex items-center justify-between p-4 rounded-2xl">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 bg-green-400 text-black cartoon-icon rounded-xl flex items-center justify-center text-xl font-bold">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <span class="font-bold text-black text-sm sm:text-base">WhatsApp Me</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-yellow-300 text-black cartoon-arrow flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </div>
+            </a>
+
+            <!-- 5. Donasi SociaBuzz -->
+            <a href="https://sociabuzz.com/riskidevv/tribe" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link group flex items-center justify-between p-4 rounded-2xl">
+                <div class="flex items-center space-x-3.5">
+                    <div class="w-11 h-11 bg-amber-400 text-black cartoon-icon rounded-xl flex items-center justify-center text-xl font-bold">
+                        <i class="fa-solid fa-mug-hot"></i>
+                    </div>
+                    <span class="font-bold text-black text-sm sm:text-base">Donasi SociaBuzz</span>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-yellow-300 text-black cartoon-arrow flex items-center justify-center font-bold">
+                    <i class="fa-solid fa-arrow-right text-xs"></i>
+                </div>
+            </a>
+
+        </div>
+
+        <!-- Peringatan Waspada Penipuan / Clone -->
+        <div class="p-3.5 cartoon-warning rounded-2xl text-center">
+            <p class="text-xs text-red-900 font-bold flex items-center justify-center gap-1.5">
+                <i class="fa-solid fa-triangle-exclamation text-red-600 text-base"></i>
+                Waspada akun kloning / penipuan! Pastikan hanya menghubungi tautan resmi di atas.
+            </p>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center text-xs text-black pt-1 font-bold">
+            &copy; 2026 IkyVIP. All rights reserved.
+        </div>
+
+    </div>
+
+</body>
+</html>
