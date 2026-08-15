@@ -1,0 +1,3963 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IkyVIP - Link Hub</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome untuk ikon -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Fredoka', sans-serif;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            margin: 0;
+            overflow-x: hidden;
+            position: relative;
+            padding: 16px;
+            background: #FFF9E6;
+        }
+
+        /* Animated cartoon shapes - SVG-like blobs */
+        .cartoon-blob {
+            position: fixed;
+            border: 3px solid #000000;
+            opacity: 0.12;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .blob-1 {
+            width: 200px;
+            height: 200px;
+            background: #FF6B6B;
+            top: 5%;
+            left: 5%;
+            border-radius: 47% 53% 42% 58% / 61% 45% 55% 39%;
+            animation: blob-float 8s ease-in-out infinite;
+            box-shadow: 0 6px 0px #000000;
+        }
+
+        .blob-2 {
+            width: 170px;
+            height: 170px;
+            background: #4ECDC4;
+            top: 55%;
+            right: 5%;
+            border-radius: 32% 68% 58% 42% / 48% 51% 49% 52%;
+            animation: blob-float 10s ease-in-out infinite reverse;
+            box-shadow: 0 5px 0px #000000;
+        }
+
+        .blob-3 {
+            width: 140px;
+            height: 140px;
+            background: #FFE66D;
+            bottom: 5%;
+            left: 8%;
+            border-radius: 58% 42% 51% 49% / 42% 55% 45% 58%;
+            animation: blob-float 9s ease-in-out infinite;
+            box-shadow: 0 4px 0px #000000;
+        }
+
+        .blob-4 {
+            width: 160px;
+            height: 160px;
+            background: #FF9F43;
+            top: 15%;
+            right: 10%;
+            border-radius: 45% 55% 63% 37% / 52% 48% 52% 48%;
+            animation: blob-float 11s ease-in-out infinite reverse;
+            box-shadow: 0 5px 0px #000000;
+        }
+
+        /* Cartoon lines/doodles */
+        .doodle-line {
+            position: fixed;
+            border: 2px solid #000000;
+            opacity: 0.08;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .line-1 {
+            width: 220px;
+            height: 3px;
+            top: 25%;
+            left: 2%;
+            transform: rotate(-15deg);
+            border-radius: 10px;
+        }
+
+        .line-2 {
+            width: 170px;
+            height: 3px;
+            bottom: 30%;
+            right: 3%;
+            transform: rotate(25deg);
+            border-radius: 10px;
+        }
+
+        /* Cartoon circles */
+        .doodle-circle {
+            position: fixed;
+            border: 2px solid #000000;
+            border-radius: 50%;
+            opacity: 0.08;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .circle-1 {
+            width: 110px;
+            height: 110px;
+            top: 40%;
+            right: 8%;
+        }
+
+        .circle-2 {
+            width: 90px;
+            height: 90px;
+            bottom: 20%;
+            left: 5%;
+        }
+
+        @keyframes blob-float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(10deg); }
+        }
+
+        @keyframes bounce-icon {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.08) rotate(3deg); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(-2deg); }
+            75% { transform: rotate(2deg); }
+        }
+
+        @keyframes slide-in {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .cartoon-card {
+            background: #FFFEF5;
+            border: 4px solid #000000;
+            box-shadow: 0 8px 0px #000000, 0 12px 15px rgba(0,0,0,0.25);
+            border-radius: 25px;
+            animation: slide-in 0.5s ease-out;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cartoon-link {
+            background: linear-gradient(135deg, #FFFFFF 0%, #FFFDF5 100%);
+            border: 3px solid #000000;
+            box-shadow: 0 5px 0px #000000, 0 7px 12px rgba(0,0,0,0.15);
+            border-radius: 18px;
+            transition: all 0.2s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cartoon-link:hover {
+            transform: translate(-3px, -4px) scale(1.03);
+            box-shadow: 0 8px 0px #000000, 0 10px 18px rgba(0,0,0,0.2);
+            background: linear-gradient(135deg, #FFFDF5 0%, #FFE66D 100%);
+        }
+
+        .cartoon-link:active {
+            transform: translate(2px, 3px) scale(0.98);
+            box-shadow: 0 2px 0px #000000;
+        }
+
+        .cartoon-icon {
+            border: 2px solid #000000;
+            box-shadow: 0 3px 0px #000000;
+            border-radius: 12px;
+            animation: bounce-icon 2s ease-in-out infinite;
+        }
+
+        .cartoon-arrow {
+            border: 2px solid #000000;
+            box-shadow: 0 3px 0px #000000;
+            border-radius: 50%;
+            animation: wiggle 1.5s ease-in-out infinite;
+            transition: transform 0.3s;
+        }
+
+        .cartoon-link:hover .cartoon-arrow {
+            transform: translateX(6px) scale(1.15);
+        }
+
+        .cartoon-warning {
+            background: linear-gradient(135deg, #FFE4E6 0%, #FFB3BA 100%);
+            border: 3px solid #FF0000;
+            box-shadow: 0 5px 0px #FF0000, 0 7px 12px rgba(255,0,0,0.15);
+            border-radius: 18px;
+        }
+
+        .profile-img {
+            background: linear-gradient(135deg, #FFE66D 0%, #FF6B6B 100%);
+            border: 3px solid #000000;
+            box-shadow: 0 6px 0px #000000, 0 8px 15px rgba(0,0,0,0.2);
+            animation: bounce-icon 2.5s ease-in-out infinite;
+        }
+
+        .title-text {
+            font-size: 2rem;
+            font-weight: 900;
+            text-shadow: 3px 3px 0px rgba(0,0,0,0.2);
+            letter-spacing: 1.5px;
+            animation: wiggle 2s ease-in-out infinite;
+            margin: 0;
+        }
+
+        .subtitle-text {
+            font-weight: 700;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.08);
+            letter-spacing: 0.5px;
+            margin: 4px 0 0 0;
+        }
+
+        .divider {
+            height: 2px;
+            background: #000000;
+            border-radius: 10px;
+            box-shadow: 0 3px 0px rgba(0,0,0,0.15);
+            margin: 12px 0;
+        }
+
+        .icon-tg { background: linear-gradient(135deg, #0088cc, #229ED9); }
+        .icon-ch { background: linear-gradient(135deg, #25D366, #128C7E); }
+        .icon-gb { background: linear-gradient(135deg, #3B82F6, #1D4ED8); }
+        .icon-wa { background: linear-gradient(135deg, #25D366, #20BA63); }
+        .icon-donate { background: linear-gradient(135deg, #FF5722, #FF7043); }
+        .icon-shop { background: linear-gradient(135deg, #FFD166, #FF9F43); }
+
+        .delay-1 { animation-delay: 0.05s; }
+        .delay-2 { animation-delay: 0.1s; }
+        .delay-3 { animation-delay: 0.15s; }
+        .delay-4 { animation-delay: 0.2s; }
+        .delay-5 { animation-delay: 0.25s; }
+        .delay-6 { animation-delay: 0.3s; }
+
+        .link-title {
+            font-weight: 800;
+            font-size: 0.95rem;
+            display: block;
+            line-height: 1.1;
+        }
+
+        .link-subtitle {
+            font-weight: 600;
+            font-size: 0.65rem;
+            color: #666;
+            display: block;
+        }
+
+        .product-card-flat {
+            background: #FFFFFF;
+            border: 3px solid #000000;
+            border-radius: 18px;
+            transition: all 0.15s ease;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .product-card-flat:hover {
+            transform: translateY(-3px);
+            background: #FFFDF0;
+        }
+
+        .cartoon-input-flat {
+            background: #FFFFFF;
+            border: 3px solid #000000;
+            border-radius: 12px;
+            padding: 10px 14px;
+            font-weight: 600;
+            outline: none;
+            transition: all 0.15s ease;
+        }
+        .cartoon-input-flat:focus {
+            border-color: #3B82F6;
+            background: #F0F7FF;
+        }
+
+        .pkg-card-flat {
+            background: #FFFFFF;
+            border: 3px solid #000000;
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .pkg-card-flat:hover {
+            background: #FFFDF0;
+            transform: translateY(-2px);
+        }
+        .pkg-card-flat.selected {
+            background: #FFE66D;
+            border: 3px solid #000000;
+        }
+
+        .btn-flat {
+            background: #FF6B6B;
+            border: 3px solid #000000;
+            border-radius: 12px;
+            font-weight: 800;
+            color: white;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }
+        .btn-flat:hover {
+            background: #FF5252;
+            transform: translateY(-2px);
+        }
+        .btn-flat:active {
+            transform: translateY(1px);
+        }
+        .btn-green-flat { background: #2ECC71; }
+        .btn-green-flat:hover { background: #27AE60; }
+        .btn-purple-flat { background: #8B5CF6; }
+        .btn-purple-flat:hover { background: #7C3AED; }
+
+        .badge-tag-flat {
+            background: #3B82F6;
+            color: white;
+            border: 2px solid #000000;
+            border-radius: 8px;
+            font-weight: 800;
+            font-size: 0.7rem;
+        }
+        .badge-step-flat {
+            background: #FFD166;
+            color: black;
+            border: 2px solid #000000;
+            border-radius: 8px;
+            padding: 2px 8px;
+            font-weight: 900;
+            font-size: 0.85rem;
+        }
+
+
+        .media-preview {
+            width: 100%;
+            max-height: 360px;
+            object-fit: contain;
+            background: #000;
+            border: 3px solid #000;
+            border-radius: 14px;
+        }
+        .api-status {
+            font-size: 10px;
+            font-weight: 800;
+            padding: 5px 8px;
+            border: 2px solid #000;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        .api-status.primary { background: #dbeafe; color: #1e3a8a; }
+        .api-status.fallback { background: #fef3c7; color: #92400e; }
+
+
+        /* ===== ⲂⲌⲬ ⲀⲒ / GPT-GEMINI CHAT UI ===== */
+        #toolAiContent {
+            margin: -8px -8px 0;
+        }
+        .ai-chat-shell {
+            height: calc(100dvh - 112px);
+            min-height: 520px;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            border: 3px solid #000;
+            border-radius: 20px;
+            overflow: hidden;
+            position: relative;
+        }
+        .ai-chat-header {
+            height: 58px;
+            flex: 0 0 58px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-bottom: 2px solid #000;
+            background: rgba(255,255,255,.96);
+            backdrop-filter: blur(12px);
+            z-index: 2;
+        }
+        .ai-avatar, .ai-welcome-logo {
+            width: 38px;
+            height: 38px;
+            display: grid;
+            place-items: center;
+            border: 2px solid #000;
+            border-radius: 50%;
+            background: #a78bfa;
+            color: #000;
+            font-weight: 1000;
+            box-shadow: 2px 2px 0 #000;
+        }
+        .ai-welcome-logo {
+            width: 58px;
+            height: 58px;
+            font-size: 25px;
+            margin: 0 auto;
+        }
+        .ai-icon-btn {
+            width: 38px;
+            height: 38px;
+            border: 2px solid #000;
+            border-radius: 11px;
+            background: #fff;
+            display: grid;
+            place-items: center;
+            box-shadow: 2px 2px 0 #000;
+            cursor: pointer;
+        }
+        .ai-icon-btn:active { transform: translate(2px,2px); box-shadow: none; }
+        .ai-chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 24px 12px 130px;
+            scroll-behavior: smooth;
+            background: #fff;
+        }
+        .ai-welcome {
+            max-width: 620px;
+            margin: 10vh auto 0;
+            text-align: center;
+            padding: 20px 10px;
+        }
+        .ai-suggestions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0,1fr));
+            gap: 8px;
+            margin-top: 24px;
+        }
+        .ai-suggestions button {
+            text-align: left;
+            padding: 12px;
+            border: 2px solid #000;
+            border-radius: 13px;
+            background: #f7f7f7;
+            font-size: 10px;
+            font-weight: 900;
+            cursor: pointer;
+        }
+        .ai-suggestions button:active {
+            transform: translateY(2px);
+        }
+        .ai-message {
+            max-width: 780px;
+            margin: 0 auto 22px;
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+        .ai-message.user {
+            justify-content: flex-end;
+        }
+        .ai-message.user .ai-msg-avatar { display: none; }
+        .ai-msg-avatar {
+            width: 30px;
+            height: 30px;
+            min-width: 30px;
+            border: 2px solid #000;
+            border-radius: 50%;
+            background: #a78bfa;
+            display: grid;
+            place-items: center;
+            font-size: 11px;
+            font-weight: 1000;
+        }
+        .ai-msg-body {
+            max-width: min(86%, 680px);
+            font-size: 13px;
+            line-height: 1.65;
+            font-weight: 600;
+            word-break: break-word;
+        }
+        .ai-message.user .ai-msg-body {
+            background: #e9d5ff;
+            border: 2px solid #000;
+            border-radius: 18px 18px 5px 18px;
+            padding: 10px 13px;
+            box-shadow: 2px 2px 0 #000;
+        }
+        .ai-message.assistant .ai-msg-body {
+            padding: 3px 0;
+        }
+        .ai-message.assistant .ai-msg-body pre {
+            background: #111;
+            color: #fff;
+            border-radius: 12px;
+            padding: 12px;
+            overflow-x: auto;
+            margin: 8px 0;
+            font-size: 11px;
+            border: 2px solid #000;
+        }
+        .ai-message.assistant .ai-msg-body code {
+            background: #eee;
+            padding: 1px 4px;
+            border-radius: 4px;
+        }
+        .ai-typing {
+            display: inline-flex;
+            gap: 4px;
+            padding: 9px 0;
+        }
+        .ai-typing span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #000;
+            animation: aiDot 1s infinite ease-in-out;
+        }
+        .ai-typing span:nth-child(2) { animation-delay: .15s; }
+        .ai-typing span:nth-child(3) { animation-delay: .3s; }
+        @keyframes aiDot {
+            0%, 60%, 100% { transform: translateY(0); opacity: .35; }
+            30% { transform: translateY(-4px); opacity: 1; }
+        }
+        .ai-composer-wrap {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 10px 12px 9px;
+            background: linear-gradient(transparent, #fff 20%);
+            z-index: 3;
+        }
+        .ai-composer {
+            max-width: 780px;
+            margin: 0 auto;
+            display: flex;
+            align-items: flex-end;
+            gap: 8px;
+            padding: 8px 8px 8px 13px;
+            border: 2px solid #000;
+            border-radius: 20px;
+            background: #fff;
+            box-shadow: 3px 3px 0 #000;
+        }
+        .ai-composer textarea {
+            flex: 1;
+            resize: none;
+            border: 0;
+            outline: 0;
+            background: transparent;
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 1.4;
+            max-height: 130px;
+            padding: 5px 0;
+        }
+        .ai-send-btn {
+            width: 38px;
+            height: 38px;
+            min-width: 38px;
+            border-radius: 50%;
+            border: 2px solid #000;
+            background: #000;
+            color: #fff;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+        }
+        .ai-send-btn:disabled {
+            opacity: .5;
+            cursor: not-allowed;
+        }
+        .ai-icon-btn { border:2px solid #000; background:#fff; color:#111; }
+        .ai-composer-btn { width:34px; height:34px; min-width:34px; border-radius:10px; box-shadow:2px 2px 0 #000; }
+        .ai-composer-btn.recording { background:#ff6b6b; color:#fff; animation:aiPulse 1s infinite; }
+        .ai-attachment-preview { max-width:780px; margin:0 auto 6px; display:flex; flex-wrap:wrap; gap:7px; }
+        .ai-attachment-chip { border:2px solid #000; border-radius:12px; background:#f7f7f7; padding:5px 8px; display:flex; align-items:center; gap:7px; font-size:10px; font-weight:800; box-shadow:2px 2px 0 #000; }
+        .ai-attachment-chip img { width:42px; height:42px; object-fit:cover; border-radius:8px; border:1px solid #000; }
+        .ai-attachment-chip .remove { border:0; background:#ff6b6b; color:#fff; width:20px; height:20px; border-radius:50%; cursor:pointer; }
+        .ai-msg-media { max-width:100%; border:2px solid #000; border-radius:12px; margin-top:7px; display:block; }
+        .ai-msg-file { display:flex; align-items:center; gap:8px; border:2px solid #000; border-radius:11px; padding:8px 10px; background:#f7f7f7; margin-top:5px; font-size:11px; font-weight:800; }
+        .ai-msg-file a { color:#111; text-decoration:none; }
+        .ai-msg-audio { width:min(100%,330px); margin-top:6px; }
+        @keyframes aiPulse { 50% { transform:scale(.94); opacity:.72; } }
+
+        .stalk-profile-photo { width: 112px; height: 112px; object-fit: cover; border: 3px solid #000; border-radius: 18px; margin: 0 auto; box-shadow: 0 4px 0 #000; }
+        @media (max-width: 480px) {
+            .ai-chat-shell { height: calc(100dvh - 96px); min-height: 480px; border-radius: 16px; }
+            .ai-chat-messages { padding-left: 9px; padding-right: 9px; }
+            .ai-suggestions { grid-template-columns: 1fr; }
+            .ai-msg-body { max-width: 90%; font-size: 12px; }
+            .ai-composer-wrap { padding-left: 8px; padding-right: 8px; }
+        }
+
+
+
+        #animeVideo::-webkit-media-controls-panel { background: rgba(0,0,0,.75); }
+        .anime-player-active { display: block !important; }
+
+        .anime-card {
+            border: 3px solid #000;
+            border-radius: 16px;
+            overflow: hidden;
+            background: #fff;
+            box-shadow: 3px 3px 0 #000;
+            cursor: pointer;
+        }
+        .anime-card img {
+            width: 100%;
+            height: 210px;
+            object-fit: cover;
+            display: block;
+            background: #eee;
+        }
+        .anime-card-body { padding: 9px; }
+        .anime-card-title {
+            font-size: 11px;
+            font-weight: 1000;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        .anime-chip {
+            display: inline-block;
+            border: 1.5px solid #000;
+            border-radius: 7px;
+            padding: 2px 5px;
+            font-size: 8px;
+            font-weight: 900;
+            margin-top: 5px;
+            background: #f3e8ff;
+        }
+
+        #sidebarDrawer > .flex-1::-webkit-scrollbar { width: 7px; }
+        #sidebarDrawer > .flex-1::-webkit-scrollbar-thumb { background: #000; border-radius: 999px; }
+        #sidebarDrawer > .flex-1 { scrollbar-width: thin; scrollbar-color: #000 #fff; }
+
+        #sidebarDrawer {
+            transform: translateX(-100%);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        #sidebarDrawer.open {
+            transform: translateX(0);
+        }
+        #sidebarOverlay {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        #sidebarOverlay.open {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    </style>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+</head>
+<body class="flex items-center justify-center min-h-screen overflow-x-hidden">
+
+    <!-- Cartoon Background Elements -->
+    <div class="cartoon-blob blob-1"></div>
+    <div class="cartoon-blob blob-2"></div>
+    <div class="cartoon-blob blob-3"></div>
+    <div class="cartoon-blob blob-4"></div>
+    
+    <div class="doodle-line line-1"></div>
+    <div class="doodle-line line-2"></div>
+    
+    <div class="doodle-circle circle-1"></div>
+    <div class="doodle-circle circle-2"></div>
+
+    <!-- Tombol Garis Tiga di Pojok Kiri Atas Layar -->
+    <button id="mainHamburger" type="button" onclick="toggleSidebar()" class="fixed top-4 left-4 z-[9999] w-12 h-12 bg-white border-3 border-black rounded-2xl shadow-[0_4px_0px_#000] flex items-center justify-center text-black hover:bg-yellow-300 active:translate-y-1 transition-all" style="pointer-events:auto;touch-action:manipulation;">
+        <i class="fa-solid fa-bars text-xl"></i>
+    </button>
+
+    <!-- Sidebar Overlay & Drawer -->
+    <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-50"></div>
+    <div id="sidebarDrawer" class="fixed top-0 left-0 bottom-0 w-80 max-w-[88vw] bg-white border-r-4 border-black z-50 p-5 flex flex-col shadow-[8px_0_0_#000] overflow-hidden">
+        <div class="flex-1 min-h-0 overflow-y-auto overscroll-contain pr-1 space-y-4">
+            <div class="flex items-center justify-between border-b-3 border-black pb-3">
+                <div class="flex items-center gap-2">
+                    <div class="w-10 h-10 bg-yellow-300 border-2 border-black rounded-xl flex items-center justify-center font-black">
+                        <i class="fa-solid fa-toolbox"></i>
+                    </div>
+                    <h2 class="font-black text-black text-base">MENU TOOLS API</h2>
+                </div>
+                <button onclick="toggleSidebar()" class="w-8 h-8 bg-red-400 border-2 border-black rounded-xl text-white font-black flex items-center justify-center hover:bg-red-500">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <!-- Navigasi Menu Tools dalam Drawer -->
+            <div class="space-y-2">
+                <button onclick="switchToolTab('tiktok'); toggleSidebar();" id="tabTiktokBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-yellow-300 text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-brands fa-tiktok text-sm"></i> TikTok Downloader V2
+                </button>
+                <button onclick="switchToolTab('sfl'); toggleSidebar();" id="tabSflBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-bolt text-sm"></i> Skip Link SFL
+                </button>
+                <button onclick="switchToolTab('sub4lock'); toggleSidebar();" id="tabSub4lockBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-unlock text-sm"></i> Skip Sub4Unlock
+                </button>
+                <button onclick="switchToolTab('ai'); toggleSidebar();" id="tabAiBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-robot text-sm"></i> AI ⲂⲌⲬ ⲀⲒ
+                </button>
+                <button onclick="switchToolTab('instagram'); toggleSidebar();" id="tabInstagramBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-brands fa-instagram text-sm"></i> Instagram Downloader
+                </button>
+                <button onclick="switchToolTab('facebook'); toggleSidebar();" id="tabFacebookBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-brands fa-facebook text-sm"></i> Facebook Downloader
+                </button>
+                <button onclick="switchToolTab('videy'); toggleSidebar();" id="tabVideyBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-video text-sm"></i> Videy Downloader
+                </button>
+                <button onclick="switchToolTab('capcut'); toggleSidebar();" id="tabCapcutBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-scissors text-sm"></i> CapCut Downloader
+                </button>
+                <button onclick="switchToolTab('ttstalk'); toggleSidebar();" id="tabTtstalkBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-user-check text-sm"></i> TikTok Stalk
+                </button>
+                <button onclick="switchToolTab('nik'); toggleSidebar();" id="tabNikBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-id-card text-sm"></i> NIK Parser
+                </button>
+                <button onclick="switchToolTab('anime'); toggleSidebar();" id="tabAnimeBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-film text-sm"></i> Anime
+                </button>
+                <button onclick="switchToolTab('stalk'); toggleSidebar();" id="tabStalkBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-user-secret text-sm"></i> STALK TOOLS
+                </button>
+                <button onclick="switchToolTab('ngl'); toggleSidebar();" id="tabNglBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-message text-sm"></i> NGL Message
+                </button>
+                <button onclick="switchToolTab('toolsv2'); toggleSidebar();" id="tabToolsv2Btn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-wand-magic-sparkles text-sm"></i> Tools V2
+                </button>
+                <button onclick="switchToolTab('catbox'); toggleSidebar();" id="tabCatboxBtn" class="w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]">
+                    <i class="fa-solid fa-cloud-arrow-up text-sm"></i> Upload Catbox
+                </button>
+            </div>
+        </div>
+
+        <div class="border-t-2 border-black pt-3 text-center text-xs font-black text-black">
+            &copy; 2026 IkyVIP Tools API
+        </div>
+    </div>
+
+
+    <!-- HALAMAN UTAMA (LINK HUB) -->
+    <div id="pageHub" class="w-full max-w-sm cartoon-card p-6 space-y-3">
+        
+        <!-- Header Profil -->
+        <div class="text-center space-y-2">
+            <div class="w-20 h-20 mx-auto">
+                <div class="profile-img w-20 h-20 border-[3px] border-black rounded-2xl overflow-hidden">
+                    <img src="https://files.catbox.moe/z3u6f0.jpg" alt="Profile" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <div>
+                <h1 class="title-text text-black">IkyVIP</h1>
+                <p class="subtitle-text text-xs text-gray-800">🔗 Official Link Hub 🔗</p>
+            </div>
+        </div>
+
+        <div class="divider w-full"></div>
+
+        <!-- Tautan -->
+        <div class="space-y-2.5">
+            
+            <a onclick="openShop()" 
+               class="cartoon-link delay-1 flex items-center justify-between p-3.5 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 icon-shop cartoon-icon flex items-center justify-center text-black font-bold text-lg">
+                        <i class="fa-solid fa-store"></i>
+                    </div>
+                    <div>
+                        <span class="link-title text-black">MENU SHOP</span>
+                        <span class="link-subtitle">Beli Mod & Panel VIP</span>
+                    </div>
+                </div>
+                <div class="w-9 h-9 bg-yellow-300 text-black cartoon-arrow flex items-center justify-center border-2 border-black">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </a>
+
+            <a href="https://t.me/ikyvip" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link delay-2 flex items-center justify-between p-3.5 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 icon-tg cartoon-icon flex items-center justify-center text-white font-bold text-lg">
+                        <i class="fa-brands fa-telegram"></i>
+                    </div>
+                    <div>
+                        <span class="link-title text-black">Telegram</span>
+                        <span class="link-subtitle">@ikyvip</span>
+                    </div>
+                </div>
+                <div class="w-9 h-9 bg-yellow-300 text-black cartoon-arrow flex items-center justify-center border-2 border-black">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </a>
+
+            <a href="https://whatsapp.com/channel/0029VbCgmZLBFLgcMfdXHh3p" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link delay-3 flex items-center justify-between p-3.5 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 icon-ch cartoon-icon flex items-center justify-center text-white font-bold text-lg">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <span class="link-title text-black">Channel WA</span>
+                        <span class="link-subtitle">Update</span>
+                    </div>
+                </div>
+                <div class="w-9 h-9 bg-yellow-300 text-black cartoon-arrow flex items-center justify-center border-2 border-black">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </a>
+
+            <a href="https://chat.whatsapp.com/Kb56rcBpocRHkjvIiSOWjQ?s=cl&p=a&ilr=4" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link delay-4 flex items-center justify-between p-3.5 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 icon-gb cartoon-icon flex items-center justify-center text-white font-bold text-lg">
+                        <i class="fa-solid fa-users-line"></i>
+                    </div>
+                    <div>
+                        <span class="link-title text-black">Grup Mabar</span>
+                        <span class="link-subtitle">Community</span>
+                    </div>
+                </div>
+                <div class="w-9 h-9 bg-yellow-300 text-black cartoon-arrow flex items-center justify-center border-2 border-black">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </a>
+
+            <a href="https://wa.me/6283149157770" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link delay-5 flex items-center justify-between p-3.5 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 icon-wa cartoon-icon flex items-center justify-center text-white font-bold text-lg">
+                        <i class="fa-brands fa-whatsapp"></i>
+                    </div>
+                    <div>
+                        <span class="link-title text-black">WhatsApp</span>
+                        <span class="link-subtitle">Chat Admin</span>
+                    </div>
+                </div>
+                <div class="w-9 h-9 bg-yellow-300 text-black cartoon-arrow flex items-center justify-center border-2 border-black">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </a>
+
+            <a href="https://sociabuzz.com/riskidevv/tribe" target="_blank" rel="noopener noreferrer" 
+               class="cartoon-link delay-6 flex items-center justify-between p-3.5 relative z-10">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 icon-donate cartoon-icon flex items-center justify-center text-white font-bold text-lg">
+                        <i class="fa-solid fa-hand-holding-dollar"></i>
+                    </div>
+                    <div>
+                        <span class="link-title text-black">Donasi</span>
+                        <span class="link-subtitle">Sociabuzz Support 💙</span>
+                    </div>
+                </div>
+                <div class="w-9 h-9 bg-yellow-300 text-black cartoon-arrow flex items-center justify-center border-2 border-black">
+                    <i class="fa-solid fa-arrow-right text-sm"></i>
+                </div>
+            </a>
+
+        </div>
+
+        <div class="p-3 cartoon-warning rounded-xl text-center mt-2">
+            <p class="text-xs text-red-900 font-black flex items-center justify-center gap-1">
+                <i class="fa-solid fa-triangle-exclamation text-red-600 text-base"></i>
+                HATI-HATI PENIPUAN
+            </p>
+            <p class="text-xs text-red-800 font-bold mt-1">
+                Hanya gunakan link di atas!
+            </p>
+        </div>
+
+        <div class="text-center text-xs text-black font-black pt-1">
+            &copy; 2026 IkyVIP
+        </div>
+
+    </div>
+
+
+    <!-- HALAMAN KONTEN TOOLS API -->
+    <div id="pageToolsContainer" class="w-full max-w-md bg-white border-4 border-black rounded-3xl p-5 space-y-5 hidden relative z-10">
+        <div class="flex justify-between items-center border-b-3 border-black pb-3">
+            <div class="flex items-center gap-2">
+                <button onclick="backToHub()" class="w-9 h-9 bg-gray-100 border-2 border-black rounded-xl flex items-center justify-center font-black hover:bg-gray-200">
+                    <i class="fa-solid fa-arrow-left text-black"></i>
+                </button>
+                <h1 class="text-lg font-black text-black tracking-wider">IKYVIP TOOLS API</h1>
+            </div>
+            <button onclick="toggleSidebar()" class="w-9 h-9 bg-purple-300 border-2 border-black rounded-xl flex items-center justify-center font-black">
+                <i class="fa-solid fa-bars text-black"></i>
+            </button>
+        </div>
+
+        <!-- Konten 1: TikTok Downloader -->
+        <div id="toolTiktokContent" class="space-y-3">
+            <div class="bg-purple-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-purple-600">TIKTOK V2</span>
+                    <h3 class="font-black text-xs text-black">TikTok Video Downloader</h3>
+                </div>
+                <p class="text-[10px] font-bold text-gray-700">Masukkan link TikTok untuk mengambil video dan link download langsung.</p>
+                <input type="text" id="tiktokUrlInput" placeholder="https://vt.tiktok.com/..." class="cartoon-input-flat w-full text-xs">
+                <button onclick="fetchTiktokAuto()" id="tiktokBtn" class="btn-flat btn-purple-flat w-full py-2.5 text-xs flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-download"></i> AMBIL VIDEO TIKTOK
+                </button>
+            </div>
+            <div id="tiktokResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl space-y-2 text-xs">
+                <div class="font-black text-black border-b-2 border-black pb-1">Hasil Download:</div>
+                <div id="tiktokResultData" class="space-y-2"></div>
+            </div>
+        </div>
+
+        <!-- Konten 2: Skip SFL -->
+        <div id="toolSflContent" class="space-y-3 hidden">
+            <div class="bg-blue-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-blue-600">SKIPSFL</span>
+                    <h3 class="font-black text-xs text-black">Skip Link (SFL) Tool</h3>
+                </div>
+                <p class="text-[10px] font-bold text-gray-700">Masukkan link SFL untuk melewati halaman penunggu.</p>
+                <input type="text" id="sflUrlInput" placeholder="https://..." class="cartoon-input-flat w-full text-xs">
+                <button onclick="fetchSflAuto()" id="sflBtn" class="btn-flat w-full py-2.5 text-xs flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-bolt"></i> PROCESS & SKIP SFL
+                </button>
+            </div>
+            <div id="sflResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl space-y-2 text-xs">
+                <div class="font-black text-black border-b-2 border-black pb-1">Hasil Skip SFL:</div>
+                <div id="sflResultData" class="space-y-2"></div>
+            </div>
+        </div>
+
+        <!-- Konten 3: Sub4Unlock -->
+        <div id="toolSub4lockContent" class="space-y-3 hidden">
+            <div class="bg-yellow-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-yellow-600">SUB4UNLOCK</span>
+                    <h3 class="font-black text-xs text-black">Skip Sub4Unlock Tool</h3>
+                </div>
+                <p class="text-[10px] font-bold text-gray-700">Masukkan link Sub4Unlock untuk bypass.</p>
+                <input type="text" id="sub4lockUrlInput" placeholder="https://..." class="cartoon-input-flat w-full text-xs">
+                <button onclick="fetchSub4lockAuto()" id="sub4lockBtn" class="btn-flat btn-green-flat w-full py-2.5 text-xs flex items-center justify-center gap-1">
+                    <i class="fa-solid fa-unlock"></i> PROCESS & BYPASS
+                </button>
+            </div>
+            <div id="sub4lockResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl space-y-2 text-xs">
+                <div class="font-black text-black border-b-2 border-black pb-1">Hasil Sub4Unlock:</div>
+                <div id="sub4lockResultData" class="space-y-2"></div>
+            </div>
+        </div>
+
+
+        <!-- Konten 4: AI ⲂⲌⲬ ⲀⲒ - Full Chat UI -->
+        <div id="toolAiContent" class="hidden">
+            <div id="aiChatShell" class="ai-chat-shell">
+                <div class="ai-chat-header">
+                    <div class="flex items-center gap-3 min-w-0">
+                        <div class="ai-avatar">C</div>
+                        <div class="min-w-0">
+                            <div class="font-black text-sm truncate">ⲂⲌⲬ ⲀⲒ</div>
+                            <div class="text-[10px] font-bold opacity-70">AI Assistant</div>
+                        </div>
+                    </div>
+                    <button onclick="clearAiChat()" class="ai-icon-btn" title="Chat baru">
+                        <i class="fa-solid fa-pen-to-square"></i>
+                    </button>
+                </div>
+
+                <div id="aiChatMessages" class="ai-chat-messages">
+                    <div id="aiWelcome" class="ai-welcome">
+                        <div class="ai-welcome-logo">C</div>
+                        <h2 class="font-black text-xl mt-3">Halo! Saya ⲂⲌⲬ ⲀⲒ 👋</h2>
+                        <p class="text-xs font-semibold opacity-65 mt-1">Ada yang bisa saya bantu?</p>
+                        <div class="ai-suggestions">
+                            <button onclick="useAiSuggestion('Jelaskan sesuatu dengan sederhana')">Jelaskan sesuatu</button>
+                            <button onclick="useAiSuggestion('Buatkan kode Python sederhana')">Buat kode</button>
+                            <button onclick="useAiSuggestion('Bantu saya membuat ide project')">Cari ide project</button>
+                            <button onclick="useAiSuggestion('Terjemahkan teks ini ke bahasa Indonesia')">Terjemahkan</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ai-composer-wrap">
+                    <div id="bzxLocalAiStatus" style="font-size:9px;font-weight:800;opacity:.65;margin:0 2px 5px"></div>
+                    <div id="aiAttachmentPreview" class="ai-attachment-preview"></div>
+                    <div class="ai-composer">
+                        <input id="aiFileInput" type="file" hidden accept="image/*,.pdf,.txt,.csv,.json,.md,.js,.html,.css,.py,.java,.xml,.doc,.docx,.xls,.xlsx,.ppt,.pptx">
+                        <input id="aiCameraInput" type="file" hidden accept="image/*" capture="environment">
+                        <button class="ai-icon-btn ai-composer-btn" type="button" onclick="document.getElementById('aiFileInput').click()" title="Foto / dokumen"><i class="fa-solid fa-paperclip"></i></button>
+                        <button class="ai-icon-btn ai-composer-btn" type="button" onclick="document.getElementById('aiCameraInput').click()" title="Kamera"><i class="fa-solid fa-camera"></i></button>
+                        <button id="aiMicBtn" class="ai-icon-btn ai-composer-btn" type="button" onclick="toggleAiVoice()" title="Pesan suara"><i class="fa-solid fa-microphone"></i></button>
+                        <textarea id="aiPromptInput" rows="1" placeholder="Tanyakan apa saja..." autocomplete="off"></textarea>
+                        <button id="aiBtn" onclick="fetchAiAuto()" class="ai-send-btn" title="Kirim"><i class="fa-solid fa-arrow-up"></i></button>
+                    </div>
+                    <div class="text-[9px] text-center font-semibold opacity-50 mt-1.5">
+                        ⲂⲌⲬ ⲀⲒ dapat membuat kesalahan. Periksa kembali informasi penting.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Konten 5: Instagram -->
+        <div id="toolInstagramContent" class="space-y-3 hidden">
+            <div class="bg-pink-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2"><span class="badge-tag-flat px-2 py-0.5 bg-pink-600">INSTAGRAM</span><h3 class="font-black text-xs">Instagram Downloader</h3></div>
+                <input id="instagramUrlInput" type="text" placeholder="https://www.instagram.com/reel/..." class="cartoon-input-flat w-full text-xs">
+                <button onclick="fetchInstagramAuto()" id="instagramBtn" class="btn-flat w-full py-2.5 text-xs"><i class="fa-brands fa-instagram"></i> DOWNLOAD INSTAGRAM</button>
+            </div>
+            <div id="instagramResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl text-xs"><div id="instagramResultData"></div></div>
+        </div>
+
+        <!-- Konten 6: Facebook -->
+        <div id="toolFacebookContent" class="space-y-3 hidden">
+            <div class="bg-blue-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2"><span class="badge-tag-flat px-2 py-0.5 bg-blue-700">FACEBOOK</span><h3 class="font-black text-xs">Facebook Video Downloader</h3></div>
+                <input id="facebookUrlInput" type="text" placeholder="https://www.facebook.com/... atau https://fb.watch/..." class="cartoon-input-flat w-full text-xs">
+                <p class="text-[9px] font-bold text-gray-600">Mendukung link video Facebook publik / fb.watch.</p>
+                <button onclick="fetchFacebookAuto()" id="facebookBtn" class="btn-flat w-full py-2.5 text-xs"><i class="fa-brands fa-facebook"></i> DOWNLOAD FACEBOOK</button>
+            </div>
+            <div id="facebookResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl text-xs"><div id="facebookResultData"></div></div>
+        </div>
+
+        <!-- Konten 7: Videy -->
+        <div id="toolVideyContent" class="space-y-3 hidden">
+            <div class="bg-green-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2"><span class="badge-tag-flat px-2 py-0.5 bg-green-600">VIDEY</span><h3 class="font-black text-xs">Videy Downloader</h3></div>
+                <input id="videyUrlInput" type="text" placeholder="https://videy.co/v/..." class="cartoon-input-flat w-full text-xs">
+                <button onclick="fetchVideyAuto()" id="videyBtn" class="btn-flat btn-green-flat w-full py-2.5 text-xs"><i class="fa-solid fa-video"></i> DOWNLOAD VIDEY</button>
+            </div>
+            <div id="videyResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl text-xs"><div id="videyResultData"></div></div>
+        </div>
+
+        <!-- Konten 8: CapCut -->
+        <div id="toolCapcutContent" class="space-y-3 hidden">
+            <div class="bg-red-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2"><span class="badge-tag-flat px-2 py-0.5 bg-red-600">CAPCUT</span><h3 class="font-black text-xs">CapCut Downloader</h3></div>
+                <input id="capcutUrlInput" type="text" placeholder="https://www.capcut.com/..." class="cartoon-input-flat w-full text-xs">
+                <button onclick="fetchCapcutAuto()" id="capcutBtn" class="btn-flat w-full py-2.5 text-xs"><i class="fa-solid fa-scissors"></i> DOWNLOAD CAPCUT</button>
+            </div>
+            <div id="capcutResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl text-xs"><div id="capcutResultData"></div></div>
+        </div>
+
+        <!-- Konten 9: TikTok Stalk -->
+        <div id="toolTtstalkContent" class="space-y-3 hidden">
+            <div class="bg-cyan-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2"><span class="badge-tag-flat px-2 py-0.5 bg-cyan-600">TTSTALK</span><h3 class="font-black text-xs">TikTok Profile Stalk</h3></div>
+                <input id="ttstalkUsernameInput" type="text" placeholder="@username atau username" class="cartoon-input-flat w-full text-xs">
+                <button onclick="fetchTtstalkAuto()" id="ttstalkBtn" class="btn-flat w-full py-2.5 text-xs"><i class="fa-solid fa-user-check"></i> STALK TIKTOK</button>
+            </div>
+            <div id="ttstalkResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl text-xs"><div id="ttstalkResultData"></div></div>
+        </div>
+
+
+        <!-- Konten STALK TOOLS -->
+        <div id="toolStalkContent" class="space-y-3 hidden">
+            <div class="bg-slate-100 border-3 border-black p-3 rounded-2xl space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-slate-800">STALK TOOLS</span>
+                    <h3 class="font-black text-xs">Social & Game Profile Stalker</h3>
+                </div>
+                <p class="text-[10px] font-bold text-gray-700">Pilih platform, masukkan ID/username, lalu cek profil. Foto profil akan ditampilkan jika API mengembalikannya.</p>
+
+                <div class="bg-green-100 border-2 border-black rounded-xl p-2.5 space-y-2">
+                    <div class="font-black text-xs"><i class="fa-solid fa-gamepad"></i> Free Fire</div>
+                    <input id="ffStalkUidInput" type="text" inputmode="numeric" placeholder="UID Free Fire, contoh: 119413181" class="cartoon-input-flat w-full text-xs">
+                    <button onclick="fetchFreeFireStalk()" id="ffStalkBtn" class="btn-flat btn-green-flat w-full py-2.5 text-xs"><i class="fa-solid fa-magnifying-glass"></i> CEK FREE FIRE</button>
+                </div>
+
+                <div class="bg-pink-100 border-2 border-black rounded-xl p-2.5 space-y-2">
+                    <div class="font-black text-xs"><i class="fa-brands fa-instagram"></i> Instagram</div>
+                    <input id="igStalkUsernameInput" type="text" placeholder="Username Instagram, contoh: ikynonplendes" class="cartoon-input-flat w-full text-xs">
+                    <button onclick="fetchInstagramStalk()" id="igStalkBtn" class="btn-flat w-full py-2.5 text-xs"><i class="fa-brands fa-instagram"></i> STALK INSTAGRAM</button>
+                </div>
+
+                <div class="bg-blue-100 border-2 border-black rounded-xl p-2.5 space-y-2">
+                    <div class="font-black text-xs"><i class="fa-brands fa-roblox"></i> Roblox</div>
+                    <input id="robloxStalkUsernameInput" type="text" placeholder="Username Roblox, contoh: ikysakithati" class="cartoon-input-flat w-full text-xs">
+                    <button onclick="fetchRobloxStalk()" id="robloxStalkBtn" class="btn-flat w-full py-2.5 text-xs"><i class="fa-brands fa-roblox"></i> STALK ROBLOX</button>
+                </div>
+            </div>
+            <div id="stalkResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl text-xs">
+                <div id="stalkResultData"></div>
+            </div>
+        </div>
+
+        <!-- Konten NGL -->
+        <div id="toolNglContent" class="space-y-3 hidden">
+            <div class="bg-purple-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-purple-600">NGL</span>
+                    <h3 class="font-black text-xs">NGL Message</h3>
+                </div>
+                <p class="text-[10px] font-bold text-gray-700">Kirim satu pesan ke target NGL. Gunakan secara wajar dan jangan melakukan pengiriman massal.</p>
+                <input id="nglTargetInput" type="text" placeholder="Target NGL" class="cartoon-input-flat w-full text-xs">
+                <textarea id="nglMessageInput" rows="3" placeholder="Tulis pesan..." class="cartoon-input-flat w-full text-xs resize-none"></textarea>
+                <button onclick="sendNglMessage()" id="nglBtn" class="btn-flat btn-purple-flat w-full py-2.5 text-xs"><i class="fa-solid fa-paper-plane"></i> KIRIM PESAN</button>
+            </div>
+            <div id="nglResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl text-xs">
+                <div id="nglResultData"></div>
+            </div>
+        </div>
+
+        <!-- Konten Tools V2 - SiputZX -->
+        <div id="toolToolsv2Content" class="space-y-3 hidden">
+            <div class="bg-yellow-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-yellow-500">TOOLS V2</span>
+                    <h3 class="font-black text-xs">SiputZX Tools</h3>
+                </div>
+                <p class="text-[10px] font-bold text-gray-700">Tools tambahan dari API SiputZX: Kodepos dan Screenshot Website.</p>
+
+                <div class="bg-white border-2 border-black rounded-xl p-2.5 space-y-2">
+                    <div class="font-black text-xs"><i class="fa-solid fa-location-dot"></i> Kodepos</div>
+                    <input id="kodeposInput" type="text" placeholder="Contoh: pasiran jaya" class="cartoon-input-flat w-full text-xs">
+                    <button onclick="fetchKodeposSiput()" id="kodeposBtn" class="btn-flat btn-green-flat w-full py-2.5 text-xs"><i class="fa-solid fa-magnifying-glass"></i> CARI KODEPOS</button>
+                </div>
+                <div id="kodeposResult" class="hidden bg-white border-2 border-black rounded-xl p-2 text-[10px] font-bold break-words"></div>
+
+                <div class="bg-white border-2 border-black rounded-xl p-2.5 space-y-2 mt-2">
+                    <div class="font-black text-xs"><i class="fa-solid fa-camera"></i> SSWebsite</div>
+                    <input id="sswebUrlInput" type="url" placeholder="https://google.com" class="cartoon-input-flat w-full text-xs">
+                    <div class="grid grid-cols-2 gap-2">
+                        <select id="sswebDeviceInput" class="cartoon-input-flat w-full text-xs"><option value="desktop">Desktop</option><option value="mobile">Mobile</option></select>
+                        <select id="sswebThemeInput" class="cartoon-input-flat w-full text-xs"><option value="dark">Dark</option><option value="light">Light</option></select>
+                    </div>
+                    <label class="flex items-center gap-2 text-[10px] font-black"><input id="sswebFullPageInput" type="checkbox"> Full Page</label>
+                    <button onclick="fetchSswebSiput()" id="sswebBtn" class="btn-flat w-full py-2.5 text-xs"><i class="fa-solid fa-camera"></i> SCREENSHOT WEBSITE</button>
+                </div>
+                <div id="sswebResult" class="hidden bg-white border-2 border-black rounded-xl p-2 text-[10px] font-bold"></div>
+            </div>
+        </div>
+
+        <!-- Konten Catbox Upload -->
+        <div id="toolCatboxContent" class="space-y-3 hidden">
+            <div class="bg-orange-100 border-3 border-black p-3 rounded-2xl space-y-2">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-orange-500">CATBOX</span>
+                    <h3 class="font-black text-xs">Upload Media / File ke URL</h3>
+                </div>
+                <p class="text-[10px] font-bold text-gray-700">Upload file apa pun yang diizinkan Catbox dan dapatkan direct URL.</p>
+                <input id="catboxFileInput" type="file" class="cartoon-input-flat w-full text-xs p-2">
+                <button onclick="uploadToCatbox()" id="catboxBtn" class="btn-flat w-full py-2.5 text-xs"><i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD KE CATBOX</button>
+            </div>
+            <div id="catboxResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl text-xs">
+                <div id="catboxResultData"></div>
+            </div>
+        </div>
+
+        <!-- Konten NIK Parser -->
+        <div id="toolNikContent" class="hidden">
+            <div class="bg-yellow-100 border-3 border-black p-3 rounded-2xl space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-yellow-500">NIK</span>
+                    <h3 class="font-black text-xs">NIK Parser</h3>
+                </div>
+
+                <input id="nikInput" type="text" inputmode="numeric" maxlength="16"
+                       placeholder="Masukkan 16 digit NIK"
+                       class="cartoon-input-flat w-full text-xs">
+
+                <button onclick="fetchNikAuto()" id="nikBtn"
+                        class="btn-flat w-full py-2.5 text-xs">
+                    <i class="fa-solid fa-id-card"></i> CEK NIK
+                </button>
+            </div>
+
+            <div id="nikResult" class="hidden bg-white border-3 border-black p-3 rounded-2xl mt-3">
+                <div id="nikResultData"></div>
+            </div>
+        </div>
+
+
+        <!-- Konten Anime: Jikan + AniList -->
+        <div id="toolAnimeContent" class="hidden">
+            <div class="bg-purple-100 border-3 border-black p-3 rounded-2xl space-y-3">
+                <div class="flex items-center gap-2">
+                    <span class="badge-tag-flat px-2 py-0.5 bg-purple-600">ANIME</span>
+                    <h3 class="font-black text-xs">Anime Search</h3>
+                </div>
+
+                <div class="flex gap-2">
+                    <input id="animeSearchInput" type="text" placeholder="Contoh: Naruto"
+                           class="cartoon-input-flat flex-1 text-xs">
+                    <button onclick="searchAnime()" id="animeSearchBtn" class="btn-flat px-4 py-2 text-xs">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+<div class="grid grid-cols-3 gap-2">
+                    <button onclick="loadAnimeTop()" class="btn-flat py-2 text-[10px]">
+                        <i class="fa-solid fa-fire"></i> POPULER
+                    </button>
+                    <button onclick="loadAnimeSeason()" class="btn-flat py-2 text-[10px]">
+                        <i class="fa-solid fa-calendar"></i> MUSIM
+                    </button>
+                    <button onclick="loadAnimeSchedule()" class="btn-flat py-2 text-[10px]">
+                        <i class="fa-solid fa-clock"></i> JADWAL
+                    </button>
+                </div>
+            </div>
+
+            <div id="animeResult" class="hidden mt-3">
+                <div id="animeResultData" class="grid grid-cols-2 gap-3"></div>
+            </div>
+
+
+            <div id="animePlayer" class="hidden mt-3 bg-black border-3 border-black rounded-2xl p-2">
+                <div class="flex items-center justify-between gap-2 px-1 pb-2">
+                    <div id="animePlayerTitle" class="text-white text-xs font-black truncate">Video Player</div>
+                    <button onclick="closeAnimePlayer()" class="text-white text-xs font-black px-2 py-1 border border-white rounded-lg">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <video id="animeVideo" controls playsinline preload="metadata"
+                       class="w-full rounded-xl bg-black" style="max-height:65vh"></video>
+                <div id="animePlayerStatus" class="text-white text-[9px] font-bold px-1 pt-2 opacity-70"></div>
+            </div>
+
+            <div id="animeDetail" class="hidden mt-3 bg-white border-3 border-black rounded-2xl p-3">
+                <div id="animeDetailData"></div>
+            </div>
+        </div>
+
+        <div class="text-center text-xs font-black text-black pt-2 border-t-2 border-black border-dashed">
+            &copy; 2026 IkyVIP Tools API
+        </div>
+    </div>
+
+
+    <!-- HALAMAN KATALOG SHOP -->
+    <div id="pageCatalog" class="w-full max-w-md bg-white border-4 border-black rounded-3xl p-5 space-y-5 hidden relative z-10">
+        <div class="flex justify-between items-center border-b-3 border-black pb-3">
+            <div class="flex items-center gap-2">
+                <button onclick="backToHub()" class="w-9 h-9 bg-gray-100 border-2 border-black rounded-xl flex items-center justify-center font-black hover:bg-gray-200">
+                    <i class="fa-solid fa-arrow-left text-black"></i>
+                </button>
+                <h1 class="text-lg font-black text-black tracking-wider">BZX MODS STORE</h1>
+            </div>
+            <button onclick="alert('BZX Mods Store - Online 24/7')" class="w-9 h-9 bg-yellow-300 border-2 border-black rounded-xl flex items-center justify-center font-black">
+                <i class="fa-solid fa-store text-black"></i>
+            </button>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+            <div class="product-card-flat p-3">
+                <div>
+                    <div class="badge-tag-flat py-1 px-2 text-center mb-2 flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-bolt text-yellow-300"></i> NO ROOT
+                    </div>
+                    <div class="bg-black rounded-xl p-1.5 border-2 border-black mb-2 overflow-hidden">
+                        <img src="https://files.catbox.moe/l5hhre.jpg" alt="Drip Client APKMod" class="w-full h-24 object-cover rounded-lg">
+                    </div>
+                    <h3 class="font-black text-[11px] text-center text-black mb-2 uppercase tracking-tight">DRIP CLIENT APKMOD</h3>
+                </div>
+                <div class="space-y-1.5 pt-1">
+                    <button onclick="openCheckout('Drip Client APKMod', 'drip')" class="btn-flat w-full py-2 text-xs flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-cart-shopping"></i> BELI
+                    </button>
+                    <button onclick="alert('Downloading Drip Client APKMod...')" class="btn-flat btn-green-flat w-full py-1.5 text-xs flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-download"></i> DOWNLOAD
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card-flat p-3">
+                <div>
+                    <div class="badge-tag-flat py-1 px-2 text-center mb-2 flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-bolt text-yellow-300"></i> NO ROOT
+                    </div>
+                    <div class="bg-black rounded-xl p-1.5 border-2 border-black mb-2 overflow-hidden">
+                        <img src="https://files.catbox.moe/l5hhre.jpg" alt="Drip Client Proxy" class="w-full h-24 object-cover rounded-lg">
+                    </div>
+                    <h3 class="font-black text-[11px] text-center text-black mb-2 uppercase tracking-tight">DRIP CLIENT PROXY</h3>
+                </div>
+                <div class="space-y-1.5 pt-1">
+                    <button onclick="openCheckout('Drip Client Proxy', 'drip')" class="btn-flat w-full py-2 text-xs flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-cart-shopping"></i> BELI
+                    </button>
+                    <button onclick="alert('Downloading Drip Client Proxy...')" class="btn-flat btn-green-flat w-full py-1.5 text-xs flex items-center justify-center gap-1">
+                        <i class="fa-solid fa-download"></i> DOWNLOAD
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-card-flat p-3 col-span-2 border-3 border-black bg-yellow-50 relative">
+                <div class="absolute -top-3 -right-2 bg-red-500 text-white font-black text-[10px] px-3 py-0.5 rounded-full border-2 border-black rotate-6">
+                    🔥 PRODUK BARU
+                </div>
+                <div class="flex gap-3 items-center">
+                    <div class="w-28 h-28 bg-black rounded-xl p-1 border-2 border-black shrink-0">
+                        <img src="https://files.catbox.moe/e0y1wi.jpg" alt="Genplay" class="w-full h-full object-cover rounded-lg">
+                    </div>
+                    <div class="flex-1 flex flex-col justify-between h-full space-y-2">
+                        <div>
+                            <span class="badge-tag-flat px-2 py-0.5 text-[9px] bg-purple-600">PREMIUM MOD</span>
+                            <h3 class="font-black text-sm text-black mt-1">GENPLAY</h3>
+                            <p class="text-[10px] font-bold text-gray-600">1Day: 30 | 7Day: 80</p>
+                        </div>
+                        <div class="flex gap-2">
+                            <button onclick="openCheckout('Genplay', 'genplay')" class="btn-flat flex-1 py-2 text-xs flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-cart-shopping"></i> BELI
+                            </button>
+                            <button onclick="alert('Downloading Genplay...')" class="btn-flat btn-green-flat flex-1 py-2 text-xs flex items-center justify-center gap-1">
+                                <i class="fa-solid fa-download"></i> APK
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="text-center text-xs font-black text-black pt-2 border-t-2 border-black border-dashed">
+            &copy; 2026 BZX Mods Store - All Rights Reserved
+        </div>
+    </div>
+
+
+    <!-- HALAMAN CHECKOUT -->
+    <div id="pageCheckout" class="w-full max-w-md bg-white border-4 border-black rounded-3xl p-5 space-y-4 hidden relative z-10">
+        <div class="flex items-center justify-between border-b-3 border-black pb-2">
+            <button onclick="backToCatalog()" class="bg-gray-100 border-2 border-black px-3 py-1 rounded-xl text-xs font-black hover:bg-gray-200">
+                <i class="fa-solid fa-arrow-left"></i> KEMBALI
+            </button>
+            <h1 class="text-base font-black text-black tracking-wide">BZX MODS STORE</h1>
+        </div>
+
+        <div class="bg-blue-500 border-3 border-black text-white py-2 px-4 rounded-xl font-black text-center text-sm" id="productTitleBanner">
+            PEMBAYARAN PRODUK
+        </div>
+
+        <div class="space-y-2">
+            <div class="flex items-center gap-2">
+                <span class="badge-step-flat">1</span>
+                <h2 class="font-black text-xs text-black">DATA PEMBELI</h2>
+            </div>
+            <input type="text" id="buyerName" placeholder="Masukkan Nama Anda" class="cartoon-input-flat w-full text-xs">
+            <input type="text" id="buyerPhone" placeholder="Masukkan Nomor WhatsApp Anda" class="cartoon-input-flat w-full text-xs">
+            
+            <div class="bg-white border-3 border-black p-2.5 rounded-xl flex items-center justify-between">
+                <span class="text-xs font-extrabold text-black">Jumlah Key</span>
+                <div class="flex items-center gap-2">
+                    <button onclick="updateQty(-1)" class="w-8 h-8 bg-red-400 border-2 border-black rounded-lg font-black text-white active:translate-y-0.5">-</button>
+                    <span id="qtyVal" class="font-black text-sm w-6 text-center text-black">1</span>
+                    <button onclick="updateQty(1)" class="w-8 h-8 bg-green-400 border-2 border-black rounded-lg font-black text-white active:translate-y-0.5">+</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="space-y-2">
+            <div class="flex items-center gap-2">
+                <span class="badge-step-flat">2</span>
+                <h2 class="font-black text-xs text-black">PILIH DURASI LANGGANAN</h2>
+            </div>
+
+            <div id="pkgContainer" class="grid grid-cols-2 gap-2 text-xs"></div>
+        </div>
+
+        <div class="space-y-2">
+            <div class="flex items-center gap-2">
+                <span class="badge-step-flat">3</span>
+                <h2 class="font-black text-xs text-black">METODE PEMBAYARAN</h2>
+            </div>
+            
+            <div class="bg-white border-3 border-black p-3 rounded-2xl space-y-2 text-center">
+                <span class="font-black text-xs block text-black">QRIS AUTO PAY (Tap QRIS untuk Auto Download)</span>
+                <div class="flex justify-center">
+                    <div class="p-1.5 bg-yellow-100 border-2 border-black rounded-xl cursor-pointer hover:bg-yellow-200 transition-colors inline-block" onclick="downloadQris()" title="Klik untuk download QRIS">
+                        <img id="qrisImg" src="https://files.catbox.moe/n8n695.jpg" alt="QRIS Code" class="w-36 h-36 object-contain border border-black rounded-lg">
+                        <span class="block text-[10px] font-black text-blue-600 mt-1"><i class="fa-solid fa-download"></i> Tap untuk Download QRIS</span>
+                    </div>
+                </div>
+                <p class="text-[10px] text-gray-700 font-extrabold">Scan QRIS menggunakan DANA, OVO, GOPAY, BCA, DLL.</p>
+            </div>
+
+            <div class="bg-white border-3 border-black p-3 rounded-xl space-y-1.5 text-xs font-black">
+                <div class="text-black border-b-2 border-black pb-1 mb-1">E-Wallet Direct Transfer:</div>
+                <div class="flex justify-between items-center">
+                    <span>DANA / GOPAY:</span>
+                    <span class="text-blue-700 bg-blue-100 px-2 py-0.5 rounded-lg border-2 border-black">083149157770</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-yellow-100 border-3 border-black p-3.5 rounded-2xl space-y-2.5">
+            <div class="flex justify-between text-xs font-black text-black">
+                <span>Rincian Paket:</span>
+                <span id="summaryPkg">1 Day</span>
+            </div>
+            <div class="flex justify-between text-xs font-black text-black">
+                <span>Total Bayar:</span>
+                <span id="summaryPrice" class="text-green-700 text-base">Rp 30.000</span>
+            </div>
+            <button onclick="processCheckout()" class="btn-flat btn-green-flat w-full py-3 text-xs flex items-center justify-center gap-2 text-sm tracking-wide">
+                <i class="fa-brands fa-whatsapp text-lg"></i> KIRIM BUKTI & ORDER KE WA
+            </button>
+        </div>
+
+        <div class="text-center text-[10px] font-black text-black pt-1">
+            &copy; 2026 BZX Mods Store
+        </div>
+    </div>
+
+    <script>
+        let basePrice = 15000;
+        let currentQty = 1;
+        let selectedPkgName = '1 Day';
+        let currentProduct = 'Drip Client APKMod';
+        let currentType = 'drip';
+
+        const packageData = {
+            'drip': [
+                { name: '1 Day', price: 15000, colSpan: false },
+                { name: '3 Days', price: 40000, colSpan: false },
+                { name: '7 Days', price: 80000, colSpan: false },
+                { name: '15 Days', price: 100000, colSpan: false },
+                { name: '30 Days / 1 Bulan', price: 150000, colSpan: true }
+            ],
+            'genplay': [
+                { name: '1 Day', price: 30000, colSpan: false },
+                { name: '7 Days', price: 80000, colSpan: false }
+            ]
+        };
+
+        function toggleSidebar() {
+            const drawer = document.getElementById('sidebarDrawer');
+            const overlay = document.getElementById('sidebarOverlay');
+            if (!drawer || !overlay) return;
+            const willOpen = !drawer.classList.contains('open');
+            drawer.classList.toggle('open', willOpen);
+            overlay.classList.toggle('open', willOpen);
+            document.body.style.overflow = willOpen ? 'hidden' : '';
+        }
+
+        function openShop() {
+            document.getElementById('pageHub').classList.add('hidden');
+            document.getElementById('pageToolsContainer').classList.add('hidden');
+            document.getElementById('pageCatalog').classList.remove('hidden');
+        }
+
+        function backToHub() {
+            document.getElementById('pageCatalog').classList.add('hidden');
+            document.getElementById('pageToolsContainer').classList.add('hidden');
+            document.getElementById('pageHub').classList.remove('hidden');
+        }
+
+        // ===== STALK / NGL / CATBOX TOOLS =====
+        function showToolResult(id, html) {
+            const box = document.getElementById(id);
+            const data = document.getElementById(id + 'Data');
+            if (!box || !data) return;
+            box.classList.remove('hidden');
+            data.innerHTML = html;
+        }
+
+        function findAnyUrlDeep(value, depth = 0) {
+            if (depth > 12 || value == null) return '';
+            if (typeof value === 'string') {
+                const m = value.match(/https?:\/\/[^\s"'<>\\]+/i);
+                return m ? m[0].replace(/[),.;]+$/, '') : '';
+            }
+            if (Array.isArray(value)) {
+                for (const x of value) { const u = findAnyUrlDeep(x, depth + 1); if (u) return u; }
+                return '';
+            }
+            if (typeof value === 'object') {
+                const preferred = ['avatar','avatar_url','profile_image','profileImage','photo','photo_url','image','image_url','picture','thumbnail','url','link'];
+                for (const k of preferred) if (k in value) { const u = findAnyUrlDeep(value[k], depth + 1); if (u) return u; }
+                for (const x of Object.values(value)) { const u = findAnyUrlDeep(x, depth + 1); if (u) return u; }
+            }
+            return '';
+        }
+
+        function findPhotoDeep(value, depth = 0) {
+            if (depth > 12 || value == null) return '';
+            const photoKeys = ['avatar','avatar_url','avatarUrl','profile_image','profileImage','profilePic','photo','photo_url','photoUrl','image','image_url','imageUrl','picture','picture_url','thumbnail','thumb'];
+            if (typeof value === 'object' && !Array.isArray(value)) {
+                for (const k of photoKeys) {
+                    if (k in value) {
+                        const u = findAnyUrlDeep(value[k], depth + 1);
+                        if (u && /\.(?:jpg|jpeg|png|gif|webp)(?:[?#]|$)/i.test(u)) return u;
+                        if (u) return u;
+                    }
+                }
+                for (const x of Object.values(value)) { const u = findPhotoDeep(x, depth + 1); if (u) return u; }
+            } else if (Array.isArray(value)) {
+                for (const x of value) { const u = findPhotoDeep(x, depth + 1); if (u) return u; }
+            }
+            return '';
+        }
+
+        function renderStalkData(platform, data) {
+            const photo = findPhotoDeep(data);
+            const pretty = typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+            return `<div class="space-y-2">
+                <span class="api-status primary">${escapeHtml(platform)}</span>
+                ${photo ? `<img src="${escapeHtml(photo)}" alt="Foto profil" class="w-28 h-28 object-cover rounded-2xl border-3 border-black mx-auto">` : ''}
+                <pre class="whitespace-pre-wrap break-words text-[10px] font-bold bg-gray-50 border-2 border-black rounded-xl p-3 overflow-auto max-h-[55vh]">${escapeHtml(pretty)}</pre>
+            </div>`;
+        }
+
+        // ===== PROFILE STALK RENDERER =====
+        // API tiap platform bisa memakai nama field gambar yang berbeda.
+        function findProfileImages(value, depth = 0, keyHint = '') {
+            if (depth > 10 || value == null) return [];
+            const found = [];
+            const imageKey = /(avatar|profile|photo|picture|image|thumbnail|headshot|banner|cover|icon|pfp|pic)/i;
+            const urlRe = /^https?:\/\/[^\s"'<>]+$/i;
+            const imageExt = /\.(jpe?g|png|gif|webp|avif)(\?|#|$)/i;
+
+            if (typeof value === 'string') {
+                const s = value.trim();
+                if (urlRe.test(s) && (imageKey.test(keyHint) || imageExt.test(s))) found.push(s);
+                return found;
+            }
+            if (Array.isArray(value)) {
+                for (const item of value) found.push(...findProfileImages(item, depth + 1, keyHint));
+                return [...new Set(found)];
+            }
+            if (typeof value === 'object') {
+                for (const [key, val] of Object.entries(value)) {
+                    found.push(...findProfileImages(val, depth + 1, key));
+                }
+            }
+            return [...new Set(found)];
+        }
+
+        function stalkImageFromData(data) {
+            const urls = findProfileImages(data);
+            // Prioritaskan avatar/profile; banner jadi fallback.
+            const preferred = urls.find(u => /avatar|profile|photo|picture|pfp|headshot/i.test(u));
+            return preferred || urls[0] || '';
+        }
+
+        function stalkBannerFromData(data) {
+            const urls = findProfileImages(data);
+            return urls.find(u => /banner|cover/i.test(u)) || '';
+        }
+
+        function findValueDeep(value, keys, depth = 0) {
+            if (depth > 8 || value == null || typeof value !== 'object') return '';
+            const wanted = keys.map(k => k.toLowerCase());
+            for (const [k,v] of Object.entries(value)) {
+                if (wanted.includes(k.toLowerCase()) && (typeof v === 'string' || typeof v === 'number')) return String(v);
+            }
+            for (const v of Object.values(value)) {
+                const r = findValueDeep(v, keys, depth + 1);
+                if (r) return r;
+            }
+            return '';
+        }
+
+        function formatStalkValue(key, value) {
+            if (value == null || value === '') return '-';
+            if (typeof value === 'object') return JSON.stringify(value, null, 2);
+            return String(value);
+        }
+
+        function niceStalkKey(key) {
+            return String(key).replace(/[_-]+/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2').trim();
+        }
+
+        function stalkRows(data, skipKeys = []) {
+            if (!data || typeof data !== 'object') return '';
+            const skip = new Set(skipKeys.map(x => x.toLowerCase()));
+            return Object.entries(data)
+                .filter(([k,v]) => !skip.has(k.toLowerCase()) && v !== undefined && v !== null && v !== '')
+                .map(([key, value]) => `
+                    <div class="bg-white border-2 border-black rounded-xl p-2.5">
+                        <div class="text-[8px] uppercase font-black text-gray-500">${escapeHtml(niceStalkKey(key))}</div>
+                        <div class="text-[11px] font-black break-all whitespace-pre-wrap mt-0.5">${escapeHtml(formatStalkValue(key,value))}</div>
+                    </div>
+                `).join('');
+        }
+
+        function renderStalkResult(title, result, fallbackIdentity = '') {
+            let data = result;
+            if (data && typeof data === 'object' && data.data && typeof data.data === 'object') data = data.data;
+            if (!data || typeof data !== 'object') {
+                return `<pre class="whitespace-pre-wrap break-words text-[10px] font-bold">${escapeHtml(String(data ?? ''))}</pre>`;
+            }
+            if (data.data && typeof data.data === 'object') data = data.data;
+
+            const avatar = stalkImageFromData(data);
+            const banner = stalkBannerFromData(data);
+            const name = findValueDeep(data, ['name','username','display_name','displayName','nickname']) || fallbackIdentity || title;
+            const uid = findValueDeep(data, ['uid','id','user_id','userId','sec_uid']);
+            const level = findValueDeep(data, ['level']);
+            const region = findValueDeep(data, ['region','country','country_code']);
+            const likes = findValueDeep(data, ['likes','like_count','likeCount']);
+            const followers = findValueDeep(data, ['followers','follower_count','followerCount']);
+            const following = findValueDeep(data, ['following','following_count','followingCount']);
+            const bio = findValueDeep(data, ['bio','signature','description']);
+            const stats = [
+                ['LEVEL',level], ['LIKES',likes], ['FOLLOWERS',followers],
+                ['FOLLOWING',following], ['REGION',region], ['UID',uid]
+            ].filter(x => x[1]);
+
+            return `
+                <div class="space-y-3">
+                    ${banner && banner !== avatar ? `
+                        <div class="rounded-2xl overflow-hidden border-3 border-black bg-black">
+                            <img src="${escapeHtml(banner)}" alt="Banner" class="w-full h-32 object-cover"
+                                 onerror="this.parentElement.style.display='none'">
+                        </div>` : ''}
+                    ${avatar ? `
+                        <div class="rounded-2xl overflow-hidden border-3 border-black bg-white">
+                            <img src="${escapeHtml(avatar)}" alt="Foto profil"
+                                 class="w-full max-h-72 object-contain bg-white"
+                                 loading="eager"
+                                 onerror="this.closest('.rounded-2xl').style.display='none';">
+                        </div>` : ''}
+                    <div class="relative bg-yellow-300 border-3 border-black rounded-2xl p-3">
+                        <div class="flex items-center gap-3">
+                            ${avatar ? `
+                                <img src="${escapeHtml(avatar)}" alt="Foto profil"
+                                     class="w-24 h-24 rounded-2xl border-3 border-black object-cover bg-white shrink-0"
+                                     onerror="this.onerror=null;this.src='';this.style.display='none';">
+                            ` : `
+                                <div class="w-24 h-24 rounded-2xl border-3 border-black bg-white flex items-center justify-center shrink-0">
+                                    <i class="fa-solid fa-user text-3xl"></i>
+                                </div>`}
+                            <div class="min-w-0">
+                                <div class="font-black text-lg leading-tight break-words">${escapeHtml(name)}</div>
+                                ${uid ? `<div class="font-bold text-[10px] mt-1 break-all">ID: ${escapeHtml(uid)}</div>` : ''}
+                                ${region ? `<div class="font-black text-[9px] mt-1">🌐 ${escapeHtml(region)}</div>` : ''}
+                            </div>
+                        </div>
+                    </div>
+
+                    ${bio ? `<div class="bg-white border-2 border-black rounded-xl p-3 text-[10px] font-bold break-words">${escapeHtml(bio)}</div>` : ''}
+
+                    ${stats.length ? `
+                        <div class="grid grid-cols-2 gap-2">
+                            ${stats.map(([k,v]) => `<div class="bg-white border-2 border-black rounded-xl p-2 text-center">
+                                <div class="text-[8px] font-black text-gray-500">${escapeHtml(k)}</div>
+                                <div class="text-xs font-black break-all">${escapeHtml(v)}</div>
+                            </div>`).join('')}
+                        </div>` : ''}
+
+                    <div class="grid gap-2">
+                        ${stalkRows(data, [
+                            'avatar','avatar_url','avatarUrl','profile_picture','profile_picture_url',
+                            'profilePicture','profile_image','profileImage','photo','photo_url','image',
+                            'image_url','thumbnail','headshot','face','banner_image','banner','banner_url',
+                            'cover','cover_url'
+                        ])}
+                    </div>
+
+                    <details class="border-2 border-black rounded-xl bg-gray-50">
+                        <summary class="cursor-pointer p-2 font-black text-[10px]">RAW JSON</summary>
+                        <pre class="p-2 text-[9px] whitespace-pre-wrap break-all overflow-auto max-h-80">${escapeHtml(JSON.stringify(data,null,2))}</pre>
+                    </details>
+                </div>`;
+        }
+
+        async function runStalk(url, title, btnId, fallbackIdentity) {
+            const btn = document.getElementById(btnId);
+            const resultId = 'stalkResult';
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+            }
+            showToolResult(resultId, '<p class="text-blue-700 font-bold">Mengambil data...</p>');
+            try {
+                const result = await requestApiWithFallback(url, [], 30000);
+                const payload = result?.data;
+                if (payload && typeof payload === 'object' && payload.status === false) {
+                    throw new Error(payload.message || payload.error || 'API mengembalikan status false.');
+                }
+                showToolResult(resultId, `
+                    <div class="bg-green-50 border-2 border-black p-3 rounded-2xl">
+                        <p class="font-black text-green-800 mb-2">✓ ${escapeHtml(title)}</p>
+                        ${renderStalkResult(title, payload, fallbackIdentity)}
+                    </div>`);
+            } catch (err) {
+                showToolResult(resultId, `<div class="bg-red-50 border-2 border-red-600 p-3 rounded-xl text-red-700 font-bold">❌ ${escapeHtml(err?.message || 'API gagal dihubungi.')}</div>`);
+            } finally {
+                if (btn) btn.disabled = false;
+                if (btnId === 'ffStalkBtn') btn.innerHTML = '<i class="fa-solid fa-magnifying-glass"></i> CEK FREE FIRE';
+                if (btnId === 'igStalkBtn') btn.innerHTML = '<i class="fa-brands fa-instagram"></i> STALK INSTAGRAM';
+                if (btnId === 'robloxStalkBtn') btn.innerHTML = '<i class="fa-brands fa-roblox"></i> STALK ROBLOX';
+            }
+        }
+
+        function fetchFreeFireStalk() {
+            const uid = document.getElementById('ffStalkUidInput').value.trim();
+            runStalk(`https://api.ikyyxd.my.id/stalk/epepid?uid=${encodeURIComponent(uid)}`, 'FREE FIRE STALK', 'ffStalkBtn', uid);
+        }
+        function fetchInstagramStalk() {
+            const username = document.getElementById('igStalkUsernameInput').value.trim().replace(/^@/, '');
+            runStalk(`https://api.ikyyxd.my.id/stalk/igv2?username=${encodeURIComponent(username)}`, 'INSTAGRAM STALK', 'igStalkBtn', username);
+        }
+        function fetchRobloxStalk() {
+            const username = document.getElementById('robloxStalkUsernameInput').value.trim();
+            runStalk(`https://api.ikyyxd.my.id/stalk/roblox?username=${encodeURIComponent(username)}`, 'ROBLOX STALK', 'robloxStalkBtn', username);
+        }
+
+        async function sendNglMessage() {
+            const target = document.getElementById('nglTargetInput').value.trim();
+            const message = document.getElementById('nglMessageInput').value.trim();
+            const btn = document.getElementById('nglBtn');
+            if (!target || !message) { alert('Target dan pesan wajib diisi.'); return; }
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MENGIRIM...';
+            showToolResult('nglResult', '<p class="text-blue-700 font-bold">Menghubungi API NGL...</p>');
+            try {
+                const url = `https://api.ikyyxd.my.id/tools/nglspam?target=${encodeURIComponent(target)}&message=${encodeURIComponent(message)}`;
+                const result = await requestApiWithFallback(url, [], 30000);
+                const pretty = typeof result.data === 'string' ? result.data : JSON.stringify(result.data, null, 2);
+                showToolResult('nglResult', `<div class="bg-green-50 border-2 border-black p-2.5 rounded-xl space-y-2"><p class="font-black text-green-800">✅ Permintaan NGL berhasil dikirim.</p><pre class="whitespace-pre-wrap break-words text-[10px] font-bold">${escapeHtml(pretty)}</pre></div>`);
+            } catch (err) {
+                showToolResult('nglResult', `<div class="bg-red-50 border-2 border-red-600 p-2.5 rounded-xl text-red-700 font-bold">❌ ${escapeHtml(err?.message || 'Gagal mengirim pesan NGL.')}</div>`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> KIRIM PESAN';
+            }
+        }
+
+        async function fetchKodeposSiput() {
+            const q = document.getElementById('kodeposInput').value.trim();
+            const btn = document.getElementById('kodeposBtn');
+            const box = document.getElementById('kodeposResult');
+            if (!q) return alert('Masukkan nama wilayah.');
+            btn.disabled = true; box.classList.remove('hidden'); box.innerHTML = 'Mencari kodepos...';
+            try {
+                const r = await fetch(`https://api.siputzx.my.id/api/tools/kodepos?form=${encodeURIComponent(q)}`, {headers:{Accept:'application/json, text/plain, */*'}, cache:'no-store'});
+                const raw = await r.text();
+                if (!r.ok) throw new Error(`HTTP ${r.status}`);
+                let data; try { data=JSON.parse(raw); } catch { data=raw; }
+                box.innerHTML = `<div class="font-black text-green-800 mb-1">✓ KODEPOS</div><pre class="whitespace-pre-wrap break-words">${escapeHtml(typeof data==='string'?data:JSON.stringify(data,null,2))}</pre>`;
+            } catch(e) { box.innerHTML=`<div class="text-red-700">❌ ${escapeHtml(e.message||'Gagal mengambil kodepos.')}</div>`; }
+            finally { btn.disabled=false; }
+        }
+
+        async function fetchSswebSiput() {
+            let input = document.getElementById('sswebUrlInput').value.trim();
+            const device = document.getElementById('sswebDeviceInput').value;
+            const theme = document.getElementById('sswebThemeInput').value;
+            const fullPage = document.getElementById('sswebFullPageInput').checked;
+            const btn = document.getElementById('sswebBtn');
+            const box = document.getElementById('sswebResult');
+            if (!input) return alert('Masukkan URL website.');
+            if (!/^https?:\/\//i.test(input)) input = 'https://' + input;
+            try { new URL(input); } catch { return alert('URL website tidak valid.'); }
+            btn.disabled = true; box.classList.remove('hidden'); box.innerHTML = 'Mengambil screenshot...';
+            try {
+                const api = `https://api.siputzx.my.id/api/tools/ssweb?url=${encodeURIComponent(input)}&device=${encodeURIComponent(device)}&theme=${encodeURIComponent(theme)}&fullPage=${fullPage}`;
+                const r = await fetch(api, {cache:'no-store'});
+                const type = (r.headers.get('content-type') || '').toLowerCase();
+                if (!r.ok) throw new Error(`HTTP ${r.status}${r.status === 503 ? ' — server screenshot sedang tidak tersedia.' : ''}`);
+
+                // Jika API mengembalikan gambar langsung (binary), tampilkan sebagai Blob URL.
+                if (type.startsWith('image/')) {
+                    const blob = await r.blob();
+                    const imageUrl = URL.createObjectURL(blob);
+                    const safe = escapeHtml(imageUrl);
+                    box.innerHTML = `<div class="font-black text-green-800 mb-2">✓ SCREENSHOT BERHASIL</div><img src="${safe}" class="media-preview" alt="Website Screenshot" loading="lazy"><a href="${safe}" target="_blank" rel="noopener noreferrer" class="btn-flat btn-green-flat block text-center py-2 mt-2">BUKA GAMBAR</a>`;
+                    return;
+                }
+
+                const raw = await r.text();
+                let data;
+                try { data = JSON.parse(raw); } catch { data = raw.trim(); }
+
+                const looksLikeImage = v => typeof v === 'string' && /^(data:image\/|blob:|https?:\/\/)/i.test(v);
+                const findImage = v => {
+                    if (looksLikeImage(v)) return v;
+                    if (typeof v === 'string') {
+                        const m = v.match(/https?:\/\/[^\s"'<>]+/i);
+                        if (m) return m[0].replace(/[),.;]+$/, '');
+                        if (/^[A-Za-z0-9+/=\r\n]+$/.test(v) && v.length > 500) return 'data:image/png;base64,' + v.replace(/\s/g,'');
+                    }
+                    if (Array.isArray(v)) { for (const x of v) { const u = findImage(x); if (u) return u; } }
+                    if (v && typeof v === 'object') { for (const x of Object.values(v)) { const u = findImage(x); if (u) return u; } }
+                    return '';
+                };
+
+                const imageUrl = findImage(data);
+                if (!imageUrl) {
+                    const detail = typeof data === 'string' ? data.slice(0, 500) : JSON.stringify(data).slice(0, 500);
+                    throw new Error(`Respons API tidak berisi gambar. ${detail}`);
+                }
+                const safe = escapeHtml(imageUrl);
+                box.innerHTML = `<div class="font-black text-green-800 mb-2">✓ SCREENSHOT BERHASIL</div><img src="${safe}" class="media-preview" alt="Website Screenshot" loading="lazy"><input readonly value="${safe}" class="w-full border-2 border-black rounded-xl p-2 mt-2 text-[10px]"><a href="${safe}" target="_blank" rel="noopener noreferrer" class="btn-flat btn-green-flat block text-center py-2 mt-2">BUKA GAMBAR</a>`;
+            } catch(e) {
+                box.innerHTML = `<div class="text-red-700">❌ ${escapeHtml(e.message || 'Screenshot gagal.')}</div>`;
+            } finally { btn.disabled = false; }
+        }
+
+        async function uploadToCatbox() {
+            const input = document.getElementById('catboxFileInput');
+            const btn = document.getElementById('catboxBtn');
+            const file = input?.files?.[0];
+
+            if (!file) { alert('Pilih file terlebih dahulu.'); return; }
+
+            const MAX_SIZE = 200 * 1024 * 1024;
+            if (file.size > MAX_SIZE) {
+                showApiResult('catboxResult', `<div class="bg-red-50 border-2 border-red-600 rounded-xl p-3 text-red-700 font-bold">❌ File terlalu besar. Maksimal 200 MB.</div>`);
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> UPLOAD...';
+            const sizeMB = (file.size / 1024 / 1024).toFixed(2);
+            showApiResult('catboxResult', `<div class="bg-blue-50 border-2 border-blue-600 rounded-xl p-3 text-blue-800 font-bold"><i class="fa-solid fa-cloud-arrow-up"></i> Mengupload <b>${escapeHtml(file.name)}</b> (${sizeMB} MB) langsung ke Catbox...</div>`);
+
+            const form = new FormData();
+            form.append('reqtype', 'fileupload');
+            form.append('fileToUpload', file, file.name);
+
+            try {
+                const response = await fetch('https://catbox.moe/user/api.php', {
+                    method: 'POST', body: form, cache: 'no-store'
+                });
+                const raw = (await response.text()).trim();
+                if (!response.ok) throw new Error(`Catbox HTTP ${response.status}${raw ? `: ${raw}` : ''}`);
+                if (!/^https?:\/\/(?:files\.)?catbox\.moe\/[^\s]+$/i.test(raw)) {
+                    throw new Error(raw || 'Catbox tidak mengembalikan URL file yang valid.');
+                }
+
+                const safeUrl = escapeHtml(raw);
+                const isImage = /^image\//i.test(file.type);
+                const isVideo = /^video\//i.test(file.type);
+                const isAudio = /^audio\//i.test(file.type);
+                showApiResult('catboxResult', `
+                    <div class="bg-green-50 border-2 border-black rounded-2xl p-3 space-y-2">
+                        <p class="font-black text-green-800"><i class="fa-solid fa-circle-check"></i> UPLOAD CATBOX BERHASIL</p>
+                        <div class="text-[10px] font-bold text-gray-600">${escapeHtml(file.name)} • ${sizeMB} MB</div>
+                        ${isImage ? `<img src="${safeUrl}" alt="Preview Catbox" class="media-preview object-contain mt-2" loading="lazy">` : ''}
+                        ${isVideo ? `<video controls playsinline preload="metadata" class="media-preview mt-2"><source src="${safeUrl}" type="${escapeHtml(file.type || 'video/mp4')}"></video>` : ''}
+                        ${isAudio ? `<audio controls preload="metadata" class="w-full mt-2"><source src="${safeUrl}" type="${escapeHtml(file.type || 'audio/mpeg')}"></audio>` : ''}
+                        <input id="catboxUrlOutput" readonly value="${safeUrl}" class="w-full border-2 border-black rounded-xl p-2 text-[10px] font-bold bg-white">
+                        <div class="grid grid-cols-2 gap-2">
+                            <button type="button" onclick="navigator.clipboard.writeText(document.getElementById('catboxUrlOutput').value).then(()=>alert('URL disalin!')).catch(()=>alert('Gagal menyalin URL.'))" class="btn-flat btn-green-flat py-2 text-[10px] font-black"><i class="fa-solid fa-copy"></i> SALIN URL</button>
+                            <a href="${safeUrl}" target="_blank" rel="noopener noreferrer" class="btn-flat btn-green-flat py-2 text-[10px] font-black text-center"><i class="fa-solid fa-external-link"></i> BUKA FILE</a>
+                        </div>
+                    </div>`);
+            } catch (err) {
+                console.error('Catbox upload error:', err);
+                const message = err?.name === 'TypeError'
+                    ? 'Browser menolak koneksi langsung ke Catbox (biasanya karena CORS). File belum tentu terupload.'
+                    : (err?.message || 'Gagal mengupload ke Catbox.');
+                showApiResult('catboxResult', `<div class="bg-red-50 border-2 border-red-600 rounded-xl p-3 text-red-700 font-bold space-y-1"><div>❌ UPLOAD CATBOX GAGAL</div><div class="text-[10px] break-words">${escapeHtml(message)}</div><div class="text-[9px] mt-2">Endpoint: <b>https://catbox.moe/user/api.php</b></div></div>`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD KE CATBOX';
+            }
+        }
+
+        function switchToolTab(tab) {
+            document.getElementById('pageHub').classList.add('hidden');
+            document.getElementById('pageCatalog').classList.add('hidden');
+            document.getElementById('pageToolsContainer').classList.remove('hidden');
+
+            const tabs = {
+                tiktok: ['tabTiktokBtn', 'toolTiktokContent'],
+                sfl: ['tabSflBtn', 'toolSflContent'],
+                sub4lock: ['tabSub4lockBtn', 'toolSub4lockContent'],
+                ai: ['tabAiBtn', 'toolAiContent'],
+                instagram: ['tabInstagramBtn', 'toolInstagramContent'],
+                facebook: ['tabFacebookBtn', 'toolFacebookContent'],
+                videy: ['tabVideyBtn', 'toolVideyContent'],
+                capcut: ['tabCapcutBtn', 'toolCapcutContent'],
+                ttstalk: ['tabTtstalkBtn', 'toolTtstalkContent'],
+                nik: ['tabNikBtn', 'toolNikContent'],
+                anime: ['tabAnimeBtn', 'toolAnimeContent'],
+                stalk: ['tabStalkBtn', 'toolStalkContent'],
+                ngl: ['tabNglBtn', 'toolNglContent'],
+                catbox: ['tabCatboxBtn', 'toolCatboxContent'],
+                toolsv2: ['tabToolsv2Btn', 'toolToolsv2Content']
+            };
+
+            Object.values(tabs).forEach(([btnId, contentId]) => {
+                const btn = document.getElementById(btnId);
+                const content = document.getElementById(contentId);
+                if (btn) btn.className = "w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-white text-black flex items-center gap-2 shadow-[0_3px_0px_#000]";
+                if (content) content.classList.add('hidden');
+            });
+
+            if (tabs[tab]) {
+                const [btnId, contentId] = tabs[tab];
+                document.getElementById(btnId).className = "w-full text-left py-2.5 px-3 text-xs font-black border-2 border-black rounded-xl bg-yellow-300 text-black flex items-center gap-2 shadow-[0_3px_0px_#000]";
+                document.getElementById(contentId).classList.remove('hidden');
+            }
+        }
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, ch => ({
+                '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#039;'
+            }[ch]));
+        }
+
+        function normalizeMediaUrl(url) {
+            if (!url) return '';
+            try {
+                const u = new URL(String(url));
+                u.hash = '';
+                return u.href;
+            } catch {
+                return String(url).trim().replace(/[),.;]+$/, '');
+            }
+        }
+
+        function isVideoUrl(url) {
+            const s = String(url || '');
+            return /\.(mp4|webm|mov|m4v|m3u8)(\?|#|$)/i.test(s) ||
+                   /(?:video|play|stream|media|download)/i.test(s);
+        }
+
+        function isImageUrl(url) {
+            return /\.(jpg|jpeg|png|webp|gif)(\?|#|$)/i.test(String(url || ''));
+        }
+
+        // Ambil URL video dari response API berdasarkan nama field + bentuk URL.
+        // Ini mencegah CapCut/IG memilih URL halaman/poster sebagai video.
+        function findMediaDeep(value, depth = 0, keyHint = '') {
+            if (depth > 12 || value == null) return { video: '', image: '', page: '' };
+
+            if (typeof value === 'string') {
+                const matches = value.match(/https?:\/\/[^\s"'<>\\]+/ig) || [];
+                let best = { video: '', image: '', page: '' };
+
+                for (const raw of matches) {
+                    const url = normalizeMediaUrl(raw);
+                    const low = (keyHint + ' ' + url).toLowerCase();
+
+                    if (!best.video && (
+                        /\.(mp4|webm|mov|m4v|m3u8)(\?|#|$)/i.test(url) ||
+                        /(video_url|videourl|download_url|downloadurl|nowm|no_watermark|play_url|playurl|stream|video)/i.test(low)
+                    )) {
+                        best.video = url;
+                    } else if (!best.image && isImageUrl(url)) {
+                        best.image = url;
+                    } else if (!best.page && /^https?:\/\//i.test(url)) {
+                        best.page = url;
+                    }
+                }
+                return best;
+            }
+
+            if (Array.isArray(value)) {
+                for (const item of value) {
+                    const found = findMediaDeep(item, depth + 1, keyHint);
+                    if (found.video || found.image || found.page) return found;
+                }
+                return { video: '', image: '', page: '' };
+            }
+
+            if (typeof value === 'object') {
+                const preferred = [
+                    'video','videoUrl','video_url','download','downloadUrl','download_url',
+                    'nowm','noWatermark','no_watermark','play','playUrl','play_url',
+                    'stream','streamUrl','stream_url','media','mediaUrl','media_url'
+                ];
+
+                for (const key of preferred) {
+                    if (key in value) {
+                        const found = findMediaDeep(value[key], depth + 1, key);
+                        if (found.video) return found;
+                    }
+                }
+
+                let result = { video: '', image: '', page: '' };
+                for (const [key, child] of Object.entries(value)) {
+                    const found = findMediaDeep(child, depth + 1, key);
+                    if (!result.video && found.video) result.video = found.video;
+                    if (!result.image && found.image) result.image = found.image;
+                    if (!result.page && found.page) result.page = found.page;
+                    if (result.video && result.image) break;
+                }
+                return result;
+            }
+
+            return { video: '', image: '', page: '' };
+        }
+
+        function findUrlDeep(value, depth = 0) {
+            return findMediaDeep(value, depth).video || findMediaDeep(value, depth).page || '';
+        }
+
+        function renderVideoElement(url, poster = '') {
+            const safe = escapeHtml(url);
+            const safePoster = poster ? ` poster="${escapeHtml(poster)}"` : '';
+            const id = 'mediaPreview_' + Math.random().toString(36).slice(2, 9);
+
+            if (/\.m3u8(\?|#|$)/i.test(url)) {
+                return `
+                    <video id="${id}" controls playsinline preload="metadata"
+                           class="media-preview" data-hls="${safe}"${safePoster}>
+                        Browser Anda tidak mendukung preview HLS.
+                    </video>
+                `;
+            }
+
+            return `
+                <video id="${id}" controls playsinline preload="metadata"
+                       class="media-preview" src="${safe}"${safePoster}>
+                    Browser Anda tidak mendukung preview video.
+                </video>
+            `;
+        }
+
+        function initMediaPlayers(root = document) {
+            root.querySelectorAll('video[data-hls]').forEach(video => {
+                const src = video.dataset.hls;
+                if (window.Hls && Hls.isSupported()) {
+                    const hls = new Hls({ enableWorker: true });
+                    hls.loadSource(src);
+                    hls.attachMedia(video);
+                    video._hls = hls;
+                } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+                    video.src = src;
+                }
+            });
+        }
+
+        async function requestApiWithFallback(primaryUrl, fallbackUrls = [], timeoutMs = 30000) {
+            const urls = [primaryUrl, ...fallbackUrls.filter(Boolean)];
+            let lastError = null;
+
+            for (let i = 0; i < urls.length; i++) {
+                const controller = new AbortController();
+                const timer = setTimeout(() => controller.abort(), timeoutMs);
+                try {
+                    const response = await fetch(urls[i], {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json, text/plain, */*' },
+                        signal: controller.signal,
+                        cache: 'no-store'
+                    });
+                    clearTimeout(timer);
+
+                    const raw = await response.text();
+                    let data;
+                    try { data = JSON.parse(raw); } catch { data = raw; }
+
+                    if (!response.ok) {
+                        const msg = typeof data === 'object' ? (data.message || data.error || data.msg || '') : '';
+                        throw new Error(msg || `HTTP ${response.status}`);
+                    }
+                    if (data && typeof data === 'object' && data.success === false) {
+                        throw new Error(data.message || data.error || data.msg || 'API mengembalikan success=false');
+                    }
+
+                    return { data, source: i === 0 ? 'primary' : 'fallback' };
+                } catch (err) {
+                    clearTimeout(timer);
+                    lastError = err;
+                }
+            }
+            throw lastError || new Error('Semua API gagal');
+        }
+
+        function showApiResult(id, html) {
+            document.getElementById(id).classList.remove('hidden');
+            document.getElementById(id + 'Data').innerHTML = html;
+        }
+
+        function renderMediaResult(id, result, label = 'VIDEO SIAP') {
+            const media = findMediaDeep(result.data);
+            const url = media.video || media.page;
+
+            if (!url) throw new Error('API aktif, tetapi URL media tidak ditemukan');
+
+            const source = result.source === 'primary' ? 'API UTAMA' : 'API FALLBACK';
+            const isVideo = !!media.video || isVideoUrl(url);
+            const poster = media.image || '';
+
+            showApiResult(id, `
+                <div class="space-y-2">
+                    <span class="api-status ${result.source === 'primary' ? 'primary' : 'fallback'}">${source}</span>
+                    <p class="font-black text-green-700">${escapeHtml(label)}</p>
+
+                    ${isVideo ? `
+                        <div class="bg-black rounded-xl overflow-hidden border-2 border-black">
+                            ${renderVideoElement(media.video || url, poster)}
+                        </div>
+                        <p class="text-[9px] font-bold text-gray-500">
+                            Preview video tersedia. Tekan tombol download jika ingin menyimpan.
+                        </p>
+                    ` : `
+                        ${poster ? `<img src="${escapeHtml(poster)}" class="media-preview object-cover" alt="Preview">` : ''}
+                        <p class="text-[10px] font-bold text-orange-700">
+                            API mengembalikan link halaman, bukan file video langsung.
+                        </p>
+                    `}
+
+                    <a href="${escapeHtml(url)}" target="_blank" rel="noopener noreferrer"
+                       class="btn-flat btn-green-flat block text-center py-2 text-xs">
+                        <i class="fa-solid fa-download"></i> BUKA / DOWNLOAD
+                    </a>
+                </div>
+            `);
+
+            initMediaPlayers(document.getElementById(id));
+        }
+
+
+
+        async function fetchNikAuto() {
+            const nik = document.getElementById('nikInput').value.trim();
+            const btn = document.getElementById('nikBtn');
+
+            if (!/^\d{16}$/.test(nik)) {
+                alert('NIK harus terdiri dari 16 digit angka.');
+                return;
+            }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+            showApiResult('nikResult', '<p class="font-bold text-blue-700">Menghubungi API NIK...</p>');
+
+            try {
+                const result = await requestApiWithFallback(
+                    `https://api.ikyyxd.my.id/tools/nikparser?nik=${encodeURIComponent(nik)}`,
+                    [],
+                    30000
+                );
+
+                const data = result.data;
+                const pretty = typeof data === 'string'
+                    ? data
+                    : JSON.stringify(data, null, 2);
+
+                showApiResult('nikResult', `
+                    <div class="space-y-2">
+                        <span class="api-status primary">API NIK</span>
+                        <pre class="whitespace-pre-wrap break-words text-[10px] font-bold bg-gray-50 border-2 border-black rounded-xl p-3 overflow-auto max-h-[55vh]">${escapeHtml(pretty)}</pre>
+                    </div>
+                `);
+            } catch (err) {
+                showApiResult('nikResult', `
+                    <div class="text-red-700 font-bold">
+                        <i class="fa-solid fa-circle-xmark"></i>
+                        Gagal memproses NIK: ${escapeHtml(err.message || 'API gagal merespons')}
+                    </div>
+                `);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-id-card"></i> CEK NIK';
+            }
+        }
+
+
+
+
+        // Anime metadata + episode/stream API.
+        // Prexzy exposes search/detail/episodes/stream endpoints without an API key.
+        const ANIME_STREAM_API = 'https://prexzyapis.com';
+
+        async function animeApi(path, params = {}) {
+            const qs = new URLSearchParams(params).toString();
+            const url = `${ANIME_STREAM_API}${path}${qs ? '?' + qs : ''}`;
+            const r = await fetch(url, { headers: { Accept: 'application/json' }, cache: 'no-store' });
+            if (!r.ok) throw new Error(`Anime API HTTP ${r.status}`);
+            const j = await r.json();
+            if (j?.success === false) throw new Error(j.message || 'Anime API gagal');
+            return j;
+        }
+
+        async function jikanRequest(path) {
+            const r = await fetch(`https://api.jikan.moe/v4${path}`, { headers: { Accept: 'application/json' }, cache: 'no-store' });
+            if (!r.ok) throw new Error(`Jikan HTTP ${r.status}`);
+            return r.json();
+        }
+
+        function pickArray(x) {
+            if (Array.isArray(x)) return x;
+            for (const k of ['data','results','anime','items','episodes']) {
+                if (Array.isArray(x?.[k])) return x[k];
+                if (Array.isArray(x?.data?.[k])) return x.data[k];
+            }
+            return [];
+        }
+
+        function pickId(x) {
+            return x?.anime_id ?? x?.animeId ?? x?.id ?? x?.mal_id ?? x?.slug ?? x?.url ?? '';
+        }
+
+        function animeTitle(a) {
+            return a?.title?.english || a?.title?.romaji || a?.title?.native ||
+                   a?.title || a?.name || a?.anime_name || 'Unknown';
+        }
+
+        function animeImage(a) {
+            return a?.images?.jpg?.large_image_url ||
+                   a?.images?.jpg?.image_url ||
+                   a?.coverImage?.large ||
+                   a?.coverImage?.medium ||
+                   a?.image || a?.poster || a?.thumbnail || '';
+        }
+
+        function renderAnimeCards(items) {
+            const box = document.getElementById('animeResult');
+            const data = document.getElementById('animeResultData');
+            box.classList.remove('hidden');
+
+            if (!items.length) {
+                data.innerHTML = `<div class="col-span-2 text-center font-black text-xs p-5 border-2 border-black rounded-xl">Anime tidak ditemukan.</div>`;
+                return;
+            }
+
+            data.innerHTML = items.slice(0, 18).map(a => {
+                const title = animeTitle(a);
+                const id = String(pickId(a));
+                const img = animeImage(a);
+                return `
+                    <button type="button" onclick="openAnimeDetail(${JSON.stringify(id)}, ${JSON.stringify(title)})"
+                            class="anime-card text-left">
+                        ${img ? `<img src="${escapeHtml(img)}" alt="${escapeHtml(title)}" loading="lazy">`
+                              : `<div class="h-[210px] bg-gray-200 grid place-items-center font-black text-xs">NO IMAGE</div>`}
+                        <div class="anime-card-body">
+                            <div class="anime-card-title">${escapeHtml(title)}</div>
+                            <span class="anime-chip">▶ EPISODE</span>
+                        </div>
+                    </button>`;
+            }).join('');
+        }
+
+        async function searchAnime() {
+            const q = document.getElementById('animeSearchInput').value.trim();
+            if (!q) return alert('Masukkan nama anime!');
+
+            const box = document.getElementById('animeResult');
+            const data = document.getElementById('animeResultData');
+            box.classList.remove('hidden');
+            data.innerHTML = `<div class="col-span-2 text-center font-black text-xs p-5">Mencari anime...</div>`;
+
+            try {
+                const j = await animeApi('/anime/animekill-search', { query: q });
+                const results = pickArray(j);
+                renderAnimeCards(results);
+            } catch (e) {
+                // Metadata fallback only if the streaming API search is unavailable.
+                try {
+                    const j = await jikanRequest(`/anime?q=${encodeURIComponent(q)}&limit=12`);
+                    renderAnimeCards(j.data || []);
+                    data.insertAdjacentHTML('afterbegin',
+                        `<div class="col-span-2 text-[9px] font-bold opacity-60">Sumber streaming sedang tidak tersedia; hasil ini berasal dari metadata Jikan.</div>`);
+                } catch (e2) {
+                    data.innerHTML = `<div class="col-span-2 text-red-700 font-black text-xs p-4">${escapeHtml(e.message || e2.message)}</div>`;
+                }
+            }
+        }
+
+        async function resolveAnimeId(id, title) {
+            if (id) {
+                try {
+                    const detail = await animeApi('/anime/animekill-detail', { anime_id: id });
+                    if (detail) return id;
+                } catch (_) {}
+            }
+
+            // Resolve a Jikan/fallback result to the streaming provider by title.
+            if (title) {
+                const s = await animeApi('/anime/animekill-search', { query: title });
+                const arr = pickArray(s);
+                if (arr[0]) return String(pickId(arr[0]));
+            }
+            throw new Error('Anime tidak ditemukan di sumber streaming.');
+        }
+
+        async function openAnimeDetail(id, title) {
+            const detailBox = document.getElementById('animeDetail');
+            const box = document.getElementById('animeDetailData');
+            detailBox.classList.remove('hidden');
+            box.innerHTML = `<div class="text-center font-black text-xs p-4">Mengambil episode...</div>`;
+            detailBox.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            try {
+                const resolved = await resolveAnimeId(id, title);
+                const info = await animeApi('/anime/animekill-detail', { anime_id: resolved });
+                const a = info?.data || info?.result || info?.results || info;
+                const realTitle = animeTitle(a) !== 'Unknown' ? animeTitle(a) : title;
+                const img = animeImage(a);
+
+                const epResponse = await animeApi('/anime/animekill-episodes', { anime_id: resolved });
+                const episodes = pickArray(epResponse);
+
+                box.innerHTML = `
+                    <div class="flex gap-3 mb-3">
+                        ${img ? `<img src="${escapeHtml(img)}" class="w-24 h-36 object-cover rounded-xl border-2 border-black">` : ''}
+                        <div class="flex-1">
+                            <h3 class="font-black text-sm">${escapeHtml(realTitle)}</h3>
+                            <p class="text-[10px] font-bold mt-2">${escapeHtml(a?.description || a?.synopsis || 'Pilih episode untuk menonton.')}</p>
+                        </div>
+                    </div>
+                    <div class="text-[10px] font-black mb-2">EPISODE</div>
+                    <div id="animeEpisodes" class="grid grid-cols-4 sm:grid-cols-6 gap-2"></div>`;
+
+                const epBox = document.getElementById('animeEpisodes');
+                if (!episodes.length) {
+                    epBox.innerHTML = `<div class="col-span-full text-[10px] font-bold opacity-60">Episode tidak tersedia.</div>`;
+                    return;
+                }
+
+                epBox.innerHTML = episodes.map((ep, i) => {
+                    const n = ep?.episode ?? ep?.episode_number ?? ep?.episodeNumber ?? ep?.number ?? i + 1;
+                    return `<button type="button" onclick="playAnimeEpisode(${JSON.stringify(resolved)}, ${JSON.stringify(String(n))}, ${JSON.stringify(realTitle + ' — Episode ' + n)})"
+                                class="btn-flat py-2 text-[9px]">EP ${escapeHtml(String(n))}</button>`;
+                }).join('');
+            } catch (e) {
+                box.innerHTML = `<div class="text-red-700 font-black text-xs p-3 border-2 border-red-600 rounded-xl">${escapeHtml(e.message || 'Gagal memuat anime.')}</div>`;
+            }
+        }
+
+        function findStreamUrl(value) {
+            if (!value) return '';
+            if (typeof value === 'string') return /^https?:\/\//i.test(value) ? value : '';
+            if (Array.isArray(value)) {
+                for (const x of value) {
+                    const u = findStreamUrl(x);
+                    if (u) return u;
+                }
+            }
+            if (typeof value === 'object') {
+                for (const k of ['url','file','stream','stream_url','streamUrl','source','src','video','link']) {
+                    const u = findStreamUrl(value[k]);
+                    if (u) return u;
+                }
+                for (const x of Object.values(value)) {
+                    const u = findStreamUrl(x);
+                    if (u) return u;
+                }
+            }
+            return '';
+        }
+
+        async function playAnimeEpisode(animeId, epNum, title) {
+            const player = document.getElementById('animePlayer');
+            const video = document.getElementById('animeVideo');
+            const status = document.getElementById('animePlayerStatus');
+            const playerTitle = document.getElementById('animePlayerTitle');
+
+            player.classList.remove('hidden');
+            playerTitle.textContent = title || 'Anime';
+            status.textContent = 'Mencari server video...';
+            player.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+            try {
+                const r = await animeApi('/anime/animekill-stream', {
+                    anime_id: animeId,
+                    ep_num: epNum
+                });
+                const url = findStreamUrl(r);
+                if (!url) throw new Error('API tidak mengembalikan URL video.');
+
+                // Use the existing MP4/HLS player.
+                document.getElementById('animeStreamUrl')?.setAttribute('value', url);
+                if (typeof playAnimeUrl === 'function') {
+                    playAnimeUrl(url);
+                } else {
+                    video.src = url;
+                    video.load();
+                    await video.play().catch(() => {});
+                }
+                status.textContent = 'Video ditemukan. Memutar...';
+            } catch (e) {
+                status.textContent = 'Gagal memutar episode: ' + (e.message || 'stream tidak tersedia');
+            }
+        }
+
+        async function loadAnimeTop() {
+            try {
+                const j = await animeApi('/anime/animekill-home');
+                renderAnimeCards(pickArray(j));
+            } catch (e) {
+                const j = await jikanRequest('/top/anime?limit=12');
+                renderAnimeCards(j.data || []);
+            }
+        }
+
+        async function loadAnimeSeason() {
+            try {
+                const j = await jikanRequest('/seasons/now?limit=12');
+                renderAnimeCards(j.data || []);
+            } catch (e) {
+                document.getElementById('animeResultData').innerHTML =
+                    `<div class="col-span-2 text-red-700 font-black text-xs p-4">${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+        async function loadAnimeSchedule() {
+            try {
+                const j = await animeApi('/anime/animekill-schedule');
+                renderAnimeCards(pickArray(j));
+            } catch (e) {
+                document.getElementById('animeResultData').innerHTML =
+                    `<div class="col-span-2 text-red-700 font-black text-xs p-4">${escapeHtml(e.message)}</div>`;
+            }
+        }
+
+
+        let animeHls = null;
+
+        function playAnimeUrl(url) {
+            const video = document.getElementById('animeVideo');
+            const status = document.getElementById('animePlayerStatus');
+            if (!url) throw new Error('URL video kosong.');
+
+            if (animeHls) {
+                animeHls.destroy();
+                animeHls = null;
+            }
+
+            const isHls = /\.m3u8($|[?#])/i.test(url);
+            if (isHls && window.Hls && Hls.isSupported()) {
+                animeHls = new Hls({ enableWorker: true });
+                animeHls.loadSource(url);
+                animeHls.attachMedia(video);
+                animeHls.on(Hls.Events.MANIFEST_PARSED, () => {
+                    status.textContent = 'HLS siap. Memutar...';
+                    video.play().catch(() => {});
+                });
+                animeHls.on(Hls.Events.ERROR, (_, data) => {
+                    if (data?.fatal) status.textContent = 'Stream HLS tidak bisa diputar dari browser.';
+                });
+            } else {
+                video.src = url;
+                video.load();
+                video.onloadedmetadata = () => video.play().catch(() => {});
+                video.onerror = () => {
+                    status.textContent = 'Video gagal dimuat. Server mungkin memblokir CORS atau URL sudah kedaluwarsa.';
+                };
+            }
+        }
+
+        function closeAnimePlayer() {
+            const video = document.getElementById('animeVideo');
+            if (animeHls) { animeHls.destroy(); animeHls = null; }
+            video.pause();
+            video.removeAttribute('src');
+            video.load();
+            document.getElementById('animePlayer').classList.add('hidden');
+        }
+
+        async function fetchGenericDownload(type, inputId, btnId, resultId, endpoint, fallbackUrls = []) {
+            const input = document.getElementById(inputId).value.trim();
+            const btn = document.getElementById(btnId);
+            if (!input) { alert('Masukkan link terlebih dahulu!'); return; }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+            showApiResult(resultId, '<p class="font-bold text-blue-700">Menghubungi API...</p>');
+
+            try {
+                const primary = `https://api.ikyyxd.my.id${endpoint}${encodeURIComponent(input)}`;
+                const result = await requestApiWithFallback(primary, fallbackUrls);
+                renderMediaResult(resultId, result, `${type.toUpperCase()} SIAP`);
+            } catch (err) {
+                showApiResult(resultId, `<div class="text-red-700 font-bold"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(err.message || 'Semua API gagal')}</div>`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = `<i class="fa-solid fa-download"></i> DOWNLOAD ${type.toUpperCase()}`;
+            }
+        }
+
+        function useAiSuggestion(text) {
+            const input = document.getElementById('aiPromptInput');
+            input.value = text;
+            input.focus();
+            autoResizeAiInput(input);
+        }
+
+        function autoResizeAiInput(el) {
+            el.style.height = 'auto';
+            el.style.height = Math.min(el.scrollHeight, 130) + 'px';
+        }
+
+        function clearAiChat() {
+            const box = document.getElementById('aiChatMessages');
+            box.innerHTML = `
+                <div id="aiWelcome" class="ai-welcome">
+                    <div class="ai-welcome-logo">C</div>
+                    <h2 class="font-black text-xl mt-3">Halo! Saya ⲂⲌⲬ ⲀⲒ 👋</h2>
+                    <p class="text-xs font-semibold opacity-65 mt-1">Ada yang bisa saya bantu?</p>
+                    <div class="ai-suggestions">
+                        <button onclick="useAiSuggestion('Jelaskan sesuatu dengan sederhana')">Jelaskan sesuatu</button>
+                        <button onclick="useAiSuggestion('Buatkan kode Python sederhana')">Buat kode</button>
+                        <button onclick="useAiSuggestion('Bantu saya membuat ide project')">Cari ide project</button>
+                        <button onclick="useAiSuggestion('Terjemahkan teks ini ke bahasa Indonesia')">Terjemahkan</button>
+                    </div>
+                </div>`;
+            document.getElementById('aiPromptInput').value = '';
+            autoResizeAiInput(document.getElementById('aiPromptInput'));
+        }
+
+        // ===== ⲂⲌⲬ ⲀⲒ MULTIMEDIA =====
+        let aiAttachments = [];
+        let aiMediaRecorder = null;
+        let aiAudioChunks = [];
+
+        function renderAiAttachmentPreview() {
+            const box = document.getElementById('aiAttachmentPreview');
+            if (!box) return;
+            box.innerHTML = '';
+            aiAttachments.forEach((item, i) => {
+                const chip = document.createElement('div');
+                chip.className = 'ai-attachment-chip';
+                const visual = item.kind === 'image'
+                    ? `<img src="${item.url}" alt="">`
+                    : `<i class="fa-solid ${item.kind === 'audio' ? 'fa-microphone-lines' : 'fa-file-lines'} text-lg"></i>`;
+                chip.innerHTML = `${visual}<span>${escapeHtml(item.file.name)}</span>
+                    <button class="remove" type="button" onclick="removeAiAttachment(${i})">×</button>`;
+                box.appendChild(chip);
+            });
+        }
+
+        function removeAiAttachment(i) {
+            const item = aiAttachments[i];
+            if (item?.url) URL.revokeObjectURL(item.url);
+            aiAttachments.splice(i, 1);
+            renderAiAttachmentPreview();
+        }
+
+        function handleAiFiles(list) {
+            [...list].forEach(file => {
+                if (!file) return;
+                if (file.size > 25 * 1024 * 1024) {
+                    alert(file.name + ': ukuran maksimal 25 MB.');
+                    return;
+                }
+                const kind = file.type.startsWith('image/') ? 'image' :
+                             file.type.startsWith('audio/') ? 'audio' : 'file';
+                aiAttachments.push({file, kind, url: URL.createObjectURL(file)});
+            });
+            renderAiAttachmentPreview();
+        }
+
+        function appendAiMessage(role, text, typing = false, attachments = []) {
+            const box = document.getElementById('aiChatMessages');
+            document.getElementById('aiWelcome')?.remove();
+
+            const row = document.createElement('div');
+            row.className = `ai-message ${role}`;
+
+            const body = document.createElement('div');
+            body.className = 'ai-msg-body';
+
+            if (role === 'assistant') {
+                const avatar = document.createElement('div');
+                avatar.className = 'ai-msg-avatar';
+                avatar.textContent = 'C';
+                row.appendChild(avatar);
+            }
+
+            if (typing) {
+                body.innerHTML = '<div class="ai-typing"><span></span><span></span><span></span></div>';
+            } else {
+                if (text) {
+                    body.insertAdjacentHTML('beforeend',
+                        role === 'assistant' ? formatAiText(text) : escapeHtml(text).replace(/\n/g, '<br>'));
+                }
+
+                attachments.forEach(item => {
+                    if (item.kind === 'image') {
+                        const img = document.createElement('img');
+                        img.className = 'ai-msg-media';
+                        img.src = item.url;
+                        img.alt = item.file.name;
+                        body.appendChild(img);
+                    } else if (item.kind === 'audio') {
+                        const audio = document.createElement('audio');
+                        audio.className = 'ai-msg-audio';
+                        audio.controls = true;
+                        audio.src = item.url;
+                        body.appendChild(audio);
+                    } else {
+                        const f = document.createElement('div');
+                        f.className = 'ai-msg-file';
+                        f.innerHTML = `<i class="fa-solid fa-file-lines"></i>
+                            <a href="${item.url}" target="_blank" rel="noopener">${escapeHtml(item.file.name)}</a>`;
+                        body.appendChild(f);
+                    }
+                });
+            }
+
+            row.appendChild(body);
+            box.appendChild(row);
+            box.scrollTop = box.scrollHeight;
+            return row;
+        }
+
+        function formatAiText(text) {
+            let s = escapeHtml(text || '');
+            s = s.replace(/```([\s\S]*?)```/g, '<pre>$1</pre>');
+            s = s.replace(/`([^`]+)`/g, '<code>$1</code>');
+            s = s.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+            s = s.replace(/\n/g, '<br>');
+            return s;
+        }
+
+        async function toggleAiVoice() {
+            const mic = document.getElementById('aiMicBtn');
+
+            if (aiMediaRecorder?.state === 'recording') {
+                aiMediaRecorder.stop();
+                return;
+            }
+
+            if (!navigator.mediaDevices?.getUserMedia || !window.MediaRecorder) {
+                alert('Browser ini belum mendukung perekaman suara.');
+                return;
+            }
+
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+                aiAudioChunks = [];
+                const mime = MediaRecorder.isTypeSupported('audio/webm;codecs=opus')
+                    ? 'audio/webm;codecs=opus' : 'audio/webm';
+
+                aiMediaRecorder = new MediaRecorder(stream, {mimeType:mime});
+                aiMediaRecorder.ondataavailable = e => { if (e.data.size) aiAudioChunks.push(e.data); };
+                aiMediaRecorder.onstop = () => {
+                    stream.getTracks().forEach(t => t.stop());
+                    mic.classList.remove('recording');
+                    mic.innerHTML = '<i class="fa-solid fa-microphone"></i>';
+                    const blob = new Blob(aiAudioChunks, {type:mime});
+                    if (blob.size) {
+                        handleAiFiles([new File([blob], `BZX-AI-Voice-${Date.now()}.webm`, {type:mime})]);
+                    }
+                };
+
+                aiMediaRecorder.start();
+                mic.classList.add('recording');
+                mic.innerHTML = '<i class="fa-solid fa-stop"></i>';
+            } catch (e) {
+                alert('Mikrofon tidak bisa digunakan: ' + (e.message || 'izin ditolak'));
+            }
+        }
+
+        async function aiReadTextFile(file) {
+            if (file.type.startsWith('text/') || /\.(txt|md|csv|json|js|html|css|py|java|xml)$/i.test(file.name)) {
+                try { return (await file.text()).slice(0, 30000); } catch (_) {}
+            }
+            return '';
+        }
+
+
+
+
+        // ===== ⲂⲌⲬ ⲀⲒ • STATIC HTML / SHARED GROQ KEY =====
+        // Static-only website: every visitor uses this key.
+        // IMPORTANT: anyone can inspect the HTML and extract the key.
+        // Use a NEW key here; never reuse the key previously exposed.
+        const BZX_GROQ_SHARED_KEY = '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';
+        const GROQ_TEXT_MODEL = 'openai/gpt-oss-20b';
+        const GROQ_VISION_MODEL = 'qwen/qwen3.6-27b';
+
+        function getBzxGroqKey() {
+            return BZX_GROQ_SHARED_KEY.trim();
+        }
+
+        function updateBzxGroqStatus() {
+            const el = document.getElementById('bzxGroqStatus');
+            if (el) el.textContent = '● BZX AI aktif • shared key';
+        }
+
+        function imageToDataUrl(file) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                const url = URL.createObjectURL(file);
+                img.onload = () => {
+                    URL.revokeObjectURL(url);
+                    const maxSide = 1600;
+                    const scale = Math.min(1, maxSide / Math.max(img.width, img.height));
+                    const canvas = document.createElement('canvas');
+                    canvas.width = Math.max(1, Math.round(img.width * scale));
+                    canvas.height = Math.max(1, Math.round(img.height * scale));
+                    const ctx = canvas.getContext('2d', {alpha:false});
+                    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+                    let quality = 0.82;
+                    let dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    while (dataUrl.length > 4_500_000 && quality > 0.40) {
+                        quality -= 0.08;
+                        dataUrl = canvas.toDataURL('image/jpeg', quality);
+                    }
+                    if (dataUrl.length > 4_500_000) {
+                        reject(new Error('Gambar terlalu besar. Pilih gambar yang lebih kecil.'));
+                    } else {
+                        resolve(dataUrl);
+                    }
+                };
+                img.onerror = () => {
+                    URL.revokeObjectURL(url);
+                    reject(new Error('Browser tidak bisa membaca gambar.'));
+                };
+                img.src = url;
+            });
+        }
+
+        async function requestBzxGroq(prompt, attachments) {
+            const key = getBzxGroqKey();
+            if (!key || key === 'PASTE_NEW_GROQ_KEY_HERE') {
+                throw new Error('BZX_GROQ_SHARED_KEY belum diisi di index.html.');
+            }
+
+            const content = [{
+                type: 'text',
+                text: prompt || 'Analisis lampiran ini dan jawab dalam bahasa Indonesia.'
+            }];
+
+            const images = (attachments || []).filter(x => x.kind === 'image').slice(0, 5);
+            const files = (attachments || []).filter(x => x.kind === 'file').slice(0, 3);
+
+            for (const item of images) {
+                content.push({
+                    type: 'image_url',
+                    image_url: { url: await imageToDataUrl(item.file) }
+                });
+            }
+
+            for (const item of files) {
+                if (typeof aiReadTextFile === 'function') {
+                    const text = await aiReadTextFile(item.file);
+                    if (text) content.push({
+                        type: 'text',
+                        text: `\n[Dokumen ${item.file.name}]\n${text.slice(0, 30000)}`
+                    });
+                }
+            }
+
+            const response = await fetch(
+                'https://api.groq.com/openai/v1/chat/completions',
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${key}`
+                    },
+                    body: JSON.stringify({
+                        model: images.length ? GROQ_VISION_MODEL : GROQ_TEXT_MODEL,
+                        messages: [{role:'user', content}],
+                        temperature: 0.7,
+                        max_completion_tokens: 1024,
+                        stream: false
+                    })
+                }
+            );
+
+            const raw = await response.text();
+            let data;
+            try { data = JSON.parse(raw); }
+            catch { data = {error:{message:raw}}; }
+
+            if (!response.ok) {
+                throw new Error(data?.error?.message || `Groq HTTP ${response.status}`);
+            }
+
+            const answer = data?.choices?.[0]?.message?.content;
+            if (!answer) throw new Error('Groq tidak mengembalikan jawaban.');
+            return {data:{answer}};
+        }
+
+        async function requestAiMultimodal(prompt, attachments) {
+            return requestBzxGroq(prompt, attachments || []);
+        }
+
+        function bzxxikyFilename(platform = 'Video', ext = 'mp4') {
+            const p = String(platform || 'Video')
+                .replace(/[^a-z0-9_-]/gi, '')
+                .trim() || 'Video';
+            const e = String(ext || 'mp4')
+                .replace(/[^a-z0-9]/gi, '')
+                .toLowerCase() || 'mp4';
+            return `BZXXIKY-${p}.${e}`;
+        }
+
+        function bzxxikyDetectExt(url = '', contentType = '') {
+            const type = String(contentType).toLowerCase();
+            if (type.includes('webm')) return 'webm';
+            if (type.includes('quicktime') || type.includes('mov')) return 'mov';
+            if (type.includes('mpegurl') || type.includes('m3u8')) return 'mp4';
+
+            const clean = String(url).split('?')[0].split('#')[0];
+            const m = clean.match(/\.([a-z0-9]{2,5})$/i);
+            if (m && ['mp4','m4v','webm','mov','mp3','m4a','jpg','jpeg','png','gif','webp'].includes(m[1].toLowerCase())) {
+                return m[1].toLowerCase();
+            }
+            return 'mp4';
+        }
+
+        async function bzxxikyDownload(url, platform = 'Video', button = null, ext = null) {
+            if (!url) return;
+
+            const filenameBase = String(platform || 'Video')
+                .replace(/[^a-z0-9_-]/gi, '')
+                .trim() || 'Video';
+
+            const oldHtml = button ? button.innerHTML : '';
+
+            try {
+                if (button) {
+                    button.disabled = true;
+                    button.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MENYIAPKAN...';
+                }
+
+                const response = await fetch(url, {
+                    method: 'GET',
+                    mode: 'cors',
+                    credentials: 'omit',
+                    cache: 'no-store'
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const contentType = response.headers.get('content-type') || '';
+                const blob = await response.blob();
+
+                if (!blob.size) {
+                    throw new Error('File kosong.');
+                }
+
+                const finalExt = ext || bzxxikyDetectExt(url, contentType);
+                const filename = bzxxikyFilename(filenameBase, finalExt);
+                const objectUrl = URL.createObjectURL(
+                    blob.type ? blob : new Blob([blob], { type: contentType || blob.type || 'application/octet-stream' })
+                );
+
+                const a = document.createElement('a');
+                a.href = objectUrl;
+                a.download = filename;
+                a.setAttribute('download', filename);
+                a.style.display = 'none';
+                document.body.appendChild(a);
+                a.click();
+                a.remove();
+
+                setTimeout(() => URL.revokeObjectURL(objectUrl), 60000);
+
+                return true;
+            } catch (err) {
+                console.warn(`[BZXXIKY] Download ${filenameBase} gagal:`, err);
+
+                // Jangan fallback ke navigasi URL karena itu akan membuat browser
+                // memakai nama file dari server (contoh: retatube.com...).
+                if (button) {
+                    button.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> DOWNLOAD GAGAL';
+                    setTimeout(() => {
+                        button.innerHTML = oldHtml;
+                        button.disabled = false;
+                    }, 2200);
+                }
+
+                alert(
+                    `Download ${filenameBase} tidak bisa dipaksa menjadi nama BZXXIKY.\n\n` +
+                    `Server media tidak mengizinkan akses CORS dari browser.`
+                );
+                return false;
+            } finally {
+                if (button && button.innerHTML.includes('MENYIAPKAN')) {
+                    button.innerHTML = oldHtml;
+                    button.disabled = false;
+                }
+            }
+        }
+
+        // Wrapper kompatibilitas untuk kode Facebook v7.
+        async function downloadBrandedMedia(url, filename, button) {
+            const match = String(filename || '').match(/^BZXXIKY-(.+)\.([a-z0-9]+)$/i);
+            const platform = match ? match[1] : 'Video';
+            const ext = match ? match[2] : 'mp4';
+            return bzxxikyDownload(url, platform, button, ext);
+        }
+
+
+        // Intercept download links generated by all downloader tools.
+        // This covers existing <a download="..."> elements without changing
+        // the API URL.
+        document.addEventListener('click', function(e) {
+            const el = e.target.closest('a[download]');
+            if (!el) return;
+
+            const href = el.getAttribute('href');
+            if (!href || !/^https?:\/\//i.test(href)) return;
+
+            const downloadName = el.getAttribute('download') || '';
+            const context = (
+                el.closest('[id*="Tiktok" i], [id*="Instagram" i], [id*="Facebook" i], ' +
+                '[id*="Capcut" i], [id*="Videy" i], [id*="download" i]')?.id || ''
+            ).toLowerCase();
+
+            let platform = 'Video';
+            if (context.includes('tiktok')) platform = 'TikTok';
+            else if (context.includes('instagram')) platform = 'Instagram';
+            else if (context.includes('facebook')) platform = 'Facebook';
+            else if (context.includes('capcut')) platform = 'CapCut';
+            else if (context.includes('videy')) platform = 'Videy';
+
+            // If an existing filename contains a platform hint, preserve it.
+            const nameHint = downloadName.match(/(?:BZXXIKY[-_])?([A-Za-z]+)(?:[-_.].*)?\.(?:mp4|webm|mov|m4a|mp3)$/i);
+            if (nameHint && ['tiktok','instagram','facebook','capcut','videy'].includes(nameHint[1].toLowerCase())) {
+                platform = nameHint[1][0].toUpperCase() + nameHint[1].slice(1);
+            }
+
+            e.preventDefault();
+            e.stopPropagation();
+            bzxxikyDownload(href, platform, el);
+        }, true);
+
+        // Nama file download branded — URL API/media tetap tidak berubah.
+        function getBrandedDownloadName(platform = 'Video', ext = 'mp4') {
+            const cleanPlatform = String(platform)
+                .replace(/[^a-z0-9_-]/gi, '')
+                .trim() || 'Video';
+            const cleanExt = String(ext).replace(/[^a-z0-9]/gi, '').toLowerCase() || 'mp4';
+            return `BZXXIKY-${cleanPlatform}.${cleanExt}`;
+        }
+
+        function addDownloadFilename(url, platform = 'Video', ext = 'mp4') {
+            const filename = getBrandedDownloadName(platform, ext);
+            return {
+                url,
+                filename
+            };
+        }
+
+        // Facebook Downloader v5
+        // Hanya menganggap URL direct media sebagai video:
+        // MP4/WebM/MOV atau URL CDN dengan indikasi video.
+        // URL halaman Facebook TIDAK lagi dipakai sebagai preview.
+        function isFacebookDirectVideoUrl(url) {
+            if (!url || typeof url !== 'string') return false;
+
+            const u = url.trim();
+            if (!/^https?:\/\//i.test(u)) return false;
+
+            if (/\.(mp4|m4v|webm|mov|m3u8)(?:[?#].*)?$/i.test(u)) return true;
+
+            // CDN Facebook/Meta sering memakai URL tanpa ekstensi .mp4.
+            return /(video|videoplayback|fbcdn|scontent|\.fbsbx\.com)/i.test(u) &&
+                   !/(facebook\.com\/(?:watch|reel|share|plugins)|fb\.watch)/i.test(u);
+        }
+
+        function facebookMediaScore(url, keyHint = '') {
+            if (!url || typeof url !== 'string') return -Infinity;
+
+            let score = 0;
+            const s = `${url} ${keyHint}`.toLowerCase();
+
+            if (/\.(mp4|m4v|webm|mov)(?:[?#]|$)/i.test(url)) score += 100;
+            if (/m3u8(?:[?#]|$)/i.test(url)) score += 80;
+            if (/(video|videourl|video_url|download|downloadurl|download_url|play|playurl|play_url)/i.test(s)) score += 40;
+            if (/(hd|high|original|source|1080|720)/i.test(s)) score += 30;
+            if (/(sd|low|360|480)/i.test(s)) score += 10;
+            if (/(fbcdn|scontent|fbsbx|videoplayback)/i.test(s)) score += 25;
+
+            // Halaman/post Facebook tidak boleh menang sebagai media.
+            if (/(facebook\.com|fb\.watch)/i.test(url) &&
+                !/(fbcdn|scontent|fbsbx)/i.test(url)) score -= 200;
+
+            return score;
+        }
+
+        function collectFacebookDirectMedia(value, depth = 0, keyHint = '', found = []) {
+            if (depth > 18 || value == null) return found;
+
+            if (typeof value === 'string') {
+                const urls = value.match(/https?:\/\/[^\s"'<>\\]+/ig) || [];
+                for (const raw of urls) {
+                    const url = raw.replace(/[),.;]+$/g, '');
+                    if (isFacebookDirectVideoUrl(url)) {
+                        found.push({
+                            url,
+                            key: keyHint,
+                            score: facebookMediaScore(url, keyHint)
+                        });
+                    }
+                }
+                return found;
+            }
+
+            if (Array.isArray(value)) {
+                for (const item of value) {
+                    collectFacebookDirectMedia(item, depth + 1, keyHint, found);
+                }
+                return found;
+            }
+
+            if (typeof value === 'object') {
+                // Prioritaskan field yang umum dipakai API downloader.
+                const preferredKeys = [
+                    'hd', 'hd_url', 'hdUrl', 'video_hd', 'videoHd', 'video_hd_url',
+                    'high', 'high_url', 'highUrl', '1080p', '720p',
+                    'sd', 'sd_url', 'sdUrl', 'video_sd', 'videoSd',
+                    'video', 'video_url', 'videoUrl', 'download', 'download_url',
+                    'downloadUrl', 'play', 'play_url', 'playUrl', 'stream',
+                    'stream_url', 'streamUrl', 'media', 'media_url', 'mediaUrl',
+                    'source', 'source_url', 'sourceUrl', 'url'
+                ];
+
+                for (const key of preferredKeys) {
+                    if (Object.prototype.hasOwnProperty.call(value, key)) {
+                        collectFacebookDirectMedia(
+                            value[key],
+                            depth + 1,
+                            `${keyHint}.${key}`,
+                            found
+                        );
+                    }
+                }
+
+                for (const [key, child] of Object.entries(value)) {
+                    // Hindari mengulang field besar terlalu banyak.
+                    if (preferredKeys.includes(key)) continue;
+                    collectFacebookDirectMedia(
+                        child,
+                        depth + 1,
+                        `${keyHint}.${key}`,
+                        found
+                    );
+                }
+            }
+
+            return found;
+        }
+
+        function getBestFacebookVideo(data) {
+            const candidates = collectFacebookDirectMedia(data);
+
+            const unique = [];
+            const seen = new Set();
+
+            for (const item of candidates) {
+                if (!seen.has(item.url)) {
+                    seen.add(item.url);
+                    unique.push(item);
+                }
+            }
+
+            unique.sort((a, b) => b.score - a.score);
+
+            return {
+                best: unique[0]?.url || '',
+                hd: unique.find(x => /(hd|high|1080|720|original)/i.test(x.key + x.url))?.url || '',
+                sd: unique.find(x => /(sd|low|480|360)/i.test(x.key + x.url))?.url || '',
+                candidates: unique
+            };
+        }
+
+        async function fetchFacebookAuto() {
+            const input = document.getElementById('facebookUrlInput');
+            const btn = document.getElementById('facebookBtn');
+            const result = document.getElementById('facebookResult');
+            const dataBox = document.getElementById('facebookResultData');
+            const url = input?.value.trim();
+
+            if (!url) {
+                alert('Masukkan link Facebook terlebih dahulu!');
+                return;
+            }
+
+            if (!/^https?:\/\/(?:www\.)?(facebook\.com|fb\.watch)\//i.test(url)) {
+                result.classList.remove('hidden');
+                dataBox.innerHTML = `
+                    <div class="bg-red-50 border-2 border-red-600 p-2.5 rounded-xl">
+                        <p class="text-red-700 font-bold">
+                            <i class="fa-solid fa-circle-xmark"></i> Link Facebook tidak valid
+                        </p>
+                    </div>`;
+                return;
+            }
+
+            const setResult = html => {
+                result.classList.remove('hidden');
+                dataBox.innerHTML = html;
+            };
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+
+            setResult(`
+                <p class="text-blue-700 font-bold">
+                    <i class="fa-solid fa-circle-notch fa-spin"></i>
+                    Mencari direct video HD/SD Facebook...
+                </p>`);
+
+            const endpoints = [
+                '/download/facebook?url=',
+                '/download/fbv2?url=',
+                '/download/facebookv2?url='
+            ];
+
+            let lastError = null;
+
+            try {
+                for (const endpoint of endpoints) {
+                    try {
+                        const api = await requestApiWithFallback(
+                            `https://api.ikyyxd.my.id${endpoint}${encodeURIComponent(url)}`,
+                            [],
+                            30000
+                        );
+
+                        const media = getBestFacebookVideo(api.data);
+
+                        // PENTING: kalau hanya URL halaman Facebook, jangan tampilkan
+                        // "FACEBOOK SIAP". Lanjut ke endpoint berikutnya.
+                        if (!media.best || !isFacebookDirectVideoUrl(media.best)) {
+                            throw new Error(
+                                'API tidak mengembalikan direct video HD/SD. URL halaman Facebook diabaikan.'
+                            );
+                        }
+
+                        const source = api.source === 'primary'
+                            ? 'API UTAMA'
+                            : 'API FALLBACK';
+
+                        const videoUrl = media.best;
+                        const hdUrl = media.hd || videoUrl;
+                        const sdUrl = media.sd && media.sd !== hdUrl ? media.sd : '';
+
+                        setResult(`
+                            <div class="space-y-2">
+                                <span class="api-status ${api.source === 'primary' ? 'primary' : 'fallback'}">
+                                    ${escapeHtml(source)}
+                                </span>
+
+                                <div class="bg-green-50 border-2 border-black p-2.5 rounded-xl">
+                                    <p class="font-black text-green-800">
+                                        <i class="fa-solid fa-circle-check"></i>
+                                        FACEBOOK VIDEO SIAP
+                                    </p>
+
+                                    <div class="bg-black rounded-xl overflow-hidden border-2 border-black mt-2">
+                                        ${renderVideoElement(videoUrl, '')}
+                                    </div>
+
+                                    <div class="grid grid-cols-1 ${sdUrl ? 'sm:grid-cols-2' : ''} gap-2 mt-2">
+                                        <button type="button"
+                                           onclick="bzxxikyDownload(${JSON.stringify(hdUrl)}, 'Facebook', this, 'mp4')"
+                                           class="btn-flat btn-green-flat block text-center py-2 text-xs">
+                                            <i class="fa-solid fa-download"></i>
+                                            DOWNLOAD HD
+                                        </button>
+
+                                        ${sdUrl ? `
+                                            <button type="button"
+                                               onclick="bzxxikyDownload(${JSON.stringify(sdUrl)}, 'Facebook', this, 'mp4')"
+                                               class="btn-flat block text-center py-2 text-xs">
+                                                <i class="fa-solid fa-download"></i>
+                                                DOWNLOAD SD
+                                            </button>
+                                        ` : ''}
+                                    </div>
+
+                                    <p class="text-[9px] font-bold text-gray-500 mt-2">
+                                        Direct video ditemukan. Preview menggunakan URL media CDN.
+                                    </p>
+                                </div>
+                            </div>
+                        `);
+
+                        initMediaPlayers(result);
+                        return;
+                    } catch (err) {
+                        lastError = err;
+                    }
+                }
+
+                throw lastError || new Error('Semua endpoint Facebook gagal.');
+            } catch (err) {
+                const msg = err?.name === 'AbortError'
+                    ? 'API Facebook timeout setelah 30 detik.'
+                    : (err?.message || 'API tidak mengembalikan direct video Facebook.');
+
+                setResult(`
+                    <div class="bg-red-50 border-2 border-red-600 p-2.5 rounded-xl">
+                        <p class="text-red-700 font-bold">
+                            <i class="fa-solid fa-circle-xmark"></i>
+                            VIDEO FACEBOOK TIDAK DITEMUKAN
+                        </p>
+                        <p class="text-[10px] text-red-600 font-bold mt-1">
+                            ${escapeHtml(msg)}
+                        </p>
+                        <p class="text-[9px] text-gray-600 font-bold mt-2">
+                            API harus mengembalikan URL direct video/CDN, bukan URL halaman Facebook.
+                        </p>
+                    </div>`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-brands fa-facebook"></i> DOWNLOAD FACEBOOK';
+            }
+        }
+
+        async function fetchFacebookAuto() {
+            const input = document.getElementById('facebookUrlInput');
+            const btn = document.getElementById('facebookBtn');
+            const result = document.getElementById('facebookResult');
+            const dataBox = document.getElementById('facebookResultData');
+            const url = input?.value.trim();
+
+            if (!url) {
+                alert('Masukkan link Facebook terlebih dahulu!');
+                return;
+            }
+
+            if (!/^https?:\/\/(?:www\.)?(facebook\.com|fb\.watch)\//i.test(url)) {
+                result.classList.remove('hidden');
+                dataBox.innerHTML = `
+                    <div class="bg-red-50 border-2 border-red-600 p-2.5 rounded-xl">
+                        <p class="text-red-700 font-bold">
+                            <i class="fa-solid fa-circle-xmark"></i> Link Facebook tidak valid
+                        </p>
+                        <p class="text-[10px] text-red-600 font-bold mt-1">
+                            Gunakan link facebook.com atau fb.watch.
+                        </p>
+                    </div>`;
+                return;
+            }
+
+            const setResult = html => {
+                result.classList.remove('hidden');
+                dataBox.innerHTML = html;
+            };
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+            setResult('<p class="text-blue-700 font-bold"><i class="fa-solid fa-circle-notch fa-spin"></i> Mengambil video Facebook...</p>');
+
+            // Route utama tetap route yang sekarang dipakai file.
+            // Dua route alternatif dicoba otomatis bila route utama tidak tersedia.
+            const endpoints = [
+                '/download/facebook?url=',
+                '/download/fbv2?url=',
+                '/download/facebookv2?url='
+            ];
+
+            let lastError = null;
+
+            try {
+                for (const endpoint of endpoints) {
+                    try {
+                        const api = await requestApiWithFallback(
+                            `https://api.ikyyxd.my.id${endpoint}${encodeURIComponent(url)}`,
+                            [],
+                            30000
+                        );
+
+                        const media = findMediaDeep(api.data);
+                        const mediaUrl = media.video || media.page;
+
+                        if (!mediaUrl) {
+                            throw new Error('Respons API tidak berisi URL media Facebook.');
+                        }
+
+                        const source = api.source === 'primary' ? 'API UTAMA' : 'API FALLBACK';
+                        const isVideo = !!media.video || isVideoUrl(mediaUrl);
+
+                        setResult(`
+                            <div class="space-y-2">
+                                <span class="api-status ${api.source === 'primary' ? 'primary' : 'fallback'}">
+                                    ${source}
+                                </span>
+
+                                <div class="bg-green-50 border-2 border-black p-2.5 rounded-xl">
+                                    <p class="font-black text-green-800">
+                                        <i class="fa-solid fa-circle-check"></i> FACEBOOK SIAP
+                                    </p>
+
+                                    ${media.image ? `
+                                        <img src="${escapeHtml(media.image)}"
+                                             class="media-preview object-cover mt-2"
+                                             alt="Preview Facebook">
+                                    ` : ''}
+
+                                    ${isVideo ? `
+                                        <div class="bg-black rounded-xl overflow-hidden border-2 border-black mt-2">
+                                            ${renderVideoElement(media.video || mediaUrl, media.image || '')}
+                                        </div>
+                                        <p class="text-[9px] font-bold text-gray-500 mt-1">
+                                            Preview tersedia. Tekan tombol di bawah untuk membuka/download.
+                                        </p>
+                                    ` : `
+                                        <p class="text-[10px] font-bold text-orange-700 mt-2">
+                                            API mengembalikan link halaman, bukan file video langsung.
+                                        </p>
+                                    `}
+
+                                    <a href="${escapeHtml(mediaUrl)}" target="_blank" rel="noopener noreferrer"
+                                       class="btn-flat btn-green-flat block text-center py-2 text-xs mt-2">
+                                        <i class="fa-solid fa-download"></i>
+                                        BUKA / DOWNLOAD FACEBOOK
+                                    </a>
+                                </div>
+                            </div>
+                        `);
+
+                        initMediaPlayers(result);
+                        return;
+                    } catch (err) {
+                        lastError = err;
+                    }
+                }
+
+                throw lastError || new Error('Semua endpoint Facebook gagal.');
+            } catch (err) {
+                const msg = err?.name === 'AbortError'
+                    ? 'API Facebook terlalu lama merespons (timeout 30 detik).'
+                    : (err?.message || 'Gagal mengambil video Facebook.');
+
+                setResult(`
+                    <div class="bg-red-50 border-2 border-red-600 p-2.5 rounded-xl">
+                        <p class="text-red-700 font-bold">
+                            <i class="fa-solid fa-circle-xmark"></i> Gagal mengambil Facebook
+                        </p>
+                        <p class="text-[10px] text-red-600 font-bold mt-1">
+                            ${escapeHtml(msg)}
+                        </p>
+                    </div>`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-brands fa-facebook"></i> DOWNLOAD FACEBOOK';
+            }
+        }
+        async function fetchVideyAuto() {
+            return fetchGenericDownload('Videy', 'videyUrlInput', 'videyBtn', 'videyResult', '/download/videy?url=', []);
+        }
+        async function fetchCapcutAuto() {
+            return fetchGenericDownload('CapCut', 'capcutUrlInput', 'capcutBtn', 'capcutResult', '/download/capcut?url=', []);
+        }
+
+        async function fetchTtstalkAuto() {
+            const username = document.getElementById('ttstalkUsernameInput').value.trim().replace(/^@/, '');
+            const btn = document.getElementById('ttstalkBtn');
+            if (!username) { alert('Masukkan username TikTok!'); return; }
+
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+            showApiResult('ttstalkResult', '<p class="font-bold text-blue-700">Mengambil profil TikTok...</p>');
+
+            try {
+                const result = await requestApiWithFallback(
+                    `https://api.ikyyxd.my.id/stalk/tiktokv2?username=${encodeURIComponent(username)}`, []
+                );
+                const payload = result.data;
+                showApiResult('ttstalkResult', `
+                    <div class="bg-green-50 border-2 border-black rounded-2xl p-3">
+                        <p class="font-black text-green-800 mb-2">✓ TIKTOK STALK</p>
+                        ${renderStalkResult('TIKTOK STALK', payload, username)}
+                    </div>
+                `);
+            } catch (err) {
+                showApiResult('ttstalkResult', `<div class="text-red-700 font-bold"><i class="fa-solid fa-circle-xmark"></i> ${escapeHtml(err.message || 'Gagal mengambil profil')}</div>`);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-user-check"></i> STALK TIKTOK';
+            }
+        }
+
+        // Handler TikTok - robust API parser + preview
+        async function fetchTiktokAuto() {
+            const urlInput = document.getElementById('tiktokUrlInput').value.trim();
+            const btn = document.getElementById('tiktokBtn');
+            const resultDiv = document.getElementById('tiktokResult');
+            const resultData = document.getElementById('tiktokResultData');
+
+            if (!urlInput) {
+                alert('Silakan masukkan link TikTok terlebih dahulu!');
+                return;
+            }
+
+            const setResult = (html) => {
+                resultDiv.classList.remove('hidden');
+                resultData.innerHTML = html;
+            };
+
+            const extractVideo = (value, depth = 0) => {
+                if (depth > 8 || value == null) return '';
+                if (typeof value === 'string') {
+                    if (/^https?:\/\//i.test(value) &&
+                        (/\.(mp4|m3u8|webm|mov|m4v)(\?|#|$)/i.test(value) ||
+                         /video|play|download|tiktok/i.test(value))) return value;
+                    return '';
+                }
+                if (Array.isArray(value)) {
+                    for (const item of value) {
+                        const found = extractVideo(item, depth + 1);
+                        if (found) return found;
+                    }
+                    return '';
+                }
+                if (typeof value === 'object') {
+                    const preferred = [
+                        'nowm','no_watermark','noWatermark','video','videoUrl',
+                        'video_url','download','downloadUrl','download_url',
+                        'play','playUrl','play_url','url','link','data','result'
+                    ];
+                    for (const key of preferred) {
+                        if (key in value) {
+                            const found = extractVideo(value[key], depth + 1);
+                            if (found) return found;
+                        }
+                    }
+                    for (const item of Object.values(value)) {
+                        const found = extractVideo(item, depth + 1);
+                        if (found) return found;
+                    }
+                }
+                return '';
+            };
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+            btn.disabled = true;
+            setResult('<p class="text-blue-700 font-bold"><i class="fa-solid fa-circle-notch fa-spin"></i> Menghubungi API TikTok...</p>');
+
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 30000);
+
+                const response = await fetch(
+                    `https://api.ikyyxd.my.id/download/tiktokkv2?url=${encodeURIComponent(urlInput)}`,
+                    {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json, text/plain, */*' },
+                        signal: controller.signal,
+                        cache: 'no-store'
+                    }
+                );
+
+                clearTimeout(timeout);
+
+                const raw = await response.text();
+                let json;
+                try { json = JSON.parse(raw); } catch { json = raw; }
+
+                if (!response.ok) {
+                    const apiMsg = typeof json === 'object'
+                        ? (json.message || json.error || json.msg || '')
+                        : '';
+                    throw new Error(apiMsg || `API HTTP ${response.status}`);
+                }
+
+                // API kadang mengembalikan {success:false,...}
+                if (json && typeof json === 'object' && json.success === false) {
+                    throw new Error(json.message || json.error || json.msg || 'API TikTok menolak link');
+                }
+
+                const videoUrl = extractVideo(json);
+                if (!videoUrl) {
+                    console.error('TikTok API response:', json);
+                    throw new Error('API aktif, tetapi URL video tidak ditemukan di respons');
+                }
+
+                const safeUrl = String(videoUrl).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+
+                setResult(`
+                    <div class="bg-green-50 border-2 border-black p-2.5 rounded-xl space-y-2">
+                        <p class="font-bold text-green-800">
+                            <i class="fa-solid fa-circle-check"></i> VIDEO TIKTOK SIAP
+                        </p>
+                        <video controls playsinline preload="metadata"
+                               class="w-full rounded-xl border-2 border-black bg-black max-h-80"
+                               src="${safeUrl}">
+                            Browser Anda tidak mendukung preview video.
+                        </video>
+                        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer"
+                           class="btn-flat btn-green-flat block text-center py-2 text-xs">
+                            <i class="fa-solid fa-download"></i> DOWNLOAD VIDEO
+                        </a>
+                    </div>
+                `);
+            } catch (err) {
+                console.error('TikTok error:', err);
+                const msg = err.name === 'AbortError'
+                    ? 'API terlalu lama merespons (timeout 30 detik).'
+                    : (err.message || 'Tidak dapat menghubungi API TikTok.');
+
+                setResult(`
+                    <div class="bg-red-50 border-2 border-red-600 p-2.5 rounded-xl">
+                        <p class="text-red-700 font-bold">
+                            <i class="fa-solid fa-circle-xmark"></i> Gagal mengambil TikTok
+                        </p>
+                        <p class="text-[10px] text-red-600 font-bold mt-1">${msg}</p>
+                    </div>
+                `);
+            } finally {
+                btn.innerHTML = '<i class="fa-solid fa-download"></i> AMBIL VIDEO TIKTOK';
+                btn.disabled = false;
+            }
+        }
+
+        // Handler Skip SFL - parser respons API fleksibel
+        async function fetchSflAuto() {
+            const urlInput = document.getElementById('sflUrlInput').value.trim();
+            const btn = document.getElementById('sflBtn');
+            const resultDiv = document.getElementById('sflResult');
+            const resultData = document.getElementById('sflResultData');
+
+            if (!urlInput) {
+                alert('Silakan masukkan link SFL terlebih dahulu!');
+                return;
+            }
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+            btn.disabled = true;
+            resultDiv.classList.remove('hidden');
+            resultData.innerHTML = '<p class="text-blue-700 font-bold">Menghubungi API SFL...</p>';
+
+            try {
+                const response = await fetch(
+                    `https://api.ikyyxd.my.id/tools/skiplink/sfl?url=${encodeURIComponent(urlInput)}`,
+                    { headers: { 'Accept': 'application/json, text/plain, */*' } }
+                );
+
+                const raw = await response.text();
+                let json;
+                try { json = JSON.parse(raw); } catch { json = raw; }
+                if (!response.ok) throw new Error(`API HTTP ${response.status}`);
+
+                const findUrl = (v, depth = 0) => {
+                    if (depth > 7 || v == null) return '';
+                    if (typeof v === 'string') {
+                        const m = v.match(/https?:\/\/[^\s"'<>\\]+/i);
+                        return m ? m[0].replace(/[),.;]+$/, '') : '';
+                    }
+                    if (Array.isArray(v)) {
+                        for (const x of v) {
+                            const r = findUrl(x, depth + 1);
+                            if (r) return r;
+                        }
+                    }
+                    if (typeof v === 'object') {
+                        const keys = ['url','link','destination','target','redirect','redirect_url','finalUrl','final_url','result','data'];
+                        for (const k of keys) {
+                            if (k in v) {
+                                const r = findUrl(v[k], depth + 1);
+                                if (r) return r;
+                            }
+                        }
+                        for (const x of Object.values(v)) {
+                            const r = findUrl(x, depth + 1);
+                            if (r) return r;
+                        }
+                    }
+                    return '';
+                };
+
+                const finalUrl = findUrl(json);
+                if (!finalUrl) throw new Error('API tidak mengembalikan URL tujuan');
+
+                const safeUrl = finalUrl.replace(/"/g, '&quot;');
+                resultData.innerHTML = `
+                    <div class="bg-green-50 border-2 border-black p-2.5 rounded-xl space-y-2">
+                        <p class="font-bold text-green-800">
+                            <i class="fa-solid fa-circle-check"></i> SFL berhasil diproses!
+                        </p>
+                        <div class="text-[10px] font-bold text-gray-700 break-all">${safeUrl}</div>
+                        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer"
+                           class="btn-flat btn-green-flat block text-center py-2 text-xs">
+                            <i class="fa-solid fa-external-link"></i> BUKA LINK TUJUAN
+                        </a>
+                    </div>`;
+            } catch (err) {
+                console.error('SFL error:', err);
+                resultData.innerHTML = `
+                    <div class="bg-red-50 border-2 border-red-600 p-2.5 rounded-xl">
+                        <p class="text-red-700 font-bold"><i class="fa-solid fa-circle-xmark"></i> SFL gagal diproses</p>
+                        <p class="text-[10px] text-red-600 font-bold mt-1">${err.message || 'API tidak dapat memproses link ini.'}</p>
+                    </div>`;
+            } finally {
+                btn.innerHTML = '<i class="fa-solid fa-bolt"></i> PROCESS & SKIP SFL';
+                btn.disabled = false;
+            }
+        }
+
+        // Handler Sub4Unlock - robust parser + API error handling
+        async function fetchSub4lockAuto() {
+            const urlInput = document.getElementById('sub4lockUrlInput').value.trim();
+            const btn = document.getElementById('sub4lockBtn');
+            const resultDiv = document.getElementById('sub4lockResult');
+            const resultData = document.getElementById('sub4lockResultData');
+
+            if (!urlInput) {
+                alert('Silakan masukkan link Sub4Unlock terlebih dahulu!');
+                return;
+            }
+
+            const setResult = (html) => {
+                resultDiv.classList.remove('hidden');
+                resultData.innerHTML = html;
+            };
+
+            const extractResultUrl = (value, depth = 0) => {
+                if (depth > 8 || value == null) return '';
+                if (typeof value === 'string') {
+                    const match = value.match(/https?:\/\/[^\s"'<>\\]+/i);
+                    return match ? match[0].replace(/[),.;]+$/, '') : '';
+                }
+                if (Array.isArray(value)) {
+                    for (const item of value) {
+                        const found = extractResultUrl(item, depth + 1);
+                        if (found) return found;
+                    }
+                    return '';
+                }
+                if (typeof value === 'object') {
+                    const preferred = [
+                        'destination','destinationUrl','destination_url',
+                        'target','targetUrl','target_url',
+                        'redirect','redirectUrl','redirect_url',
+                        'finalUrl','final_url','url','link','result','data'
+                    ];
+                    for (const key of preferred) {
+                        if (key in value) {
+                            const found = extractResultUrl(value[key], depth + 1);
+                            if (found) return found;
+                        }
+                    }
+                    for (const item of Object.values(value)) {
+                        const found = extractResultUrl(item, depth + 1);
+                        if (found) return found;
+                    }
+                }
+                return '';
+            };
+
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> MEMPROSES...';
+            btn.disabled = true;
+            setResult('<p class="text-yellow-700 font-bold"><i class="fa-solid fa-circle-notch fa-spin"></i> Menghubungi API Sub4Unlock...</p>');
+
+            try {
+                const controller = new AbortController();
+                const timeout = setTimeout(() => controller.abort(), 30000);
+
+                const response = await fetch(
+                    `https://api.ikyyxd.my.id/tools/skip/sub4unlock?url=${encodeURIComponent(urlInput)}`,
+                    {
+                        method: 'GET',
+                        headers: { 'Accept': 'application/json, text/plain, */*' },
+                        signal: controller.signal,
+                        cache: 'no-store'
+                    }
+                );
+
+                clearTimeout(timeout);
+
+                const raw = await response.text();
+                let json;
+                try { json = JSON.parse(raw); } catch { json = raw; }
+
+                if (!response.ok) {
+                    const apiMsg = typeof json === 'object'
+                        ? (json.message || json.error || json.msg || '')
+                        : '';
+                    throw new Error(apiMsg || `API HTTP ${response.status}`);
+                }
+
+                if (json && typeof json === 'object' && json.success === false) {
+                    throw new Error(json.message || json.error || json.msg || 'API Sub4Unlock menolak link');
+                }
+
+                const finalUrl = extractResultUrl(json);
+                if (!finalUrl) {
+                    console.error('Sub4Unlock API response:', json);
+                    throw new Error('API aktif, tetapi link tujuan tidak ditemukan di respons');
+                }
+
+                const safeUrl = String(finalUrl).replace(/&/g, '&amp;').replace(/"/g, '&quot;');
+                const isVideo = /\.(mp4|webm|mov|m4v)(\?|#|$)/i.test(finalUrl);
+
+                setResult(`
+                    <div class="bg-green-50 border-2 border-black p-2.5 rounded-xl space-y-2">
+                        <p class="font-bold text-green-800">
+                            <i class="fa-solid fa-circle-check"></i> SUB4UNLOCK BERHASIL
+                        </p>
+                        ${isVideo ? `
+                            <video controls playsinline preload="metadata"
+                                   class="w-full rounded-xl border-2 border-black bg-black max-h-80"
+                                   src="${safeUrl}">
+                                Browser Anda tidak mendukung preview video.
+                            </video>` : ''}
+                        <div class="text-[10px] font-bold text-gray-700 break-all">${safeUrl}</div>
+                        <a href="${safeUrl}" target="_blank" rel="noopener noreferrer"
+                           class="btn-flat btn-green-flat block text-center py-2 text-xs">
+                            <i class="fa-solid fa-external-link"></i> BUKA LINK HASIL
+                        </a>
+                    </div>
+                `);
+            } catch (err) {
+                console.error('Sub4Unlock error:', err);
+                const msg = err.name === 'AbortError'
+                    ? 'API terlalu lama merespons (timeout 30 detik).'
+                    : (err.message || 'Tidak dapat menghubungi API Sub4Unlock.');
+
+                setResult(`
+                    <div class="bg-red-50 border-2 border-red-600 p-2.5 rounded-xl">
+                        <p class="text-red-700 font-bold">
+                            <i class="fa-solid fa-circle-xmark"></i> Gagal memproses Sub4Unlock
+                        </p>
+                        <p class="text-[10px] text-red-600 font-bold mt-1">${msg}</p>
+                    </div>
+                `);
+            } finally {
+                btn.innerHTML = '<i class="fa-solid fa-unlock"></i> PROCESS & BYPASS';
+                btn.disabled = false;
+            }
+        }
+
+        function openCheckout(productName, type) {
+            currentProduct = productName;
+            currentType = type;
+            document.getElementById('pageCatalog').classList.add('hidden');
+            document.getElementById('pageCheckout').classList.remove('hidden');
+            document.getElementById('productTitleBanner').innerText = productName.toUpperCase();
+
+            renderPackages(type);
+        }
+
+        function renderPackages(type) {
+            const container = document.getElementById('pkgContainer');
+            container.innerHTML = '';
+            
+            const pkgs = packageData[type];
+            pkgs.forEach((pkg, index) => {
+                const isSelected = index === 0;
+                if(isSelected) {
+                    basePrice = pkg.price;
+                    selectedPkgName = pkg.name;
+                }
+
+                const card = document.createElement('div');
+                card.className = `pkg-card-flat p-2.5 ${isSelected ? 'selected' : ''} ${pkg.colSpan ? 'col-span-2' : ''}`;
+                card.onclick = function() { selectPkg(this, pkg.price, pkg.name); };
+                card.innerHTML = `
+                    <div class="${pkg.colSpan ? 'flex justify-between items-center' : ''}">
+                        <div class="font-black text-black">${pkg.name}</div>
+                        <div class="font-black text-green-600">Rp ${pkg.price.toLocaleString('id-ID')}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            currentQty = 1;
+            document.getElementById('qtyVal').innerText = currentQty;
+            updateTotal();
+        }
+
+        function backToCatalog() {
+            document.getElementById('pageCheckout').classList.add('hidden');
+            document.getElementById('pageCatalog').classList.remove('hidden');
+        }
+
+        function selectPkg(el, price, name) {
+            document.querySelectorAll('.pkg-card-flat').forEach(card => card.classList.remove('selected'));
+            el.classList.add('selected');
+            basePrice = price;
+            selectedPkgName = name;
+            updateTotal();
+        }
+
+        function updateQty(change) {
+            currentQty += change;
+            if (currentQty < 1) currentQty = 1;
+            document.getElementById('qtyVal').innerText = currentQty;
+            updateTotal();
+        }
+
+        function updateTotal() {
+            let total = basePrice * currentQty;
+            document.getElementById('summaryPkg').innerText = selectedPkgName + (currentQty > 1 ? ` (${currentQty}x)` : '');
+            document.getElementById('summaryPrice').innerText = 'Rp ' + total.toLocaleString('id-ID');
+        }
+
+        function downloadQris() {
+            const imageUrl = document.getElementById('qrisImg').src;
+            const fileName = 'QRIS-BZX-Store.jpg';
+            
+            fetch(imageUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const blobUrl = window.URL.createObjectURL(blob);
+                    const link = document.createElement('a');
+                    link.href = blobUrl;
+                    link.download = fileName;
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                    window.URL.revokeObjectURL(blobUrl);
+                })
+                .catch(err => {
+                    const link = document.createElement('a');
+                    link.href = imageUrl;
+                    link.target = '_blank';
+                    link.download = fileName;
+                    link.click();
+                });
+        }
+
+        function processCheckout() {
+            let name = document.getElementById('buyerName').value.trim();
+            let phone = document.getElementById('buyerPhone').value.trim();
+            if(!name) {
+                alert('Silakan masukkan nama Anda terlebih dahulu!');
+                return;
+            }
+            if(!phone) {
+                alert('Silakan masukkan nomor WhatsApp Anda!');
+                return;
+            }
+
+            let finalTotal = basePrice * currentQty;
+            let orderId = 'BZX-' + Math.floor(100000 + Math.random() * 900000);
+            
+            let message = `Halo Admin, saya ingin konfirmasi pembayaran dan order produk:\n\n` +
+                          `*ID Order:* ${orderId}\n` +
+                          `*Nama Pembeli:* ${name}\n` +
+                          `*No WhatsApp:* ${phone}\n` +
+                          `*Produk:* ${currentProduct}\n` +
+                          `*Durasi/Paket:* ${selectedPkgName} (${currentQty}x)\n` +
+                          `*Total Pembayaran:* Rp ${finalTotal.toLocaleString('id-ID')}\n\n` +
+                          `Berikut saya lampirkan bukti transfernya. Mohon segera diproses ya kak!`;
+
+            let waUrl = `https://wa.me/6283149157770?text=${encodeURIComponent(message)}`;
+            window.open(waUrl, '_blank');
+        }
+
+        // ===== ⲂⲌⲬ ⲀⲒ • MULTIMEDIA SEND FIX =====
+        async function transcribeBzxAudio(file) {
+            const key = getBzxGroqKey();
+            if (!key || key === 'PASTE_NEW_GROQ_KEY_HERE') {
+                throw new Error('GROQ key belum dikonfigurasi.');
+            }
+
+            const form = new FormData();
+            form.append('file', file, file.name || 'voice.webm');
+            form.append('model', 'whisper-large-v3-turbo');
+            form.append('response_format', 'json');
+
+            const r = await fetch('https://api.groq.com/openai/v1/audio/transcriptions', {
+                method: 'POST',
+                headers: { 'Authorization': `Bearer ${key}` },
+                body: form
+            });
+
+            const raw = await r.text();
+            let d;
+            try { d = JSON.parse(raw); } catch { d = {error:{message:raw}}; }
+            if (!r.ok) throw new Error(d?.error?.message || `Groq STT HTTP ${r.status}`);
+            return String(d?.text || '').trim();
+        }
+
+        async function fetchAiAuto() {
+            const input = document.getElementById('aiPromptInput');
+            const btn = document.getElementById('aiBtn');
+            const prompt = String(input?.value || '').trim();
+            const attachments = [...aiAttachments];
+
+            if (!prompt && !attachments.length) return;
+
+            if (btn) {
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+            }
+
+            // Show user's message immediately.
+            appendAiMessage('user', prompt || 'Menganalisis lampiran…', false, attachments);
+
+            // Keep the sent attachments visible but don't keep stale object URLs forever.
+            aiAttachments = [];
+            renderAiAttachmentPreview();
+
+            const typingRow = appendAiMessage('assistant', '', true);
+
+            try {
+                let finalPrompt = prompt;
+
+                // Voice: transcribe locally recorded audio through Groq Whisper,
+                // then send the transcript to the normal text/vision model.
+                const audioItems = attachments.filter(x => x.kind === 'audio');
+                for (const item of audioItems) {
+                    const transcript = await transcribeBzxAudio(item.file);
+                    if (transcript) {
+                        finalPrompt += (finalPrompt ? '\n\n' : '') +
+                            `[Transkrip pesan suara]\n${transcript}`;
+                    }
+                }
+
+                const result = await requestAiMultimodal(finalPrompt, attachments);
+                const answer = result?.data?.answer || 'AI tidak memberikan jawaban.';
+
+                if (typingRow?.remove) typingRow.remove();
+                appendAiMessage('assistant', answer);
+            } catch (err) {
+                if (typingRow?.remove) typingRow.remove();
+                appendAiMessage(
+                    'assistant',
+                    '❌ ' + (err?.message || 'Gagal memproses permintaan AI.')
+                );
+            } finally {
+                attachments.forEach(item => {
+                    if (item?.url) URL.revokeObjectURL(item.url);
+                });
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+                }
+                input?.focus();
+            }
+        }
+
+        function initBzxAiInputs() {
+            const fileInput = document.getElementById('aiFileInput');
+            const cameraInput = document.getElementById('aiCameraInput');
+            const input = document.getElementById('aiPromptInput');
+
+            fileInput?.addEventListener('change', e => {
+                handleAiFiles(e.target.files);
+                e.target.value = '';
+            });
+
+            cameraInput?.addEventListener('change', e => {
+                handleAiFiles(e.target.files);
+                e.target.value = '';
+            });
+
+            input?.addEventListener('keydown', e => {
+                if (e.key === 'Enter' && !e.shiftKey) {
+                    e.preventDefault();
+                    fetchAiAuto();
+                }
+            });
+
+            updateBzxGroqStatus();
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initBzxAiInputs);
+        } else {
+            initBzxAiInputs();
+        }
+
+    </script>
+</body>
+</html>
