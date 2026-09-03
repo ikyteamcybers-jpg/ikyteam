@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#ff3f8f" />
+  <title>IKY — Community Hub</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    :root {
+      --paper: #fffef3;
+      --yellow: #ffd633;
+      --green: #72df96;
+      --black: #090909;
+      --gray: #f2f1e7;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--black);
+      background:
+        radial-gradient(circle, rgba(0,0,0,.075) 1.2px, transparent 1.2px) 0 0 / 13px 13px,
+        var(--paper);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      z-index: -1;
+      border-radius: 50%;
+      opacity: .7;
+    }
+
+    body::before {
+      width: 130px;
+      height: 130px;
+      left: -70px;
+      top: 180px;
+      background: var(--yellow);
+      border: 4px solid var(--black);
+    }
+
+    body::after {
+      width: 160px;
+      height: 160px;
+      right: -90px;
+      bottom: 100px;
+      background: var(--green);
+      border: 4px solid var(--black);
+    }
+
+
+    .banner {
+      position: relative;
+      overflow: hidden;
+      min-height: 225px;
+      border: 4px solid var(--black);
+      border-radius: 25px;
+      background: #fff;
+      color: var(--black);
+      padding: 27px 21px;
+      box-shadow: 8px 9px 0 var(--black);
+    }
+
+    .banner::before {
+      content: "✦";
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      font-size: 29px;
+      color: var(--yellow);
+      -webkit-text-stroke: 2px var(--black);
+      transform: rotate(-10deg);
+    }
+
+    .banner::after {
+      content: "✦";
+      position: absolute;
+      right: 30px;
+      top: 22px;
+      font-size: 27px;
+      color: var(--green);
+      -webkit-text-stroke: 2px var(--black);
+    }
+
+    .banner-text {
+      position: relative;
+      z-index: 2;
+      width: 65%;
+      margin-top: 16px;
+    }
+
+    .tiny-label {
+      display: inline-block;
+      padding: 7px 10px;
+      margin-bottom: 10px;
+      border: 3px solid var(--black);
+      border-radius: 10px;
+      background: var(--green);
+      font-size: 9px;
+      font-weight: 1000;
+      letter-spacing: 2px;
+      box-shadow: 3px 4px 0 var(--black);
+    }
+
+    .banner-text h2 {
+      margin: 0;
+      font-size: clamp(25px, 7vw, 40px);
+      line-height: .94;
+      font-weight: 1000;
+      text-transform: uppercase;
+      letter-spacing: -1px;
+    }
+
+    .banner-text span {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 9px 12px;
+      border: 3px solid var(--black);
+      border-radius: 999px;
+      background: var(--yellow);
+      font-size: 10px;
+      font-weight: 1000;
+      box-shadow: 3px 4px 0 var(--black);
+    }
+
+    .cartoon {
+      position: absolute;
+      right: 14px;
+      bottom: 17px;
+      width: 31%;
+      height: 135px;
+      border: 4px solid var(--black);
+      border-radius: 45% 45% 35% 35%;
+      background: var(--green);
+      box-shadow: 6px 7px 0 var(--black);
+      transform: rotate(4deg);
+    }
+
+    .cartoon .face {
+      position: absolute;
+      left: 50%;
+      top: 52%;
+      transform: translate(-50%, -50%);
+      font-size: 34px;
+      font-weight: 1000;
+      white-space: nowrap;
+    }
+
+    .cartoon .ears {
+      position: absolute;
+      top: -31px;
+      left: 9px;
+      font-size: 35px;
+      letter-spacing: 18px;
+      transform: rotate(-3deg);
+    }
+
+    .cartoon .bow {
+      position: absolute;
+      right: 3px;
+      top: 4px;
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--black);
+      border-radius: 50%;
+      background: var(--yellow);
+      font-weight: 1000;
+    }
+
+
+    .service-console {
+      margin: 18px 2px 22px;
+      border: 3px solid var(--black);
+      border-radius: 15px;
+      background: #111;
+      color: #72df96;
+      overflow: hidden;
+      box-shadow: 5px 6px 0 var(--black);
+    }
+
+    .service-console-head {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 11px;
+      background: #262626;
+      color: #ddd;
+      border-bottom: 2px solid #000;
+      font-family: monospace;
+      font-size: 8px;
+      font-weight: 900;
+      letter-spacing: 1px;
+    }
+
+    .service-console-head .console-dot {
+      width: 8px;
+      height: 8px;
+      flex: 0 0 8px;
+      border: 1px solid #000;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .service-terminal {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 11px;
+      min-width: 0;
+      font-family: monospace;
+    }
+
+    .prompt {
+      flex: 0 0 auto;
+      font-size: 13px;
+      font-weight: 1000;
+    }
+
+    .ticker-window {
+      min-width: 0;
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .ticker-track {
+      display: inline-block;
+      padding-left: 100%;
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 1.4;
+      animation: ikyTicker 22s linear infinite;
+    }
+
+    @keyframes ikyTicker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-100%); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .ticker-track { animation: none; }
+    }
+
+    .subnote {
+      margin: 20px 3px 25px;
+      padding: 13px 16px;
+      border: 3px solid var(--black);
+      border-radius: 15px;
+      background: var(--yellow);
+      box-shadow: 5px 6px 0 var(--black);
+      font-size: 11px;
+      font-weight: 1000;
+      text-align: center;
+    }
+
+    .section-title {
+      display: inline-block;
+      margin: 28px 4px 14px;
+      padding: 8px 12px;
+      border: 3px solid var(--black);
+      border-radius: 10px;
+      background: var(--green);
+      box-shadow: 4px 5px 0 var(--black);
+      font-size: 11px;
+      font-weight: 1000;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      gap: 15px;
+    }
+
+    .card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-height: 88px;
+      padding: 12px 14px;
+      color: var(--black);
+      text-decoration: none;
+      border: 4px solid var(--black);
+      border-radius: 23px;
+      background: #fff;
+      box-shadow:
+        7px 8px 0 var(--black),
+        0 12px 22px rgba(67, 0, 60, .22);
+      transition: transform .15s ease, box-shadow .15s ease;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      width: 150px;
+      height: 150px;
+      right: -70px;
+      top: -90px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.12);
+    }
+
+    .card:active {
+      transform: translate(4px, 5px);
+      box-shadow: 2px 3px 0 var(--black);
+    }
+
+    .icon {
+      position: relative;
+      z-index: 1;
+      width: 58px;
+      height: 58px;
+      flex: 0 0 58px;
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--black);
+      border-radius: 16px;
+      background: var(--yellow);
+      color: var(--black);
+      font-size: 27px;
+      font-weight: 1000;
+      box-shadow: 3px 4px 0 rgba(0,0,0,.55);
+      overflow: hidden;
+    }
+
+    .icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 0;
+    }
+
+
+    .icon svg {
+      width: 31px;
+      height: 31px;
+      display: block;
+    }
+
+    .icon.wa,
+    .icon.tt,
+    .icon.tg {
+      display: grid;
+      place-items: center;
+    }
+
+    .icon.wa { background: #25d366; }
+    .icon.tt { background: #050505; color: #fff; }
+    .icon.tg { background: #229ed9; color: #fff; }
+
+    .icon.tt { background: #fff; color: var(--black); }
+    .icon.tg { background: #72df96; color: var(--black); }
+
+    .info {
+      position: relative;
+      z-index: 1;
+      min-width: 0;
+      flex: 1;
+    }
+
+    .info h3 {
+      margin: 0 0 5px;
+      font-size: 17px;
+      font-weight: 1000;
+    }
+
+    .info p {
+      margin: 0;
+      font-size: 11px;
+      font-weight: 700;
+      opacity: .86;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .arrow {
+      position: relative;
+      z-index: 1;
+      width: 43px;
+      height: 43px;
+      flex: 0 0 43px;
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--black);
+      border-radius: 12px;
+      font-size: 23px;
+      font-weight: 1000;
+      background: var(--green);
+      color: var(--black);
+      box-shadow: 3px 4px 0 var(--black);
+    }
+
+    /* Donation */
+    .donate {
+      margin-top: 22px;
+      padding: 0;
+      border: 4px solid var(--black);
+      border-radius: 18px;
+      background: #171717;
+      color: #fff;
+      box-shadow: 7px 8px 0 var(--black);
+      overflow: hidden;
+    }
+
+    .donate h2 {
+      margin: 0;
+      padding: 12px 15px;
+      font-size: 15px;
+      font-weight: 1000;
+      letter-spacing: 1px;
+      text-align: left;
+      background: var(--yellow);
+      color: var(--black);
+      border-bottom: 4px solid var(--black);
+    }
+
+    .console-bar {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 12px;
+      background: #262626;
+      border-bottom: 2px solid #000;
+    }
+
+    .console-dot {
+      width: 9px;
+      height: 9px;
+      border: 2px solid #000;
+      border-radius: 50%;
+      background: #fff;
+    }
+
+    .console-label {
+      margin-left: 4px;
+      font-family: monospace;
+      font-size: 9px;
+      color: #ddd;
+      letter-spacing: 1px;
+    }
+
+    .donate-body {
+      padding: 14px;
+    }
+
+    .donate-command {
+      margin: 0 0 11px;
+      padding: 9px 10px;
+      border: 2px solid #555;
+      border-radius: 8px;
+      background: #0c0c0c;
+      color: #72df96;
+      font-family: monospace;
+      font-size: 10px;
+      overflow: hidden;
+    }
+
+    .donate-image {
+      display: block;
+      width: 100%;
+      max-width: 360px;
+      height: auto;
+      aspect-ratio: auto;
+      object-fit: contain;
+      margin: auto;
+      border: 4px solid var(--black);
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 5px 6px 0 var(--black);
+    }
+
+    .donate-button {
+      display: block;
+      margin: 16px auto 2px;
+      width: min(100%, 330px);
+      padding: 13px 16px;
+      border: 3px solid var(--black);
+      border-radius: 15px;
+      background: var(--yellow);
+      color: var(--black);
+      text-align: center;
+      text-decoration: none;
+      font-weight: 1000;
+      box-shadow: 4px 5px 0 var(--black);
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 900;
+      opacity: .8;
+    }
+
+    @media (min-width: 600px) {
+      .page { padding-top: 35px; }
+      .banner { min-height: 240px; padding: 42px 34px; }
+      .banner-text h2 { font-size: 42px; }
+      .cartoon { font-size: 145px; }
+      .card { min-height: 96px; padding: 14px 18px; }
+      .icon { width: 64px; height: 64px; flex-basis: 64px; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @keyframes float {
+        0%,100% { transform: translateY(0) rotate(-2deg); }
+        50% { transform: translateY(-5px) rotate(2deg); }
+      }
+    }
+  
+    @media (max-width: 599px) {
+      .page {
+        padding: 16px 12px 28px;
+      }
+
+      .hero {
+        gap: 9px;
+        margin: 6px 2px 16px;
+      }
+
+      .hero-badge {
+        padding: 8px 10px;
+        border-width: 3px;
+        box-shadow: 3px 4px 0 var(--black);
+        font-size: 8px;
+        letter-spacing: 1.2px;
+      }
+
+      .hero h1 {
+        font-size: clamp(22px, 7vw, 30px);
+        letter-spacing: -.8px;
+      }
+
+      .hero p {
+        margin-top: 5px;
+        font-size: 9px;
+      }
+
+      .banner {
+        min-height: 185px;
+        padding: 21px 15px;
+        border-width: 3px;
+        border-radius: 20px;
+        box-shadow: 5px 6px 0 var(--black);
+      }
+
+      .banner-text {
+        width: 69%;
+        margin-top: 12px;
+      }
+
+      .tiny-label {
+        padding: 5px 7px;
+        margin-bottom: 8px;
+        border-width: 2px;
+        border-radius: 7px;
+        box-shadow: 2px 3px 0 var(--black);
+        font-size: 7px;
+        letter-spacing: 1.2px;
+      }
+
+      .banner-text h2 {
+        font-size: clamp(23px, 7.5vw, 32px);
+        letter-spacing: -.7px;
+      }
+
+      .banner-text span {
+        margin-top: 11px;
+        padding: 7px 9px;
+        border-width: 2px;
+        box-shadow: 2px 3px 0 var(--black);
+        font-size: 7px;
+      }
+
+      .cartoon {
+        right: 10px;
+        bottom: 13px;
+        width: 29%;
+        height: 105px;
+        border-width: 3px;
+        box-shadow: 4px 5px 0 var(--black);
+      }
+
+      .cartoon .face {
+        font-size: 25px;
+      }
+
+      .cartoon .ears {
+        top: -25px;
+        left: 6px;
+        font-size: 27px;
+        letter-spacing: 10px;
+      }
+
+      .cartoon .bow {
+        width: 27px;
+        height: 27px;
+        border-width: 2px;
+        font-size: 12px;
+      }
+
+
+      .service-console {
+        margin: 14px 2px 18px;
+        border-width: 2px;
+        border-radius: 12px;
+        box-shadow: 3px 4px 0 var(--black);
+      }
+
+      .service-console-head {
+        padding: 6px 8px;
+        font-size: 7px;
+      }
+
+      .service-console-head .console-dot {
+        width: 7px;
+        height: 7px;
+        flex-basis: 7px;
+      }
+
+      .service-terminal {
+        gap: 6px;
+        padding: 8px;
+      }
+
+      .prompt {
+        font-size: 11px;
+      }
+
+      .ticker-track {
+        font-size: 8px;
+        animation-duration: 19s;
+      }
+
+      .subnote {
+        margin: 15px 2px 19px;
+        padding: 10px 9px;
+        border-width: 2px;
+        border-radius: 11px;
+        box-shadow: 3px 4px 0 var(--black);
+        font-size: 8px;
+      }
+
+      .section-title {
+        margin: 19px 2px 11px;
+        padding: 6px 8px;
+        border-width: 2px;
+        border-radius: 8px;
+        box-shadow: 3px 4px 0 var(--black);
+        font-size: 8px;
+        letter-spacing: 2px;
+      }
+
+      .cards {
+        gap: 12px;
+      }
+
+      .card {
+        min-height: 70px;
+        padding: 9px 10px;
+        gap: 10px;
+        border-width: 3px;
+        border-radius: 17px;
+        box-shadow: 4px 5px 0 var(--black);
+      }
+
+      .icon {
+        width: 47px;
+        height: 47px;
+        flex-basis: 47px;
+        border-width: 2px;
+        border-radius: 12px;
+        box-shadow: 2px 3px 0 var(--black);
+        font-size: 22px;
+      }
+
+      .info h3 {
+        margin-bottom: 3px;
+        font-size: 14px;
+      }
+
+      .info p {
+        font-size: 8px;
+      }
+
+      .arrow {
+        width: 34px;
+        height: 34px;
+        flex-basis: 34px;
+        border-width: 2px;
+        border-radius: 10px;
+        box-shadow: 2px 3px 0 var(--black);
+        font-size: 18px;
+      }
+
+      .donate {
+        margin-top: 16px;
+        border-width: 3px;
+        border-radius: 15px;
+        box-shadow: 5px 6px 0 var(--black);
+      }
+
+      .donate h2 {
+        padding: 10px 12px;
+        font-size: 14px;
+        border-bottom-width: 3px;
+      }
+
+      .console-bar {
+        padding: 7px 10px;
+      }
+
+      .console-label {
+        font-size: 7px;
+      }
+
+      .donate-body {
+        padding: 10px;
+      }
+
+      .donate-command {
+        margin-bottom: 9px;
+        padding: 7px 8px;
+        font-size: 8px;
+      }
+
+      .donate-image {
+        max-width: 300px;
+        width: 100%;
+        border-width: 3px;
+        border-radius: 14px;
+        box-shadow: 3px 4px 0 var(--black);
+      }
+
+      .donate-button {
+        margin-top: 11px;
+        width: 100%;
+        padding: 10px 9px;
+        border-width: 2px;
+        border-radius: 11px;
+        box-shadow: 3px 4px 0 var(--black);
+        font-size: 11px;
+      }
+
+      footer {
+        margin-top: 21px;
+        font-size: 8px;
+      }
+    }
+
+  
+.top-status{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:12px;
+}
+.live-console{
+  flex:1 1 240px;
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  overflow:hidden;
+  white-space:nowrap;
+  background:#111;
+  color:#7CFF8A;
+  border:3px solid #000;
+  border-radius:12px;
+  padding:8px 10px;
+  box-shadow:4px 4px 0 #000;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;
+  font-size:10px;
+  font-weight:900;
+  letter-spacing:.2px;
+}
+.console-dot{
+  width:7px;
+  height:7px;
+  flex:0 0 7px;
+  border-radius:50%;
+  background:#7CFF8A;
+  box-shadow:0 0 8px #7CFF8A;
+  animation:consolePulse 1s infinite;
+}
+.console-label{color:#FFD83D}
+.console-sep{color:#777}
+.live-console b{color:#fff}
+@keyframes consolePulse{
+  0%,100%{opacity:1}
+  50%{opacity:.35}
+}
+@media (max-width:520px){
+  .top-status{align-items:stretch}
+  .hero-badge{flex:0 0 auto}
+  .live-console{
+    flex:1 1 170px;
+    font-size:8px;
+    padding:7px 8px;
+    gap:5px;
+    border-width:2px;
+    box-shadow:3px 3px 0 #000;
+  }
+  .console-label{display:none}
+}
+.donate-button{
+  border:0;
+  cursor:pointer;
+  font:inherit;
+}
+
+
+.network-online{color:#7CFF8A!important}
+.network-cellular{color:#FFD83D!important}
+.donate-button:disabled{opacity:.65;cursor:wait}
+
+</style>
+</head>
+
+<body>
+  <main class="page">
+
+    <header class="hero">
+      <div class="top-status">
+  <div class="hero-badge">● ONLINE</div>
+  <div class="live-console" aria-label="System information">
+    <span class="console-dot"></span>
+    <span class="console-label">CONSOLE</span>
+    <span id="liveTime">--:--:--</span>
+    <span class="console-sep">•</span>
+    <span id="liveDate">--/--/----</span>
+    <span class="console-sep">•</span>
+    <span>IP <b id="liveIP">CHECKING</b></span>
+    <span class="console-sep">•</span>
+    <span>BAT <b id="liveBattery">--%</b></span><span class="console-sep">•</span><span>NET <b id="networkStatus">CHECKING</b></span>
+  </div>
+</div>
+      <div>
+        <h1>IKY COMMUNITY</h1>
+      </div>
+    </header>
+
+    <section class="banner">
+      <div class="banner-text">
+        <div class="tiny-label">✦ COMMUNITY HUB ✦</div>
+        <h2>WELCOME<br>TO IKY<br>COMMUNITY</h2>
+        <span>⌁ CONSOLE • NETWORK • DEVICE</span>
+      </div>
+      <div class="cartoon" aria-hidden="true">
+        <div class="face">◕‿◕</div>
+        <div class="ears">▲ ▲</div>
+        <div class="bow">✦</div>
+      </div>
+    </section>
+
+    <div class="service-console">
+      <div class="service-console-head">
+        <span class="console-dot"></span>
+        <span class="console-dot"></span>
+        <span class="console-dot"></span>
+        <span>IKY-TEAM / SERVICES</span>
+      </div>
+      <div class="service-terminal">
+        <span class="prompt">$</span>
+        <div class="ticker-window">
+          <div class="ticker-track">
+            IKY TEAM MELAYANI KEBUTUHAN KALIAN • MURBUG WA • JASA DOXING ORANG • NOKOS • SUNTIK WA • TIKTOK • DAN LAIN-LAIN •&nbsp;&nbsp;&nbsp;
+            IKY TEAM MELAYANI KEBUTUHAN KALIAN • MURBUG WA • JASA DOXING ORANG • NOKOS • SUNTIK WA • TIKTOK • DAN LAIN-LAIN •&nbsp;&nbsp;&nbsp;
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="subnote">
+      ⚠️ Pastikan selalu memakai kontak/link resmi yang tersedia di halaman ini.
+    </div>
+
+    <div class="section-title">Hubungi & Join</div>
+
+    <section class="cards">
+
+      <a class="card" href="https://chat.whatsapp.com/Be2hZFingsgA5I8KxmYpFV?s=cl&p=a&mlu=4" target="_blank" rel="noopener">
+        
+<div class="icon wa" aria-label="WhatsApp">
+  <svg viewBox="0 0 48 48" aria-hidden="true">
+    <path fill="currentColor" d="M24 5.5A18.5 18.5 0 0 0 8.1 33.4L5 43l9.9-3A18.5 18.5 0 1 0 24 5.5Zm0 34a15.4 15.4 0 0 1-7.8-2.1l-.6-.3-5.9 1.8 1.8-5.7-.4-.6A15.4 15.4 0 1 1 24 39.5Zm8.4-11.4c-.5-.2-2.8-1.4-3.2-1.5-.4-.2-.7-.2-1 .2-.3.5-1.2 1.5-1.5 1.8-.3.3-.5.4-1 .1-2.5-1.2-4.1-2.2-5.8-5-.4-.7.4-.7 1.1-2.4.1-.3.1-.6-.1-.9-.1-.2-1-2.5-1.4-3.4-.4-.9-.8-.8-1.1-.8h-.9c-.3 0-.8.1-1.2.6-.4.5-1.6 1.6-1.6 4 0 2.4 1.7 4.7 1.9 5 .2.3 3.3 5.1 8 7.1 3 1.3 4.1 1.4 5.6 1.2.9-.1 2.8-1.1 3.2-2.1.4-1 .4-1.9.3-2.1-.1-.2-.4-.3-.9-.5Z"/>
+  </svg>
+</div>
+        <div class="info">
+          <h3>Grup Mabar</h3>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" href="https://whatsapp.com/channel/0029Vb8EOxKCHDyqbGaJsC1r" target="_blank" rel="noopener">
+        
+<div class="icon wa" aria-label="WhatsApp">
+  <svg viewBox="0 0 48 48" aria-hidden="true">
+    <path fill="currentColor" d="M24 5.5A18.5 18.5 0 0 0 8.1 33.4L5 43l9.9-3A18.5 18.5 0 1 0 24 5.5Zm0 34a15.4 15.4 0 0 1-7.8-2.1l-.6-.3-5.9 1.8 1.8-5.7-.4-.6A15.4 15.4 0 1 1 24 39.5Zm8.4-11.4c-.5-.2-2.8-1.4-3.2-1.5-.4-.2-.7-.2-1 .2-.3.5-1.2 1.5-1.5 1.8-.3.3-.5.4-1 .1-2.5-1.2-4.1-2.2-5.8-5-.4-.7.4-.7 1.1-2.4.1-.3.1-.6-.1-.9-.1-.2-1-2.5-1.4-3.4-.4-.9-.8-.8-1.1-.8h-.9c-.3 0-.8.1-1.2.6-.4.5-1.6 1.6-1.6 4 0 2.4 1.7 4.7 1.9 5 .2.3 3.3 5.1 8 7.1 3 1.3 4.1 1.4 5.6 1.2.9-.1 2.8-1.1 3.2-2.1.4-1 .4-1.9.3-2.1-.1-.2-.4-.3-.9-.5Z"/>
+  </svg>
+</div>
+        <div class="info">
+          <h3>Saluran WhatsApp</h3>
+        </div>
+        <div class="arrow">→</div>
+      </a>
+
+      <a class="card" href="https://www.tiktok.com/@ikydev1" target="_blank" rel="noopener">
+        
+<div class="icon tt" aria-label="TikTok">
+  <svg viewBox="0 0 48 48" aria-hidden="true">
+    <path fill="currentColor" d="M31.7 7h6.1c.7 3.5 2.7 6.1 6.2 7v6.1c-2.2-.1-4.3-.7-6.2-1.7v11.9c0 6.5-5.2 10.8-11.4 10.8-6.2 0-10.7-4.1-10.7-9.9 0-6.1 5-10.2 11.1-10.2.6 0 1.2.1 1.8.1v6.2c-.6-.2-1.2-.3-1.8-.3-2.7 0-4.7 1.6-4.7 4 0 2.2 1.7 3.9 4.3 3.9 2.9 0 5.3-1.9 5.3-5.8V7Z"/>
+  </svg>
+</div>
+        <div class="info">
+          <h3>TikTok</h3>
+        </div>
+        <div class="arrow">↗</div>
+      </a>
+
+      <a class="card" href="https://t.me/ikyvip" target="_blank" rel="noopener">
+        
+<div class="icon tg" aria-label="Telegram">
+  <svg viewBox="0 0 48 48" aria-hidden="true">
+    <path fill="currentColor" d="M43.2 7.5 36.8 40c-.5 2.3-1.9 2.9-3.9 1.8l-10.8-8-5.2 5c-.6.6-1.1 1.1-2.2 1.1l.8-11 20-18.1c.9-.8-.2-1.2-1.4-.4L9.4 26.2l-10.5-3.3c-2.3-.7-2.3-2.3.5-3.4L40.5 4.7c1.9-.7 3.6.4 2.7 2.8Z" transform="translate(2 1) scale(.92)"/>
+  </svg>
+</div>
+        <div class="info">
+          <h3>Telegram</h3>
+        </div>
+        <div class="arrow">↗</div>
+      </a>
+
+    </section>
+
+    <div class="section-title">Support Admin</div>
+
+    <section class="donate">
+      <h2>💝 DONASI ADMIN</h2>
+      <div class="console-bar">
+        <span class="console-dot"></span>
+        <span class="console-dot"></span>
+        <span class="console-dot"></span>
+        <span class="console-label">IKY-CONSOLE / DONATION</span>
+      </div>
+      <div class="donate-body">
+        <div class="donate-command">$ open donation.qris</div>
+
+        <img
+          class="donate-image"
+          src="https://files.catbox.moe/lqu2y0.jpg"
+          alt="QRIS Donasi Admin"
+        />
+
+        <a
+          class="donate-button"
+          href="https://files.catbox.moe/lqu2y0.jpg"
+          download="qris-iky.jpg"
+          target="_blank"
+          rel="noopener"
+        >
+          ↓ UNDUH QRIS
+        </a>
+      </div>
+    </section>
+
+    <footer>
+      © 2026 IKY COMMUNITY • Made with ♡
+    </footer>
+
+  </main>
+
+<script>
+(function(){
+  const pad = n => String(n).padStart(2, "0");
+
+  function updateClock(){
+    const now = new Date();
+    const time = document.getElementById("liveTime");
+    const date = document.getElementById("liveDate");
+    if(time) time.textContent =
+      `${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())}`;
+    if(date) date.textContent =
+      `${pad(now.getDate())}/${pad(now.getMonth()+1)}/${now.getFullYear()}`;
+  }
+  updateClock();
+  setInterval(updateClock, 1000);
+
+  async function getIP(){
+    const el = document.getElementById("liveIP");
+    if(!el) return;
+    try{
+      const r = await fetch("https://api.ipify.org?format=json", {cache:"no-store"});
+      if(!r.ok) throw new Error("IP request failed");
+      const data = await r.json();
+      el.textContent = data.ip || "N/A";
+    }catch(e){
+      el.textContent = "N/A";
+    }
+  }
+  getIP();
+
+  async function updateBattery(){
+    const el = document.getElementById("liveBattery");
+    if(!el) return;
+    if(!navigator.getBattery){
+      el.textContent = "N/A";
+      return;
+    }
+    try{
+      const battery = await navigator.getBattery();
+      const render = () => {
+        el.textContent = Math.round(battery.level * 100) + "%";
+      };
+      render();
+      battery.addEventListener("levelchange", render);
+    }catch(e){
+      el.textContent = "N/A";
+    }
+  }
+  updateBattery();
+
+
+  async function updateNetworkStatus(){
+    const el = document.getElementById("networkStatus");
+    if(!el) return;
+
+    // Browser APIs intentionally do not expose the Wi-Fi SSID or SIM
+    // operator to ordinary webpages for privacy/security reasons.
+    // We can reliably detect the connection class when available.
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+
+    let type = connection && connection.type ? connection.type : "";
+    let effective = connection && connection.effectiveType ? connection.effectiveType : "";
+
+    if(type === "wifi"){
+      el.textContent = "WIFI";
+      el.className = "network-online";
+      return;
+    }
+
+    if(type === "cellular"){
+      el.textContent = "DATA";
+      el.className = "network-cellular";
+      return;
+    }
+
+    // effectiveType can indicate cellular-like speed, but is not a
+    // guaranteed operator identifier.
+    if(effective){
+      const down = connection.downlink;
+      if(typeof down === "number" && down > 0){
+        el.textContent = "DATA";
+        el.className = "network-cellular";
+        return;
+      }
+    }
+
+    el.textContent = "ONLINE";
+    el.className = "network-online";
+  }
+
+  updateNetworkStatus();
+  if(navigator.connection){
+    navigator.connection.addEventListener("change", updateNetworkStatus);
+  }
+
+  window.downloadQRIS = async function(){
+    const url = "https://files.catbox.moe/lqu2y0.jpg";
+    const filename = "qris-iky.jpg";
+    const button = document.querySelector(".donate-button");
+    const original = button ? button.innerHTML : "↓ SIMPAN QRIS KE GALERI";
+
+    try{
+      if(button){
+        button.disabled = true;
+        button.innerHTML = "↓ MENYIMPAN QRIS...";
+      }
+
+      // Fetch the actual image bytes, then create a local file object.
+      const response = await fetch(url, {
+        mode: "cors",
+        cache: "no-store"
+      });
+      if(!response.ok) throw new Error("Gagal mengambil QRIS: HTTP " + response.status);
+
+      const blob = await response.blob();
+      const file = new File([blob], filename, {type: blob.type || "image/jpeg"});
+
+      // Android/modern browsers: open the native share sheet.
+      // Choosing "Save to device/Gallery" stores the actual image file,
+      // rather than navigating to the Catbox URL.
+      if(navigator.share && navigator.canShare && navigator.canShare({files:[file]})){
+        await navigator.share({
+          files: [file],
+          title: "QRIS IKY",
+          text: "QRIS IKY"
+        });
+      }else{
+        // Desktop/other browsers: force a local blob download.
+        const blobUrl = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = blobUrl;
+        a.download = filename;
+        a.rel = "noopener";
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(blobUrl), 3000);
+      }
+    }catch(error){
+      // If the user cancelled the share sheet, do nothing.
+      if(error && error.name === "AbortError") return;
+
+      // Last-resort browser download without opening the Catbox page.
+      try{
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        a.target = "_self";
+        a.style.display = "none";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+      }catch(e){}
+    }finally{
+      if(button){
+        setTimeout(() => {
+          button.disabled = false;
+          button.innerHTML = original;
+        }, 700);
+      }
+    }
+  };
+})();
+</script>
+
+</body>
+</html>
